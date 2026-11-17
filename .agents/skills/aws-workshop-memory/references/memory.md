@@ -742,7 +742,7 @@ Phần này dùng để tra cứu ngay lập tức khi người dùng hỏi lạ
 ### [2026-11-17] Chuẩn hóa tiêu đề mục Blog & Thiết lập dấu tick xanh tạm thời theo phiên (Session Cache)
 
 - **Chuẩn hóa mục Blog (`content/3-BlogsPosted/`):**
-  - **Blog 1 (`3.1-Blog1`):** Bài viết duy nhất đã thực hiện và đăng tải chính thức (AWS Continuum for Code Vulnerabilities). Đã loại bỏ tiêu đề `# H1` thừa trong phần thân bài viết (để không bị trùng lặp với thẻ `<h1>` tự động của Hugo), tinh chỉnh title frontmatter gọn gàng, và gắn kèm link + ảnh minh chứng bài đăng trên nhóm Facebook AWS Study Group.
+  - **Blog 1 (`3.1-Blog1`):** Bài viết duy nhất đã thực hiện và đăng tải chính thức (AWS Continuum for Code Vulnerabilities). Đã loại bỏ tiêu đề `# H1` thừa, tinh chỉnh frontmatter gọn gàng. Tối ưu hóa toàn diện bố cục bài viết: xóa ảnh chụp màn hình bài đăng Facebook dư thừa (vì đã có link trực tiếp), gỡ bỏ khối hashtag rườm rà, tích hợp thông tin nguồn tham khảo và link bài đăng cộng đồng vào chung hộp thông tin đầu trang, xóa ghi chú nguồn lặp lại ở chân trang. Loại bỏ các đường kẻ ngang `---` ngắt quãng và các tiêu đề con `####` rời rạc, chuyển đổi thành 4 phần chính mạch lạc theo chuẩn bài blog kỹ thuật chuyên nghiệp.
   - **Blog 2 (`3.2-Blog2`) & Blog 3 (`3.3-Blog3`):** Xác nhận rõ ràng là 2 vị trí dự phòng (Upcoming / Đang cập nhật) dành cho các bài viết tiếp theo trong kỳ thực tập, KHÔNG điền bài viết giả định. Đã dọn sạch cảnh báo mẫu `notice warning` và thay thế bằng trang thông báo bảo lưu tiến độ chuẩn mực.
   - **Trang danh mục Blog (`content/3-BlogsPosted/_index.*`):** Cập nhật danh sách: Blog 1 là bài viết hoàn tất, Blog 2 & 3 là các thư mục dự phòng đang cập nhật.
 
