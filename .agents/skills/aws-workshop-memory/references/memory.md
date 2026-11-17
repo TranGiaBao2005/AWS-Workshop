@@ -6,6 +6,24 @@ File này đóng vai trò là nhật ký ghi nhớ chi tiết (Persistent Memory
 
 ## 🕒 Lịch sử cập nhật bộ nhớ (Memory Update Logs)
 
+### [2026-11-17] Di trú toàn bộ tài liệu tham khảo sang tên miền chính thức https://cloudjourney.awsfcaj.com/
+
+- **Bối cảnh:** Hệ thống tên miền cũ `awsstudygroup.com` (và các subdomains `0000xx.awsstudygroup.com`, `cloudjourney.awsstudygroup.com`) có nguy cơ bị hủy hoặc không truy cập được do chương trình First Cloud Journey (FCJ) đã chuyển đổi hoàn toàn sang nền tảng tên miền mới `awsfcaj.com`.
+- **Phạm vi cập nhật (33 files):**
+  - `config.toml`: Cập nhật menu shortcut sang `https://cloudjourney.awsfcaj.com`.
+  - Cập nhật toàn bộ link lộ trình `https://cloudjourney.awsstudygroup.com/` ➔ `https://cloudjourney.awsfcaj.com/` (từ Tuần 8 đến Tuần 14).
+  - Cập nhật toàn bộ link bài lab con:
+    - 1.3.1 (Amazon RDS): `000005.awsstudygroup.com` ➔ `https://000005.awsfcaj.com/`.
+    - 1.4.1 (Amazon Lightsail): `000045.awsstudygroup.com` ➔ `https://000045.awsfcaj.com/`.
+    - 1.4.2 (Lightsail Container): `000046.awsstudygroup.com` ➔ `https://000046.awsfcaj.com/`.
+    - 1.4.3 (EC2 Auto Scaling): `000006.awsstudygroup.com` ➔ `https://000006.awsfcaj.com/`.
+    - 1.4.4 (Amazon CloudWatch): `000008.awsstudygroup.com` ➔ `https://000008.awsfcaj.com/`.
+    - 1.5.1 (Hybrid DNS): `000010.awsstudygroup.com` ➔ `https://000010.awsfcaj.com/`.
+    - 1.5.2 (AWS CLI): `000011.awsstudygroup.com` ➔ `https://000011.awsfcaj.com/`.
+    - 1.5.3 (Amazon DynamoDB): `000060.awsstudygroup.com` ➔ `https://000060.awsfcaj.com/`.
+    - 1.5.4 (Amazon ElastiCache): `000061.awsstudygroup.com` ➔ `https://000061.awsfcaj.com/`.
+  - Giữ nguyên nhóm Facebook: `https://www.facebook.com/groups/awsstudygroupfcj`.
+
 ### [2026-11-17] Khắc phục toàn diện lỗi mất hình ảnh trên GitHub Pages & Hướng dẫn minh chứng Blog Facebook
 
 - **Nguyên nhân mất hình ảnh (Lỗi 404 hình ảnh trên GitHub Pages):**
