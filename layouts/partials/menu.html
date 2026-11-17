@@ -105,12 +105,12 @@
       {{safeHTML .Params.head}}
       {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
       {{ $isAncestor := .IsAncestor $currentNode }}
-      {{ $isActive := eq .File.UniqueID $currentFileUniqueID }}
+      {{ $isActive := or (eq .RelPermalink $currentNode.RelPermalink) (and $currentFileUniqueID .File (eq .File.UniqueID $currentFileUniqueID)) }}
       <li
         data-nav-id="{{.RelPermalink}}"
         title="{{.Title}}"
         class="dd-item 
-              {{if $isAncestor }}parent{{end}}
+              {{if or $isAncestor $isActive }}parent{{end}}
               {{if $isActive }}active{{end}}
               {{if .Params.alwaysopen}}parent{{end}}
               {{if ne $numberOfPages 0}}has-children{{end}}

@@ -30,7 +30,7 @@
       e.stopPropagation();
       var $li = $(this).closest('li');
 
-      if ($li.hasClass('parent')) {
+      if ($li.hasClass('parent') || $li.hasClass('active')) {
         $li.toggleClass('collapsed');
       } else {
         $li.toggleClass('open');

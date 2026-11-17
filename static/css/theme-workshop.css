@@ -358,7 +358,9 @@ div.notices.info p {
   display: none !important;
 }
 
-/* Show Level 3 submenus when the week has class 'open', or is 'parent' without 'collapsed' */
+/* Show Level 3 submenus when the week is active (clicked), has class 'open', or is 'parent' without 'collapsed' */
+#sidebar ul.topics > li > ul > li.active > ul,
+#sidebar ul.topics > li.parent > ul > li.active > ul,
 #sidebar ul.topics > li > ul > li.open > ul,
 #sidebar ul.topics > li.parent > ul > li.open > ul,
 #sidebar ul.topics > li > ul > li.parent:not(.collapsed) > ul,
@@ -366,12 +368,14 @@ div.notices.info p {
   display: block !important;
 }
 
-/* Arrow rotation when open or active parent */
+/* Arrow rotation when active, open or active parent */
+#sidebar ul.topics > li > ul > li.active > a .submenu-toggle-arrow i,
+#sidebar ul.topics > li.parent > ul > li.active > a .submenu-toggle-arrow i,
 #sidebar ul.topics > li > ul > li.open > a .submenu-toggle-arrow i,
 #sidebar ul.topics > li.parent > ul > li.open > a .submenu-toggle-arrow i,
 #sidebar ul.topics > li > ul > li.parent:not(.collapsed) > a .submenu-toggle-arrow i,
 #sidebar ul.topics > li.parent > ul > li.parent:not(.collapsed) > a .submenu-toggle-arrow i {
-  transform: rotate(90deg);
+  transform: rotate(90deg) !important;
 }
 
 
