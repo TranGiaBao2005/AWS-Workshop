@@ -1,5 +1,5 @@
----
-title: "Worklog Tuần 6"
+﻿---
+title: "Tuần 6"
 date: 2026-10-19
 weight: 6
 chapter: false
@@ -113,3 +113,4 @@ pre: " <b> 1.6. </b> "
   * Tham gia sự kiện công nghệ AWS Cloud Practitioner / Solution Day (24/10/2026).
   * Nghiên cứu và biên soạn bài viết chuyên sâu Blog 1 về hành trình chuyển dịch đám mây và tối ưu vận hành.
 * **Tổng kết Tuần 7, Viết Worklog & Làm Project:** Hệ thống hóa toàn bộ kiến thức, hoàn thiện bài viết và tiếp tục đẩy mạnh đề xuất đồ án.
+

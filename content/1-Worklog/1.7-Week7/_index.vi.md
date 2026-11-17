@@ -1,5 +1,5 @@
----
-title: "Worklog Tuần 7"
+﻿---
+title: "Tuần 7"
 date: 2026-10-26
 weight: 7
 chapter: false
@@ -90,3 +90,4 @@ pre: " <b> 1.7. </b> "
 * **Vận hành máy chủ tập trung với AWS Systems Manager (SSM - 000024) & Sao lưu với AWS Backup (000038):**
   * Quản trị an toàn qua Session Manager, thực thi lệnh hàng loạt Run Command, lưu trữ biến môi trường an toàn qua Parameter Store và bảo vệ dữ liệu với Backup Plans.
 * **Tổng kết Tuần 8, Viết Worklog & Làm Project:** Hệ thống hóa kiến thức IaC và đóng gói template CloudFormation hoàn chỉnh cho Capstone Project.
+

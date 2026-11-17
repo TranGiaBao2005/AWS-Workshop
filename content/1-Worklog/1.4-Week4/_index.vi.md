@@ -1,5 +1,5 @@
----
-title: "Worklog Tuần 4"
+﻿---
+title: "Tuần 4"
 date: 2026-10-05
 weight: 4
 chapter: false
@@ -119,3 +119,4 @@ pre: " <b> 1.4. </b> "
   - Thiết lập bảo mật doanh nghiệp với Mã hóa đường truyền (TLS Transit Encryption) kết hợp phân quyền RBAC Users & User Groups.
   - Viết mã nguồn Python trên EC2 Client tương tác với Redis: kiểm tra TLS RBAC, Strings kèm TTL 60s, Hash kèm xử lý ngoại lệ WRONGTYPE, và Pub/Sub thời gian thực.
 - **Tổng kết Tuần 5, Viết Worklog & Làm Project:** Hệ thống hóa toàn bộ kiến thức, hoàn thiện bài viết và tiếp tục hoàn thiện đề xuất đồ án.
+

@@ -1,5 +1,5 @@
----
-title: "Week 11 Worklog"
+﻿---
+title: "Week 11"
 date: 2026-11-23
 weight: 11
 chapter: false
@@ -122,3 +122,4 @@ pre: " <b> 1.11. </b> "
   * **Container Platform Decision Matrix:** Synthesized trade-offs between ECS Fargate (low operational burden, ideal for straightforward microservices) and Amazon EKS (rich ecosystem, open standard, cloud-agnostic portability, higher operational investment).
   * **Disciplined Cluster Teardown:** Deleted Ingress resources to trigger automatic ALB release, followed by `eksctl delete cluster -f cluster-config.yaml` to tear down all node groups and CloudFormation stacks, eliminating the $0.10/hour EKS control plane fee.
   * **Capstone Project Packaging:** Completed a multi-stage production Dockerfile for the graduation project backend, published the image to ECR, and drafted container task definitions ready for the final capstone demonstration.
+

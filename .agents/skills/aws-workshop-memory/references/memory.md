@@ -754,6 +754,18 @@ Phần này dùng để tra cứu ngay lập tức khi người dùng hỏi lạ
     3. Tích hợp kịch bản quản lý trong `layouts/partials/custom-footer.html`: Lưu URL trang đã xem vào `sessionStorage`. Do sử dụng `sessionStorage` thay vì `localStorage`, dấu tick xanh chỉ tồn tại trong phiên duyệt web hiện tại; khi người dùng tắt trình duyệt / tab trang web, toàn bộ dấu tick xanh sẽ tự động biến mất hoàn toàn.
   - **Kiểm thử:** `hugo --minify` thành công 100% trong 1.7s, không phát sinh lỗi.
 
+### [2026-11-17] Chuẩn hóa tiêu đề mục lục trái: Rút gọn Worklog (Week 1..14) & Tối giản Event 1, 2, 3
+
+- **Mục 1 (Worklog):**
+  - Đã loại bỏ hoàn toàn chữ `Worklog` dư thừa ở tất cả 14 tuần trong cả hai phiên bản ngôn ngữ.
+  - Bản Tiếng Anh (`_index.md`): Chuyển thành `title: "Week 1"`, `title: "Week 2"`, ... `title: "Week 14"`. Hiển thị thanh menu gọn gàng: `1.1. Week 1` .. `1.14. Week 14`.
+  - Bản Tiếng Việt (`_index.vi.md`): Chuyển thành `title: "Tuần 1"`, `title: "Tuần 2"`, ... `title: "Tuần 14"`. Hiển thị thanh menu chuẩn: `1.1. Tuần 1` .. `1.14. Tuần 14`.
+- **Mục 4 (Events Participated):**
+  - Xóa bỏ tiêu đề dài ở thanh menu bên trái cho Event 2 và Event 3: Chuyển frontmatter title của cả `_index.md` và `_index.vi.md` thành `title: "Event 2"` và `title: "Event 3"` (đồng bộ với `title: "Event 1"`).
+  - Thanh menu mục lục trái hiện hiển thị chuẩn mực: `4.1. Event 1`, `4.2. Event 2`, `4.3. Event 3`.
+  - Gỡ bỏ các hộp thông báo cảnh báo mẫu `notice warning` còn sót lại ở Event 1, Event 3 và trang tổng quan `4-EventParticipated/_index.*`.
+- **Thẩm định & Build:** Chạy `hugo --minify` thành công 100% trong 1.8 giây, không có cảnh báo lỗi.
+
 
 
 

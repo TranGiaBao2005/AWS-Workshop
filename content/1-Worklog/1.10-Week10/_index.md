@@ -1,5 +1,5 @@
----
-title: "Week 10 Worklog"
+﻿---
+title: "Week 10"
 date: 2026-11-16
 weight: 10
 chapter: false
@@ -100,3 +100,4 @@ pre: " <b> 1.10. </b> "
   * **Serverless Architectural Synthesis:** Connected the end-to-end event-driven chain: client ingestion (API Gateway) ➔ load leveling (SQS) ➔ event fanout (SNS/EventBridge) ➔ resilient business orchestration (Step Functions).
   * **Clean Teardown Practices:** Terminated temporary Step Functions state machines, deleted experimental SQS queues, and detached test API Gateway endpoints to avoid ongoing account charges.
   * **Graduation Capstone Integration:** Architected asynchronous order ingestion and transaction processing state machines for the Capstone Project, eliminating synchronous inter-service blocking and single points of failure.
+

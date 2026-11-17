@@ -1,14 +1,10 @@
 ---
-title: "Event 3: First Cloud AI Journey Meetup (Cloud & AI Agent)"
+title: "Event 3"
 date: 2026-10-24
 weight: 3
 chapter: false
 pre: " <b> 4.3. </b> "
 ---
-
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy it verbatim** for your report, including this warning.
-{{% /notice %}}
 
 # Harvest Report: "First Cloud AI Journey" Meetup (October 24, 2026)
 

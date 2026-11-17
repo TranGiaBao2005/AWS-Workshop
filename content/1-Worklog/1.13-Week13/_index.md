@@ -1,5 +1,5 @@
----
-title: "Week 13 Worklog"
+﻿---
+title: "Week 13"
 date: 2026-12-07
 weight: 13
 chapter: false
@@ -122,3 +122,4 @@ pre: " <b> 1.13. </b> "
   * **Generative AI Maturity Model Synthesis:** Mapped architectural choices across the abstraction spectrum: from zero-infrastructure serverless consumption (Bedrock APIs, Knowledge Bases, Agents) to fully customized model hosting and training (SageMaker).
   * **FinOps Resource Decommissioning:** Decommissioned the SageMaker real-time inference endpoint (`ml.m5.large`) immediately after validation to stop hourly compute billing, and deleted test OpenSearch Serverless vector collections.
   * **Graduation Capstone AI Assistant Integration:** Integrated Bedrock Claude 3.5 Sonnet and Knowledge Base APIs into the web frontend of the Capstone Project, providing automated conversational support for user order tracking and policy inquiries.
+

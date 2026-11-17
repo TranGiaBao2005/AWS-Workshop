@@ -1,5 +1,5 @@
----
-title: "Week 12 Worklog"
+﻿---
+title: "Week 12"
 date: 2026-11-30
 weight: 12
 chapter: false
@@ -99,3 +99,4 @@ pre: " <b> 1.12. </b> "
   * **End-to-End Data Pipeline Architecture:** Synthesized the complete data lifecycle: Ingestion (Kinesis/S3) ➔ Security Governance (Lake Formation) ➔ Transformation (Glue ETL) ➔ Distributed SQL (Athena) ➔ Executive Visualizations (QuickSight).
   * **Disciplined FinOps Cleanup:** Pruned temporary Glue Catalog tables, purged staging S3 data, and released unallocated SPICE capacity to avoid recurring monthly charges.
   * **Graduation Capstone Analytics Pipeline:** Built an automated telemetry pipeline ingesting application web access logs into Athena, publishing an executive QuickSight dashboard tracking error spikes (HTTP 5xx) and user traffic trends.
+

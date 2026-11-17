@@ -1,5 +1,5 @@
----
-title: "Worklog Tuần 10"
+﻿---
+title: "Tuần 10"
 date: 2026-11-16
 weight: 10
 chapter: false
@@ -100,3 +100,4 @@ pre: " <b> 1.10. </b> "
   * **Hệ thống hóa toàn bộ kiến trúc phi máy chủ hiện đại:** Kết nối liền mạch chu trình từ tiếp nhận yêu cầu (API Gateway) ➔ đệm và phân tách thông điệp (SQS) ➔ phát tin đa hướng (SNS/EventBridge) ➔ điều phối nghiệp vụ kiên cường (Step Functions).
   * **Dọn dẹp tài nguyên thử nghiệm:** Hủy các Step Functions State Machines, xóa các hàng đợi SQS và API Gateway test để bảo toàn hạn mức tài khoản.
   * **Tích hợp vào Đồ án Capstone:** Thiết kế sơ đồ luồng dữ liệu bất đồng bộ cho tính năng đặt hàng và gửi thông báo của Capstone Project, giúp loại bỏ hoàn toàn các liên kết đồng bộ (Synchronous Coupling) dễ gây sập hệ thống dây chuyền.
+

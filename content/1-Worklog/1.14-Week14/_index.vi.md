@@ -1,5 +1,5 @@
----
-title: "Worklog Tuần 14"
+﻿---
+title: "Tuần 14"
 date: 2026-12-14
 weight: 14
 chapter: false
@@ -89,3 +89,4 @@ pre: " <b> 1.14. </b> "
   * **Tự đánh giá và hoàn thiện bản thân:** Hoàn tất bản tự đánh giá kết quả thực tập ([Báo cáo Tự đánh giá](/vi/6-self-evaluation/)), nhìn lại sự tiến bộ vượt bậc sau 14 tuần: từ một người mới bắt đầu làm quen với Console đến một kỹ sư có khả năng thiết kế, triển khai và tự động hóa hệ thống đám mây chuẩn AWS Well-Architected.
   * **Tiếp thu phản hồi chuyên môn từ Mentor:** Ghi nhận những lời nhận xét quý báu về tư duy tối ưu hóa chi phí (FinOps), kỹ năng viết tài liệu kỹ thuật chuẩn xác và tinh thần chủ động giải quyết sự cố thực tế.
   * **Định hướng sự nghiệp:** Xác định các mục tiêu tiếp theo: chinh phục chứng chỉ AWS Certified Solutions Architect - Associate (SAA-C03) và theo đuổi con đường kỹ sư Cloud & DevOps chuyên nghiệp.
+

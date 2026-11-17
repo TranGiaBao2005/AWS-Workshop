@@ -1,5 +1,5 @@
----
-title: "Week 6 Worklog"
+﻿---
+title: "Week 6"
 date: 2026-10-19
 weight: 6
 chapter: false
@@ -113,3 +113,4 @@ pre: " <b> 1.6. </b> "
   * Attend the AWS Cloud Practitioner / Solution Day (24/10/2026).
   * Research and publish Deep-Dive Technical Blog 1 detailing cloud migration and operational optimization.
 * **Week 7 Review, Worklog & Project:** Consolidate advanced observability workflows, polish worklogs, and advance internship project deliverables.
+

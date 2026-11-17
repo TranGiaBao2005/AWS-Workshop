@@ -1,5 +1,5 @@
----
-title: "Worklog Tuần 1"
+﻿---
+title: "Tuần 1"
 date: 2026-09-14
 weight: 1
 chapter: false
@@ -147,3 +147,4 @@ pre: " <b> 1.1. </b> "
     * **Lưu trữ (S3):** Khối lưu trữ đối tượng bền bỉ với độ sẵn sàng đạt 99.999999999% (11 số 9).
   * **Thực hành vệ sinh tài nguyên (Resource Teardown):** Dừng (Stop) máy chủ EC2 khi không sử dụng để tiết kiệm số giờ chạy Free Tier (750 giờ/tháng), xóa các Elastic IP chưa gán để tránh bị tính phí duy trì IP tĩnh.
   * **Nghiên cứu Đề xuất Đồ án (Project Proposal):** Bắt đầu định hình bài toán xây dựng hệ thống web hai tầng (Two-Tier Web Application) tích hợp khả năng tự động co giãn và cơ sở dữ liệu phân tán trên AWS.
+

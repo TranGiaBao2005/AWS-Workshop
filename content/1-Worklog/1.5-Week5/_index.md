@@ -1,5 +1,5 @@
----
-title: "Week 5 Worklog"
+﻿---
+title: "Week 5"
 date: 2026-10-12
 weight: 5
 chapter: false
@@ -116,3 +116,4 @@ pre: " <b> 1.5. </b> "
   * Deploy a centralized monitoring and dashboard solution using Grafana integrated with Amazon CloudWatch metrics (Workshop 000029 - Getting started with Grafana basic).
   * Build real-time dashboards to track compute health, network throughput, and infrastructure performance.
 * **Week 6 Review, Worklog & Project:** Consolidate observability and cost optimization knowledge, polish weekly worklogs, and advance internship project milestones.
+

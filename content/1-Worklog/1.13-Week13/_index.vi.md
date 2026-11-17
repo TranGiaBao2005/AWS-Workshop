@@ -1,5 +1,5 @@
----
-title: "Worklog Tuần 13"
+﻿---
+title: "Tuần 13"
 date: 2026-12-07
 weight: 13
 chapter: false
@@ -122,3 +122,4 @@ pre: " <b> 1.13. </b> "
   * **Hệ thống hóa năng lực Trí tuệ nhân tạo thế hệ mới trên AWS:** Làm chủ bộ công cụ từ mức tiêu thụ dịch vụ API phi máy chủ (Bedrock Runtime, Knowledge Bases, Agents) đến mức kiểm soát chuyên sâu hạ tầng học máy (SageMaker).
   * **Kiểm toán dọn dẹp tài nguyên AI an toàn:** Xóa bỏ ngay các máy chủ suy luận SageMaker Endpoint (`ml.m5.large`) sau khi kiểm thử xong để tránh bị tính phí tính toán liên tục theo giờ, xóa các bộ sưu tập OpenSearch Serverless thử nghiệm.
   * **Tích hợp Trợ lý AI vào Đồ án Capstone:** Hoàn thiện tích hợp API Bedrock vào giao diện Web của Đề xuất đồ án, mang đến tính năng Trợ lý thông minh hỗ trợ giải đáp chính sách và tư vấn đơn hàng tự động cho người dùng.
+

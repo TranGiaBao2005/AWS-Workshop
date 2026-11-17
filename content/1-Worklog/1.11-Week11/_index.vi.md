@@ -1,5 +1,5 @@
----
-title: "Worklog Tuần 11"
+﻿---
+title: "Tuần 11"
 date: 2026-11-23
 weight: 11
 chapter: false
@@ -122,3 +122,4 @@ pre: " <b> 1.11. </b> "
   * **So sánh và lựa chọn nền tảng Container:** Đúc kết bảng ma trận so sánh giữa ECS Fargate (đơn giản, dễ vận hành, phù hợp Microservices vừa và nhỏ) và Amazon EKS (hệ sinh thái phong phú, linh hoạt, chuẩn mở đa đám mây nhưng chi phí quản trị cao hơn).
   * **Quy trình dọn dẹp cụm EKS hoàn chỉnh:** Xóa sạch các Ingress để ALB được giải phóng trước, sau đó thực thi lệnh `eksctl delete cluster -f cluster-config.yaml` để xóa toàn bộ Node Groups và CloudFormation stacks liên quan, tránh phát sinh chi phí vận hành $0.10/giờ cho EKS Control Plane.
   * **Đóng gói Capstone Project thành Container chuẩn mực:** Hoàn thiện Dockerfile đa giai đoạn cho toàn bộ backend dự án tốt nghiệp, đẩy lên ECR và viết mẫu Task Definition sẵn sàng cho ngày bảo vệ đồ án.
+

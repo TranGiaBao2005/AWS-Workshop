@@ -1,5 +1,5 @@
 ---
-title: "Event 2: Đối thoại cùng Dr. Werner Vogels (CTO Amazon)"
+title: "Event 2"
 date: 2026-10-02
 weight: 2
 chapter: false

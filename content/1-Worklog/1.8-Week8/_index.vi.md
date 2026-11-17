@@ -1,5 +1,5 @@
----
-title: "Worklog Tuần 8"
+﻿---
+title: "Tuần 8"
 date: 2026-11-02
 weight: 8
 chapter: false
@@ -108,3 +108,4 @@ pre: " <b> 1.8. </b> "
   * **Hệ thống hóa toàn bộ chu trình IaC:** Liên kết chặt chẽ quy trình từ thiết kế kiến trúc hạ tầng bằng mã (CloudFormation/CDK) ➔ Quản trị vận hành máy chủ không cổng mở (SSM) ➔ Bảo vệ dữ liệu và phòng ngừa thảm họa (AWS Backup).
   * **Kỹ năng kiểm toán chi phí:** Thực thi lệnh `cdk destroy` và `aws cloudformation delete-stack` để dọn dẹp sạch sẽ toàn bộ tài nguyên thử nghiệm phát sinh trong tuần, xác nhận trên Cost Explorer không còn tài nguyên nhàn rỗi.
   * **Phát triển Đề xuất Đồ án (Capstone Project Proposal):** Chuyển đổi toàn bộ sơ đồ kiến trúc thủ công của đồ án tốt nghiệp sang dạng mẫu template AWS CloudFormation mô-đun hóa, sẵn sàng cho việc triển khai tự động trong môi trường thực tế.
+

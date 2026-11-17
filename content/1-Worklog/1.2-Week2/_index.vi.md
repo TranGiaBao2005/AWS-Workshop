@@ -1,5 +1,5 @@
----
-title: "Worklog Tuần 2"
+﻿---
+title: "Tuần 2"
 date: 2026-09-21
 weight: 2
 chapter: false
@@ -126,3 +126,4 @@ pre: " <b> 1.2. </b> "
     * **Tối ưu chi phí (Cost):** Quản trị ngân sách, cam kết Savings Plans và kiểm toán chi phí với Athena.
   * **Dọn dẹp tài nguyên:** Hủy các ECS Services thử nghiệm, tắt tác vụ Glue và xóa Web ACL tạm để giữ ngân sách an toàn.
   * **Phát triển Đề xuất Đồ án (Project Proposal):** Hoàn thiện bản thiết kế sơ đồ kiến trúc hệ thống tổng thể và lập bảng tính dự toán chi phí hàng tháng bằng công cụ chính thức **AWS Pricing Calculator**.
+

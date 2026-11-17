@@ -1,5 +1,5 @@
----
-title: "Worklog Tuần 12"
+﻿---
+title: "Tuần 12"
 date: 2026-11-30
 weight: 12
 chapter: false
@@ -99,3 +99,4 @@ pre: " <b> 1.12. </b> "
   * **Bức tranh tổng thể về Data Analytics trên AWS:** Kết nối hoàn chỉnh chuỗi giá trị dữ liệu từ Thu thập (Kinesis/S3) ➔ Quản trị bảo mật (Lake Formation) ➔ Xử lý chuyển đổi (Glue ETL) ➔ Truy vấn phân tích (Athena) ➔ Trực quan hóa ra quyết định (QuickSight).
   * **Dọn dẹp tài nguyên:** Hủy các bảng test trong Glue Catalog, xóa dữ liệu tạm trên S3 và hủy tài nguyên SPICE không dùng để tránh phát sinh chi phí duy trì hàng tháng.
   * **Phát triển Bảng điều khiển phân tích cho Đồ án Capstone:** Xây dựng luồng phân tích tự động thu thập nhật ký truy cập (Access Logs) của ứng dụng đồ án, xử lý qua Athena và xuất bản Dashboard theo dõi tỷ lệ lỗi HTTP 5xx cùng xu hướng người dùng thực tế trên QuickSight.
+

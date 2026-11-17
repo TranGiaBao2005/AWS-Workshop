@@ -1,5 +1,5 @@
----
-title: "Week 4 Worklog"
+﻿---
+title: "Week 4"
 date: 2026-10-05
 weight: 4
 chapter: false
@@ -119,3 +119,4 @@ pre: " <b> 1.4. </b> "
   * Implement enterprise security controls: Transit Encryption (TLS) combined with Role-Based Access Control (RBAC) using Users and User Groups.
   * Develop client-side Python scripts executed from an in-VPC EC2 client: verify TLS RBAC connections, perform string operations with 60s TTL, manage hash maps with collision mitigation, and stream real-time Pub/Sub messages.
 * **Week 5 Review, Worklog & Project:** Consolidate weekly learnings, document root cause analyses for technical edge cases, and advance internship project deliverables.
+

@@ -1,5 +1,5 @@
----
-title: "Week 8 Worklog"
+﻿---
+title: "Week 8"
 date: 2026-11-02
 weight: 8
 chapter: false
@@ -108,3 +108,4 @@ pre: " <b> 1.8. </b> "
   * **IaC Lifecycle Synthesis:** Successfully bridged the entire infrastructure automation pipeline: programmatic provisioning (CloudFormation/CDK) ➔ secure instance administration (SSM) ➔ automated data protection and disaster recovery (AWS Backup).
   * **FinOps Resource Hygiene:** Ran `cdk destroy` and `aws cloudformation delete-stack` to tear down all transient experimental infrastructure created during the week, ensuring zero ongoing idle charges in AWS Cost Explorer.
   * **Capstone Project Architecture Packaging:** Refactored the manual architecture designs of the graduation proposal into modular, version-controlled AWS CloudFormation templates ready for automated deployment.
+

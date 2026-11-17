@@ -1,5 +1,5 @@
----
-title: "Week 9 Worklog"
+﻿---
+title: "Week 9"
 date: 2026-11-09
 weight: 9
 chapter: false
@@ -114,3 +114,4 @@ pre: " <b> 1.9. </b> "
   * **Enterprise Migration Lifecycle Synthesis:** Seamlessly unified server rehosting (AWS MGN), zero-downtime relational data migration (AWS DMS), centralized hub-and-spoke networking (Transit Gateway), and bulk file synchronization (DataSync).
   * **Disciplined Decommissioning Protocol:** Decommissioned DMS replication instances, removed cutover test nodes, detached VPC attachments, and deleted Transit Gateway resources to prevent idle hourly billing.
   * **Production Cutover Runbook for the Capstone Project:** Authored an exhaustive minute-by-minute migration runbook detailing database schema extraction, continuous replication steps, rollback procedures, and DNS switchovers for the graduation project.
+

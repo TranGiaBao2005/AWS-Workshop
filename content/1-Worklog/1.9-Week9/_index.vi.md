@@ -1,5 +1,5 @@
----
-title: "Worklog Tuần 9"
+﻿---
+title: "Tuần 9"
 date: 2026-11-09
 weight: 9
 chapter: false
@@ -114,3 +114,4 @@ pre: " <b> 1.9. </b> "
   * **Hệ thống hóa toàn bộ bức tranh di trú:** Kết hợp nhuần nhuyễn chiến lược Rehost máy chủ bằng AWS MGN, di trú CSDL liên tục bằng AWS DMS, kết nối mạng mở rộng bằng Transit Gateway và sao chép dữ liệu khối lớn bằng DataSync.
   * **Thực hành quy trình dọn dẹp (Teardown):** Xóa DMS Replication Instance, tắt máy chủ thử nghiệm cutover, xóa Transit Gateway Attachments và hủy TGW để ngăn chặn phát sinh chi phí theo giờ.
   * **Hoàn thiện kế hoạch Cutover cho Capstone Project:** Xây dựng tài liệu hướng dẫn chuyển dịch chi tiết từng phút (Runbook) cho kịch bản di chuyển cơ sở dữ liệu và hệ thống web của đồ án thực tập lên hạ tầng Amazon RDS và EC2 Multi-AZ.
+

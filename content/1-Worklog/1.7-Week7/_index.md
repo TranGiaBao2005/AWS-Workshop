@@ -1,5 +1,5 @@
----
-title: "Week 7 Worklog"
+﻿---
+title: "Week 7"
 date: 2026-10-26
 weight: 7
 chapter: false
@@ -90,3 +90,4 @@ pre: " <b> 1.7. </b> "
 - **Centralized Fleet Operations with AWS Systems Manager (SSM - 000024) & AWS Backup (000038):**
   - Zero-inbound-port access via Session Manager, fleet automation with Run Command, encrypted secrets via Parameter Store, and centralized Backup Plans.
 - **Week 8 Review, Worklog & Project:** Consolidate IaC architectures and package production-ready CloudFormation templates for the Capstone Project.
+

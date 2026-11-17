@@ -1,5 +1,5 @@
----
-title: "Week 3 Worklog"
+﻿---
+title: "Week 3"
 date: 2026-09-28
 weight: 3
 chapter: false
@@ -119,3 +119,4 @@ pre: " <b> 1.3. </b> "
   * **Foundational Milestone Synthesis:** Completed a holistic review of the 3-week foundation: Core infrastructure (IAM, VPC, EC2, S3) ➔ Well-Architected governance (Lambda, KMS, WAF, Fargate, Savings Plans) ➔ Application modernization, containers, analytics, and relational database engineering with Amazon RDS Multi-AZ.
   * **Bilingual Worklog Consolidation:** Finalized the standalone hands-on report [1.3.1. Hands-On Amazon RDS Deployment](1.3.1-amazon-rds/), validating 10 architectural diagrams, configuration tables, and terminal execution evidence.
   * **Official Submission of the Capstone Project Proposal:** Completed final architectural verifications, risk mitigation plans, and monthly budget estimates, formally submitting the graduation Capstone Project Proposal for mentor review.
+

@@ -1,5 +1,5 @@
----
-title: "Week 1 Worklog"
+﻿---
+title: "Week 1"
 date: 2026-09-14
 weight: 1
 chapter: false
@@ -147,3 +147,4 @@ pre: " <b> 1.1. </b> "
     * **Storage (S3):** Durable object repository delivering 99.999999999% (11 9s) of data durability.
   * **FinOps Resource Hygiene:** Stopped EC2 instances when idle to conserve Free Tier runtime hours (750 hours/month), and released unattached Elastic IPs to avoid idle reservation fees.
   * **Capstone Project Proposal Formulation:** Synthesized architectural concepts toward building a resilient Two-Tier Web Application integrating Auto Scaling and managed relational databases on AWS.
+

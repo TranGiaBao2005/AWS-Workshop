@@ -1,5 +1,5 @@
----
-title: "Worklog Tuần 3"
+﻿---
+title: "Tuần 3"
 date: 2026-09-28
 weight: 3
 chapter: false
@@ -119,3 +119,4 @@ pre: " <b> 1.3. </b> "
   * **Tổng kết toàn diện 3 tuần thực tập đầu tiên:** Hệ thống hóa trọn vẹn lộ trình học tập nền tảng: từ dịch vụ cốt lõi (IAM, VPC, EC2, S3) ➔ Tối ưu hóa Well-Architected (Lambda, KMS, WAF, Fargate, Savings Plans) ➔ Hiện đại hóa ứng dụng và CSDL quan hệ Amazon RDS Multi-AZ.
   * **Đóng gói báo cáo bài thực hành 1.3.1:** Hoàn thiện bài viết chi tiết song ngữ [1.3.1. Thực hành triển khai Amazon RDS](1.3.1-amazon-rds/), đồng bộ 10 hình ảnh sơ đồ kiến trúc, bảng thông số và kiểm toán dọn dẹp môi trường.
   * **Chính thức hoàn thiện Bản đề xuất dự án (Project Proposal):** Hoàn thành tài liệu thiết kế kiến trúc kỹ thuật hệ thống, bảng phân bổ tài nguyên và dự toán chi phí chi tiết, chính thức nộp bản Đề xuất dự án thực tập lên hệ thống chương trình FCAJ để Mentor phê duyệt.
+
