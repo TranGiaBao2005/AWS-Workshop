@@ -5,27 +5,31 @@ weight: 5
 chapter: false
 pre: " <b> 5. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-# Secure Hybrid Access to S3 using VPC Endpoints
+# Secure Hybrid Access to Amazon S3 via VPC Endpoints
 
-#### Overview
+#### Architecture Objectives
+In hybrid cloud production environments, routing data transfers between on-premises datacenters and **Amazon S3** over the public internet introduces unnecessary latency, compliance risks, and data exposure. This workshop deploys a zero-trust network routing solution using two types of **VPC Endpoints**:
 
-**AWS PrivateLink** provides private connectivity to AWS services from VPCs and your on-premises networks, without exposing your traffic to the Public Internet.
+1. **Gateway VPC Endpoint (AWS VPC Workloads):** Routes traffic from EC2 instances to Amazon S3 directly using VPC route tables, requiring zero public IP assignment, NAT Gateway, or Internet Gateway (IGW).
+2. **Interface VPC Endpoint / AWS PrivateLink (On-Premises Workloads):** Provisions dedicated private IP addresses (Elastic Network Interfaces - ENIs) inside the VPC, enabling on-premises servers to communicate with S3 over an IPsec Site-to-Site VPN tunnel or AWS Direct Connect.
 
-In this lab, you will learn how to create, configure, and test VPC endpoints that enable your workloads to reach AWS services without traversing the Public Internet.
+```
+[On-Premises Data Center] 
+       │ (IPsec VPN / Direct Connect)
+       ▼
+[AWS Transit Gateway] 
+       ▼
+[Interface Endpoint (ENI Private IP)] ────(AWS PrivateLink)────► [Amazon S3]
+                                                                      ▲
+[Cloud VPC EC2] ─────(Route Table: Gateway Endpoint)─────────────────┘
+```
 
-You will create two types of endpoints to access Amazon S3: a Gateway VPC endpoint, and an Interface VPC endpoint. These two types of VPC endpoints offer different benefits depending on if you are accessing Amazon S3 from the cloud or your on-premises location
-+ **Gateway** - Create a gateway endpoint to send traffic to Amazon S3 or DynamoDB using private IP addresses.You route traffic from your VPC to the gateway endpoint using route tables.
-+ **Interface** - Create an interface endpoint to send traffic to endpoint services that use a Network Load Balancer to distribute traffic. Traffic destined for the endpoint service is resolved using DNS.
+#### Workshop Roadmap
 
-#### Content
-
-1. [Workshop overview](5.1-Workshop-overview)
-2. [Prerequiste](5.2-Prerequiste/)
-3. [Access S3 from VPC](5.3-S3-vpc/)
-4. [Access S3 from On-premises](5.4-S3-onprem/)
-5. [VPC Endpoint Policies (Bonus)](5.5-Policy/)
-6. [Clean up](5.6-Cleanup/)
+1. [5.1 Workshop Overview & Topology](5.1-Workshop-overview/) — Dual-VPC architecture connecting Cloud VPC and simulated On-Premises VPC.
+2. [5.2 Prerequisites & Environment Provisioning](5.2-Prerequiste/) — Deploy base infrastructure via AWS CloudFormation and configure IAM policies.
+3. [5.3 Accessing S3 from VPC via Gateway Endpoint](5.3-S3-vpc/) — Configure prefix list route tables and verify private 1GB payload transfers with AWS Systems Manager.
+4. [5.4 Accessing S3 from On-Premises via Interface Endpoint](5.4-S3-onprem/) — Configure StrongSwan VPN routing, Interface Endpoints, and Route 53 Resolver conditional DNS forwarding.
+5. [5.5 Restricting Access with VPC Endpoint Policies](5.5-Policy/) — Apply resource-level IAM policies to restrict endpoint access strictly to designated buckets.
+6. [5.6 Resource Cleanup & Cost Governance](5.6-Cleanup/) — De-provision Private Hosted Zones, Resolver rules, endpoints, and CloudFormation stacks to avoid recurring idle costs.

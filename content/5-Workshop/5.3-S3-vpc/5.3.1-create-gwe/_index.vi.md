@@ -1,40 +1,44 @@
 ---
-title : "Tạo một Gateway Endpoint"
+title : "Khởi tạo S3 Gateway Endpoint"
 date : 2024-01-01 
 weight : 1
 chapter : false
 pre : " <b> 5.3.1 </b> "
 ---
 
-1. Mở [Amazon VPC console](https://us-east-1.console.aws.amazon.com/vpc/home?region=us-east-1#Home:)
-2. Trong thanh điều hướng, chọn **Endpoints**, click **Create Endpoint**:
+#### Các bước thực hiện:
 
-{{% notice note %}}
-Bạn sẽ thấy 6 điểm cuối VPC hiện có hỗ trợ AWS Systems Manager (SSM). Các điểm cuối này được Mẫu CloudFormation triển khai tự động cho workshop này.
-{{% /notice %}}
+1. Mở [Amazon VPC Console](https://us-east-1.console.aws.amazon.com/vpc/home?region=us-east-1#Home:) tại Region `us-east-1` (N. Virginia).
+2. Tại thanh điều hướng bên trái, chọn **Endpoints** ➔ Nhấp chọn **Create endpoint**.
+
+> [!NOTE]
+> Danh sách hiện tại đã có sẵn 6 Interface Endpoints phục vụ kết nối cho AWS Systems Manager (SSM, `ssmmessages`, `ec2messages`). Các tài nguyên này được CloudFormation Stack khởi tạo sẵn để cho phép điều khiển máy ảo không cần SSH/Bastion Host.
 
 ![endpoint](/images/5-Workshop/5.3-S3-vpc/endpoints.png)
 
-3. Trong Create endpoint console:
-+ Đặt tên cho endpoint: s3-gwe
-+ Trong service category, chọn **aws services**
+3. Cấu hình thông số Endpoint:
+   - **Name tag:** Nhập `s3-gwe`
+   - **Service category:** Chọn **AWS services**
 
 ![endpoint](/images/5-Workshop/5.3-S3-vpc/create-s3-gwe1.png)
 
-+ Trong **Services**, gõ "s3" trong hộp tìm kiếm và chọn dịch vụ với loại **gateway**
+4. Tại mục **Services**, nhập từ khóa `s3` vào ô tìm kiếm:
+   - Chọn service: `com.amazonaws.us-east-1.s3`
+   - Kiểm tra cột **Type:** Phải hiển thị loại **Gateway**
 
 ![endpoint](/images/5-Workshop/5.3-S3-vpc/services.png)
 
-+ Đối với VPC, chọn **VPC Cloud** từ drop-down menu.
-+ Đối với Route tables, chọn bảng định tuyến mà đã liên kết với 2 subnets (lưu ý: đây không phải là bảng định tuyến chính cho VPC mà là bảng định tuyến thứ hai do CloudFormation tạo).
+5. Cấu hình VPC & Bảng định tuyến:
+   - **VPC:** Chọn **VPC Cloud** từ menu thả xuống.
+   - **Route tables:** Tích chọn Route Table thứ 2 (bảng định tuyến liên kết với 2 private subnets do CloudFormation tạo, không phải Main Route Table).
 
 ![endpoint](/images/5-Workshop/5.3-S3-vpc/vpc.png)
 
-+ Đối với Policy, để tùy chọn mặc định là Full access để cho phép toàn quyền truy cập vào dịch vụ. Bạn sẽ triển khai VPC endpoint policy trong phần sau để chứng minh việc hạn chế quyền truy cập vào S3 bucket dựa trên các policies.
+6. Thiết lập Chính sách truy cập (Policy):
+   - Chọn **Full access** (cho phép toàn quyền truy cập dịch vụ, chính sách giới hạn chi tiết sẽ được kiểm thử ở mục 5.5).
 
 ![endpoint](/images/5-Workshop/5.3-S3-vpc/policy.png)
 
-+ Không thêm tag vào VPC endpoint.
-+ Click Create endpoint, click x sau khi nhận được thông báo tạo thành công.
+7. Nhấp **Create endpoint**. Sau khi hệ thống thông báo trạng thái **Available**, chuyển sang bước kiểm thử.
 
 ![endpoint](/images/5-Workshop/5.3-S3-vpc/complete.png)

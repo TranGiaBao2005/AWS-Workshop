@@ -1,118 +1,128 @@
 ---
-title : "Mô phỏng On-premises DNS "
+title : "Mô phỏng Phân giải DNS On-Premises (Route 53 Resolver)"
 date : 2024-01-01
 weight : 4
 chapter : false
 pre : " <b> 5.4.4 </b> "
 ---
 
- AWS PrivateLink endpoint có một địa chỉ IP cố định trong từng AZ nơi chúng được triển khai, trong suốt thời gian tồn tại của endpoint (cho đến khi endpoint bị xóa). Các địa chỉ IP này được gắn vào Elastic network interface (ENI). AWS khuyến nghị sử dụng DNS để resolve địa chỉ IP cho endpoint để các ứng dụng downstream sử dụng địa chỉ IP mới nhất khi ENIs được thêm vào AZ mới hoặc bị xóa theo thời gian.
+#### Mục tiêu Kiến trúc DNS
 
-Trong phần này, bạn sẽ tạo một quy tắc chuyển tiếp (forwarding rule) để gửi các yêu cầu resolve DNS từ môi trường truyền thống (mô phỏng) đến Private Hosted Zone trên Route 53. Phần này tận dụng cơ sở hạ tầng do CloudFormation triển khai trong phần Chuẩn bị môi trường.
+AWS PrivateLink Interface Endpoint gán địa chỉ IP Private cố định (ENI) trên từng Availability Zone. Tuy nhiên, việc cấu hình thủ công tham số `--endpoint-url` trong ứng dụng thực tế rất bất tiện và không tự động chuyển đổi dự phòng nếu một ENI gặp sự cố. 
 
-#### Tạo DNS Alias Records cho Interface endpoint
-1. Click link để đi đến [Route 53 management console](https://us-east-1.console.aws.amazon.com/route53/v2/hostedzones?region=us-east-1#) (Hosted Zones section).  Mẫu CloudFormation mà bạn triển khai trong phần Chuẩn bị môi trường đã tạo Private Hosted Zone này. Nhấp vào tên của Private Hosted Zone, s3.us-east-1.amazonaws.com:
+Giải pháp tiêu chuẩn của AWS là thiết lập **Conditional DNS Forwarding** qua **Route 53 Resolver**:
+- **On-Premises DNS Server:** Tự động chuyển tiếp (forward) các yêu cầu phân giải miền `s3.us-east-1.amazonaws.com` sang Route 53 Inbound Endpoint.
+- **Route 53 Private Hosted Zone:** Trả về danh sách IP Private của Interface Endpoint.
+- Ứng dụng phía On-Premises có thể sử dụng các lệnh AWS CLI hoặc SDK tiêu chuẩn mà **không cần truyền thêm cờ `--endpoint-url`**.
+
+---
+
+#### 1. Tạo Bản ghi DNS Alias trên Route 53 Private Hosted Zone
+
+1. Mở [Route 53 Hosted Zones Console](https://us-east-1.console.aws.amazon.com/route53/v2/hostedzones?region=us-east-1#). 
+2. Nhấp chọn Private Hosted Zone mang tên: **`s3.us-east-1.amazonaws.com`** (đã được tạo bởi CloudFormation).
 
 ![hosted zone](/images/5-Workshop/5.4-S3-onprem/hosted-zone.png)
 
-2. Tạo 1 record mới trong Private Hosted Zone:
-
-![Create record](/images/5-Workshop/5.4-S3-onprem/create-record1.png)
-
-+ Giữ nguyên Record name và record type
-+ Alias Button: click để enable
-+ Route traffic to: Alias to VPC Endpoint
-+ Region: US East (N. Virginia) [us-east-1]
-+ Chọn endpoint: Paste tên (Regional VPC Endpoint DNS) bạn đã lưu lại ở phần 4.3
+3. Tạo bản ghi Alias Record thứ nhất (Apex Record):
+   - Nhấp **Create record**.
+   - **Record name:** Để trống (đại diện cho miền gốc `s3.us-east-1.amazonaws.com`).
+   - **Record type:** `A - Routes traffic to an IPv4 address and some AWS resources`.
+   - **Alias:** Gạt nút sang chế độ **Enabled**.
+   - **Route traffic to:** Chọn **Alias to VPC Endpoint**.
+   - **Region:** `US East (N. Virginia) [us-east-1]`.
+   - **Choose endpoint:** Dán tên **Regional VPC Endpoint DNS** đã sao chép ở mục 5.4.3.
 
 ![record1](/images/5-Workshop/5.4-S3-onprem/record1.png)
 
-3. Click Add another record, và add 1 cái record thứ 2 sử dụng những thông số sau:
-+ Record name: *.
-+ Record type: giữ giá trị default (type A)
-+ Alias Button: Click để enable
-+ Route traffic to: Alias to VPC Endpoint
-+ Region: US East (N. Virginia) [us-east-1]
-+ Chọn endpoint: Paste tên (Regional VPC Endpoint DNS) bạn đã lưu lại ở phần 4.3
-+ Click **Create records** 
+4. Tạo bản ghi Alias Record thứ hai (Wildcard Record):
+   - Nhấp **Add another record**.
+   - **Record name:** Nhập ký tự đại diện `*` (để hỗ trợ truy cập dạng bucket URL: `*.s3.us-east-1.amazonaws.com`).
+   - **Record type:** `A`
+   - **Alias:** **Enabled** ➔ **Alias to VPC Endpoint** ➔ Region `us-east-1` ➔ Dán tên Regional VPC Endpoint DNS.
+   - Nhấp **Create records**.
 
 ![record 2](/images/5-Workshop/5.4-S3-onprem/record2.png)
 
-Record mới xuất hiện trên giao diện Route 53.
+Hai bản ghi Alias xuất hiện hoàn tất trong Hosted Zone.
 
 ![result](/images/5-Workshop/5.4-S3-onprem/result.png)
 
-#### Tạo một Resolver Forwarding Rule
+---
 
-**Route 53 Resolver Forwarding Rules** cho phép bạn chuyển tiếp các DNS queries từ VPC của bạn đến các nguồn khác để resolve name. Bên ngoài môi trường workshop, bạn có thể sử dụng tính năng này để chuyển tiếp các DNS queries từ VPC của bạn đến các máy chủ DNS chạy trên on-premises. Trong phần này, bạn sẽ mô phỏng một on-premises conditional forwarder bằng cách tạo một forwarding rule để chuyển tiếp các DNS queries for Amazon S3 đến một Private Hosted Zone chạy trong "VPC Cloud" để resolve PrivateLink interface endpoint regional DNS name.
+#### 2. Cấu hình Route 53 Resolver Forwarding Rule
 
-1. Từ giao diện  **Route 53**, chọn **Inbound endpoints** trên thanh bên trái
+Thiết lập quy tắc chuyển tiếp DNS để các truy vấn từ `VPC On-Prem` được gửi sang Inbound Endpoint của `VPC Cloud`:
 
-2. Trong giao diện **Inbound endpoint**, Chọn ID của Inbound endpoint.
-
-![Inbound endpoint](/images/5-Workshop/5.4-S3-onprem/route53-1.png)
-
-3. Sao chép 2 địa chỉ IP trong danh sách vào trình chỉnh sửa.
+1. Tại thanh điều hướng bên trái Route 53, chọn **Inbound endpoints**.
+2. Nhấp vào Inbound Endpoint và sao chép 2 địa chỉ IPv4 hiển thị trong danh sách ENIs (Ví dụ: `10.0.1.x` và `10.0.2.x`).
 
 ![Ip addresses](/images/5-Workshop/5.4-S3-onprem/route53-2.png)
 
-4. Từ giao diện Route 53, chọn  **Resolver** > **Rules** và chọn **Create rule**
+3. Tại thanh điều hướng bên trái, chọn **Resolver** ➔ **Rules** ➔ Nhấp **Create rule**.
 
 ![Ip addresses](/images/5-Workshop/5.4-S3-onprem/route53-3.png)
 
-5. Trong giao diện **Create rule**
-
-+ Name: myS3Rule
-+ Rule type: Forward
-+ Domain name: s3.us-east-1.amazonaws.com
+4. Điền thông số Resolver Rule:
+   - **Name:** `myS3Rule`
+   - **Rule type:** **Forward**
+   - **Domain name:** `s3.us-east-1.amazonaws.com`
 
 ![create rule](/images/5-Workshop/5.4-S3-onprem/route53-4.png)
 
-+ VPC: VPC On-prem
-+ Outbound endpoint: VPCOnpremOutboundEndpoint
+   - **VPC:** Chọn **VPC On-prem** (VPC mô phỏng mạng On-Premises).
+   - **Outbound endpoint:** Chọn `VPCOnpremOutboundEndpoint`.
 
 ![create rule](/images/5-Workshop/5.4-S3-onprem/route53-5.png)
 
-+ Target IP Addresses: điền cả hai IP bạn đã lưu trữ trên trình soạn thảo (inbound endpoint addresses) và sau đó chọn **Submit**
+   - **Target IP addresses:** Thêm 2 địa chỉ IP của Inbound Endpoint đã sao chép ở Bước 2.
+   - Nhấp **Submit**.
 
 ![create rule](/images/5-Workshop/5.4-S3-onprem/route53-6.png)
 
-Bạn đã tạo thành công resolver forwarding rule. 
+Quy tắc Forwarding Rule được kích hoạt thành công.
 
 ![create rule](/images/5-Workshop/5.4-S3-onprem/route53-7.png)
 
-#### Kiểm tra on-premises DNS mô phỏng.
+---
 
-1. Kết nối đến **Test-Interface-Endpoint EC2 instance** với **Session Manager**
+#### 3. Kiểm tra Thực tế trên Máy chủ On-Premises
+
+1. Mở lại phiên **Session Manager** trên máy chủ **`Test-Interface-Endpoint`**.
 
 ![create rule](/images/5-Workshop/5.4-S3-onprem/test1.png)
 
-2. Kiểm tra DNS resolution. Lệnh dig sẽ trả về địa chỉ IP được gán cho VPC endpoint interface đang chạy trên VPC (địa chỉ IP của bạn sẽ khác):
-
-```
-dig +short s3.us-east-1.amazonaws.com 
-```
-{{% notice note %}}
-Các địa chỉ IP được trả về là các địa chỉ IP VPC enpoint, KHÔNG phải là các địa chỉ IP Resolver mà bạn đã dán từ trình chỉnh sửa văn bản của mình. Các địa chỉ IP của  Resolver endpoint  và  VPC endpoin trông giống nhau vì chúng đều từ khối CIDR VPC Cloud.
-{{% /notice %}}
+2. Thực thi lệnh phân giải DNS bằng `dig`:
+   ```bash
+   dig +short s3.us-east-1.amazonaws.com
+   ```
 
 ![create rule](/images/5-Workshop/5.4-S3-onprem/dig.png)
 
-3. Truy cập vào menu VPC (phần Endpoints), chọn S3 interface endpoint. Nhấp vào tab Subnets và xác nhận rằng các địa chỉ IP được trả về bởi lệnh Dig khớp với VPC endpoint:
+> [!NOTE]
+> Kết quả trả về trực tiếp các địa chỉ IP Private thuộc dải mạng `10.0.x.x` của Interface Endpoint trong `VPC Cloud`. Điều này chứng minh quá trình chuyển tiếp truy vấn qua Route 53 Resolver hoạt động chính xác.
+
+3. Đối chiếu kiểm tra: Mở VPC Endpoints Console ➔ Tab **Subnets** của `s3-interface-endpoint`, các IP trả về từ lệnh `dig` trùng khớp 100% với IP của 2 Interface ENIs.
 
 ![create rule](/images/5-Workshop/5.4-S3-onprem/subnet.png)
 
-4. Hãy quay lại shell của bạn và sử dụng AWS CLI để kiểm tra danh sách các bucket S3 của bạn:
-
-```
-aws s3 ls --endpoint-url https://s3.us-east-1.amazonaws.com
-```
+4. Kiểm tra truy vấn S3 bằng tên miền chuẩn:
+   ```bash
+   aws s3 ls --endpoint-url https://s3.us-east-1.amazonaws.com
+   ```
+   Lệnh thực thi ngay lập tức và liệt kê đầy đủ các S3 Bucket.
 
 ![create rule](/images/5-Workshop/5.4-S3-onprem/endpoint.png)
 
-5. Kết thúc phiên làm việc của Session Manager của bạn:
+5. Gõ lệnh `exit` để đóng phiên Session Manager.
 
 ![create rule](/images/5-Workshop/5.4-S3-onprem/terminal.png)
 
+---
 
-Trong phần này, bạn đã tạo một  **Interface Endpoint**  cho Amazon S3. Điểm cuối này có thể được truy cập từ on-premises thông qua Site-to-Site VPN hoặc AWS Direct Connect. Các điểm cuối Route 53 Resolver outbound giả lập chuyển tiếp các yêu cầu DNS từ on-premises đến một Private Hosted Zone đang chạy trên đám mây. Các điểm cuối Route 53 inbound nhận yêu cầu giải quyết và trả về một phản hồi chứa địa chỉ IP của  **Interface Endpoint**  VPC. Sử dụng DNS để giải quyết các địa chỉ IP của điểm cuối cung cấp tính sẵn sàng cao trong trường hợp một Availability Zone gặp sự cố.
+#### 4. Tổng kết Kỹ thuật
+
+Cấu hình Route 53 Resolver Forwarding kết hợp cùng Private Hosted Zone cho phép các máy chủ On-Premises tự động phân giải tên miền tiêu chuẩn của Amazon S3 về địa chỉ IP PrivateLink qua đường truyền VPN. Mô hình này mang lại 3 ưu điểm vượt trội:
+1. **Minh bạch ứng dụng (Application Transparency):** Ứng dụng On-Premises không cần sửa đổi mã nguồn hay cấu hình endpoint URL phức tạp.
+2. **Tính sẵn sàng cao (High Availability):** DNS tự động luân phiên giữa các IP ENI phân bổ trên nhiều AZs.
+3. **Bảo mật tuyệt đối:** 100% lưu lượng truyền tải đi qua đường hầm IPsec VPN và mạng backbone AWS, không chạm vào Internet công cộng.

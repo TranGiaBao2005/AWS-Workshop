@@ -1,57 +1,62 @@
 ---
-title : "VPC Endpoint Policies"
+title : "Kiểm soát Truy cập với VPC Endpoint Policy"
 date : 2024-01-01
 weight : 5
 chapter : false
 pre : " <b> 5.5 </b> "
 ---
 
-Khi bạn tạo một Interface Endpoint  hoặc cổng, bạn có thể đính kèm một chính sách điểm cuối để kiểm soát quyền truy cập vào dịch vụ mà bạn đang kết nối. Chính sách VPC Endpoint là chính sách tài nguyên IAM mà bạn đính kèm vào điểm cuối. Nếu bạn không đính kèm chính sách khi tạo điểm cuối, thì AWS sẽ đính kèm chính sách mặc định cho bạn để cho phép toàn quyền truy cập vào dịch vụ thông qua điểm cuối.
+#### Mục tiêu Kỹ thuật
 
-Bạn có thể tạo chính sách chỉ hạn chế quyền truy cập vào các S3 bucket cụ thể. Điều này hữu ích nếu bạn chỉ muốn một số Bộ chứa S3 nhất định có thể truy cập được thông qua điểm cuối.
+Mặc định, VPC Endpoint đi kèm chính sách **Full Access** cho phép các máy chủ trong VPC tương tác với bất kỳ S3 Bucket nào trên toàn cầu của AWS. Trong môi trường doanh nghiệp, cấu hình này tiềm ẩn nguy cơ rò rỉ dữ liệu (Data Exfiltration) nếu kẻ tấn công tải dữ liệu bí mật lên một S3 Bucket cá nhân ngoài tổ chức.
 
-Trong phần này, bạn sẽ tạo chính sách VPC Endpoint hạn chế quyền truy cập vào S3 bucket được chỉ định trong chính sách VPC Endpoint.
+**VPC Endpoint Policy** là một Resource-based Policy được gắn trực tiếp vào Endpoint để thiết lập rào chắn kiểm soát (Guardrail), giới hạn chỉ cho phép truy cập vào các S3 Bucket thuộc quyền sở hữu của tổ chức.
 
 ![endpoint diagram](/images/5-Workshop/5.5-Policy/s3-bucket-policy.png)
 
-#### Kết nối tới EC2 và xác minh kết nối tới S3. 
+---
 
-1. Bắt đầu một phiên AWS Session Manager mới trên máy chủ có tên là Test-Gateway-Endpoint. Từ phiên này, xác minh rằng bạn có thể liệt kê nội dung của bucket mà bạn đã tạo trong Phần 1: Truy cập S3 từ VPC.
+#### 1. Kiểm tra Quyền truy cập Ban đầu & Tạo Bucket thứ 2
 
-```
-aws s3 ls s3://<your-bucket-name>
-```
+1. Mở phiên **Session Manager** trên máy chủ **`Test-Gateway-Endpoint`**. Kiểm tra nội dung của Bucket thứ nhất (tạo ở mục 5.3):
+   ```bash
+   aws s3 ls s3://<your-first-bucket-name>
+   ```
+   Kết quả liệt kê đầy đủ tệp `testfile.xyz` (1GB).
+
 ![test](/images/5-Workshop/5.5-Policy/test1.png)
 
-Nội dung của bucket bao gồm hai tệp có dung lượng 1GB đã được tải lên trước đó.
-
-2. Tạo một bucket S3 mới; tuân thủ mẫu đặt tên mà bạn đã sử dụng trong Phần 1, nhưng thêm '-2' vào tên. Để các trường khác là mặc định và nhấp vào **Create**.
+2. Khởi tạo thêm một S3 Bucket thứ hai:
+   - Vào S3 Console ➔ **Create bucket**.
+   - Đặt tên bucket: Sử dụng quy tắc đặt tên như bucket đầu nhưng thêm hậu tố `-2` (Ví dụ: `fcj-hybrid-s3-test-<your-name>-2`).
+   - Giữ nguyên các thiết lập mặc định và nhấp **Create bucket**.
 
 ![create bucket](/images/5-Workshop/5.5-Policy/create-bucket.png)
 
-3. Tạo bucket thành công.
-
 ![Success](/images/5-Workshop/5.5-Policy/create-bucket-success.png)
 
-Policy mặc định cho phép truy cập vào tất cả các S3 Buckets thông qua VPC endpoint.
+---
 
-4. Trong giao diện **Edit Policy**, sao chép và dán theo policy sau, thay thế yourbucketname-2 với tên bucket thứ hai của bạn. Policy này sẽ cho phép truy cập đến bucket mới thông qua VPC endpoint, nhưng không cho phép truy cập đến các bucket còn lại. Chọn **Save** để kích hoạt policy.
+#### 2. Cấu hình Giới hạn Quyền trên Gateway Endpoint Policy
 
+1. Mở **Amazon VPC Console** ➔ Mục **Endpoints** ➔ Chọn **`s3-gwe`**.
+2. Chọn tab **Policy** ➔ Nhấp **Edit policy** ➔ Chọn chế độ **Custom**.
+3. Dán đoạn JSON Policy bên dưới (Thay thế `<yourbucketname-2>` bằng tên bucket thứ hai):
 
-```
+```json
 {
   "Id": "Policy1631305502445",
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "Stmt1631305501021",
-      "Action": "s3:*",
+      "Sid": "RestrictAccessToSpecificBucketOnly",
       "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:*",
       "Resource": [
-      				"arn:aws:s3:::yourbucketname-2",
-       				"arn:aws:s3:::yourbucketname-2/*"
-       ],
-      "Principal": "*"
+        "arn:aws:s3:::<yourbucketname-2>",
+        "arn:aws:s3:::<yourbucketname-2>/*"
+      ]
     }
   ]
 }
@@ -59,37 +64,44 @@ Policy mặc định cho phép truy cập vào tất cả các S3 Buckets thông
 
 ![custom policy](/images/5-Workshop/5.5-Policy/policy2.png)
 
-Cấu hình policy thành công.
+4. Nhấp **Save changes**. Policy mới có hiệu lực ngay lập tức.
 
 ![success](/images/5-Workshop/5.5-Policy/success.png)
 
-5. Từ session của bạn trên Test-Gateway-Endpoint instance, kiểm tra truy cập đến S3 bucket bạn tạo ở bước đầu
+---
 
-```
-aws s3 ls s3://<yourbucketname>
-```
+#### 3. Thực nghiệm Kiểm chứng Chính sách Bảo mật
 
-Câu lệnh trả về lỗi bởi vì truy cập vào S3 bucket không có quyền trong VPC endpoint policy.
+1. Quay lại terminal Session Manager của `Test-Gateway-Endpoint`, thử liệt kê lại Bucket đầu tiên:
+   ```bash
+   aws s3 ls s3://<your-first-bucket-name>
+   ```
+   **Kết quả:** Lệnh bị chặn với thông báo lỗi: `An error occurred (AccessDenied) when calling the ListObjectsV2 operation: Access Denied`.
 
 ![error](/images/5-Workshop/5.5-Policy/error.png)
 
-6. Trở lại home directory của bạn trên EC2 instance ```cd~```
-
-+ Tạo file ```fallocate -l 1G test-bucket2.xyz ```
-+ Sao chép file lên bucket thứ  2 ```aws s3 cp test-bucket2.xyz s3://<your-2nd-bucket-name>```
+2. Tạo một tệp dữ liệu mới 1GB và tải lên Bucket thứ 2 (được phép trong Policy):
+   ```bash
+   cd ~
+   fallocate -l 1G test-bucket2.xyz
+   aws s3 cp test-bucket2.xyz s3://<your-2nd-bucket-name>
+   ```
+   **Kết quả:** Quá trình tải lên thành công 100%.
 
 ![success](/images/5-Workshop/5.5-Policy/test2.png)
 
-Thao tác này được cho phép bởi VPC endpoint policy.
-
 ![success](/images/5-Workshop/5.5-Policy/test2-success.png)
 
-Sau đó chúng ta kiểm tra truy cập vào S3 bucket đầu tiên
+3. Thử tải tệp `test-bucket2.xyz` vào Bucket đầu tiên:
+   ```bash
+   aws s3 cp test-bucket2.xyz s3://<your-1st-bucket-name>
+   ```
+   **Kết quả:** Hệ thống lập tức trả về lỗi `AccessDenied`.
 
- ```aws s3 cp test-bucket2.xyz s3://<your-1st-bucket-name>```
+![fail](/images/5-Workshop/5.5-Policy/test2-fail.png)
 
- ![fail](/images/5-Workshop/5.5-Policy/test2-fail.png)
+---
 
- Câu lệnh xảy ra lỗi bởi vì bucket không có quyền truy cập bởi VPC endpoint policy.
+#### 4. Tổng kết Kỹ thuật
 
-Trong phần này, bạn đã tạo chính sách VPC Endpoint cho Amazon S3 và sử dụng AWS CLI để kiểm tra chính sách. Các hoạt động AWS CLI liên quan đến bucket S3 ban đầu của bạn thất bại vì bạn áp dụng một chính sách chỉ cho phép truy cập đến bucket thứ hai mà bạn đã tạo. Các hoạt động AWS CLI nhắm vào bucket thứ hai của bạn thành công vì chính sách cho phép chúng. Những chính sách này có thể hữu ích trong các tình huống khi bạn cần kiểm soát quyền truy cập vào tài nguyên thông qua VPC Endpoint.
+Thực nghiệm chứng minh **VPC Endpoint Policy** hoạt động như một tầng kiểm soát độc lập với IAM Policy của máy chủ EC2. Ngay cả khi IAM Role của EC2 có quyền `AdministratorAccess`, nếu VPC Endpoint Policy không cấp phép quyền thao tác trên tài nguyên tương ứng, toàn bộ yêu cầu API đi qua Endpoint đều bị chặn đứng (`AccessDenied`). Đây là giải pháp hữu hiệu nhất để ngăn chặn rò rỉ dữ liệu ra bên ngoài trong kiến trúc bảo mật nhiều lớp (Defense-in-Depth).
