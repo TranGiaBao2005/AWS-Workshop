@@ -6,6 +6,27 @@ File này đóng vai trò là nhật ký ghi nhớ chi tiết (Persistent Memory
 
 ## 🕒 Lịch sử cập nhật bộ nhớ (Memory Update Logs)
 
+### [2026-11-17] Tích hợp Skill Avoid-AI-Writing & Chuẩn hóa toàn bộ Mục 5 (Workshop S3 Hybrid Access)
+
+- **Tích hợp Skill `avoid-ai-writing`:**
+  - Khởi tạo thành công tại `.agents/skills/avoid-ai-writing/` và đồng bộ vào thư mục skill toàn cục `C:\Users\se193234_TranGiaBao\.gemini\config\skills\avoid-ai-writing\SKILL.md`.
+  - Bao gồm `SKILL.md`, `references/patterns.md`, và `references/voice-profiles.md`.
+  - Định hình hồ sơ giọng văn `Technical Profile` cho Cloud Engineer, bộ quy tắc bảo tồn 100% mã nguồn/CLI/CIDR, và từ điển loại bỏ văn phong máy móc song ngữ Việt - Anh.
+
+- **Chuẩn hóa toàn diện 24 files trong mục 5 (Workshop - S3 Hybrid Access via VPC Endpoints):**
+  - **Xóa bỏ triệt để cảnh báo template:** Xóa hộp thoại *"⚠️ Lưu ý: Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng không sao chép nguyên văn..."* ở cả `_index.vi.md` và `_index.md`.
+  - **Khắc phục lỗi dịch máy thô thiển:**
+    - Thay thế *"môi trường truyền thống"* ➔ **"Môi trường On-Premises (Doanh nghiệp)"**.
+    - Thay thế *"bộ chứa S3"* ➔ **"S3 Bucket"**.
+    - Thay thế *"bản ghi Bí danh"* ➔ **"Alias Record"**.
+    - Thay thế *"điểm cuối cổng"* ➔ **"Gateway Endpoint"**.
+    - Loại bỏ các câu kết thúc sáo rỗng (*"Xin chúc mừng bạn đã hoàn thành..."*).
+  - **Nâng cấp nội dung chuyên nghiệp:**
+    - Bổ sung bảng so sánh Gateway Endpoint vs Interface Endpoint (AWS PrivateLink).
+    - Làm rõ nguyên lý Conditional DNS Forwarding qua Route 53 Resolver (Inbound/Outbound Endpoints & Private Hosted Zone).
+    - Chuẩn hóa các bước kiểm thử thực tế với Session Manager, `fallocate` 1GB, và kiểm soát rò rỉ dữ liệu qua VPC Endpoint Policy.
+    - 100% build sạch trên Hugo (102 trang EN, 101 trang VI, 536 static files).
+
 ### [2026-11-17] Khắc phục GitHub Pages 404 & Tối ưu tự động bung menu Worklog Tuần 1-14
 
 - **Vấn đề 1 (Lỗi GitHub Pages 404 - Page Not Found):**
