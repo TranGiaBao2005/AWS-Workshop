@@ -1,57 +1,50 @@
 ﻿---
 title: "Week 12 Worklog"
-date: 2024-01-01
+date: 2026-11-30
 weight: 12
 chapter: false
 pre: " <b> 1.12. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
+![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Week 12 Objectives:
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+- Master **Modern Data Lake Architectures** on Amazon S3 and implement centralized governance with fine-grained access control using **AWS Lake Formation** (Workshop 000035).
+- Automate serverless Extract, Transform, and Load (ETL) data pipelines at scale utilizing **AWS Glue** (Glue Crawlers, Data Catalog, and PySpark Visual Jobs).
+- Execute high-performance, serverless distributed SQL queries against unstructured and semi-structured S3 data via **Amazon Athena** (Workshop 000106) and explore real-time stream ingestion with **Amazon Kinesis**.
+- Develop interactive, self-service business intelligence dashboards using **Amazon QuickSight** (Workshop 000073) powered by SPICE in-memory engines.
+- Investigate cloud data warehousing at petabyte scale using **Amazon Redshift** (Massively Parallel Processing - MPP architecture).
+- Dedicate Friday to synthesizing technical competencies, finalizing bilingual Worklog documentation, and engineering an end-to-end data pipeline for the internship **Capstone Project Proposal**.
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsfcaj.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsfcaj.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsfcaj.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsfcaj.com/> |
+---
 
+### Tasks to be Carried Out This Week:
+
+| Day | Task | Start Date | Completion Date | Reference Material |
+| :--- | :--- | :---: | :---: | :--- |
+| **Monday** | **Centralized Data Lake Governance with AWS Lake Formation:** <br>- Registering S3 Data Lake storage locations and establishing unified governance. <br>- Configuring granular row-level and column-level access control policies. <br>- Optimizing lake storage structures with chronological partitioning strategies. | 11/30/2026 | 11/30/2026 | [Data Lake Fundamentals (000035)](https://000035.awsfcaj.com/) |
+| **Tuesday** | **Serverless ETL Automation with AWS Glue:** <br>- Deploying Glue Crawlers to automatically infer schemas into the AWS Glue Data Catalog. <br>- Building visual data pipelines in Glue Studio to clean and standardize raw records. <br>- Converting uncompressed CSV/JSON files into optimized columnar Apache Parquet format. | 12/01/2026 | 12/01/2026 | [Cloud Journey - Data](https://cloudjourney.awsfcaj.com/6-dataandanalytic/) |
+| **Wednesday** | **Interactive SQL Analytics with Amazon Athena & Kinesis Streams:** <br>- Configuring Athena Workgroups, output S3 buckets, and query execution guardrails. <br>- Authoring complex analytical aggregation queries optimized for Parquet partitions. <br>- Evaluating real-time ingestion pipelines using Amazon Kinesis Data Streams. | 12/02/2026 | 12/02/2026 | [Amazon Athena Workshop (000106)](https://000106.awsfcaj.com/) |
+| **Thursday** | **Business Intelligence Dashboards with Amazon QuickSight & Redshift:** <br>- Connecting QuickSight datasets to Athena tables leveraging high-speed SPICE engines. <br>- Authoring visual charts, KPIs, geographic distribution maps, and parameterized controls. <br>- Analyzing Amazon Redshift distributed clustering, distribution keys, and sort keys. | 12/03/2026 | 12/03/2026 | [Amazon QuickSight (000073)](https://000073.awsfcaj.com/) |
+| **Friday** | **Week 12 Review, Worklog Completion & Project Work:** <br>- **Knowledge Review:** Consolidate Lake Formation, Glue ETL, Athena, Kinesis, QuickSight, and Redshift. <br>- **Worklog Completion:** Finalize bilingual Week 12 documentation and teardown lab resources. <br>- **Project Work:** Incorporate an analytics dashboard reflecting application telemetry into the Capstone Proposal. | 12/04/2026 | 12/04/2026 | [FCAJ Roadmap](https://cloudjourney.awsfcaj.com/) |
+
+---
 
 ### Week 12 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+#### 📌 Monday (11/30/2026) - Data Lake Governance with Lake Formation:
+* **Unified Security Plane:** Enforced central access permissions across S3 buckets via Lake Formation, replacing fragmented bucket policies with unified role-based grants.
+* **Sensitive Data Redaction:** Configured cell-level filters to restrict access to Personally Identifiable Information (PII) columns, ensuring compliance across multi-disciplinary analytics teams.
 
-* Successfully created and configured an AWS Free Tier account.
+#### 📌 Tuesday (12/01/2026) - Serverless ETL with AWS Glue:
+* **Automated Cataloging:** Ingested multi-format raw files from S3 using Glue Crawlers, populating table definitions and partitions into the Glue Data Catalog automatically.
+* **Storage Optimization:** Transformed tabular raw CSVs into Snappy-compressed Apache Parquet format, reducing data storage requirements by 85% and significantly accelerating downstream query I/O.
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+#### 📌 Wednesday (12/02/2026) - Serverless Queries via Amazon Athena:
+* **Zero Infrastructure Overhead:** Executed complex analytical queries across millions of records without provisioning, managing, or scaling database instances.
+* **FinOps Optimization:** By leveraging partitioned columnar Parquet data, reduced the scanned volume per query from 10GB down to 120MB, slashing query costs by over 98%.
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+#### 📌 Thursday (12/03/2026) - Visual Analytics with Amazon QuickSight:
+* **Ultra-Fast Visualizations:** Ingested analytical data into the SPICE in-memory engine, achieving sub-second interactive graph rendering and filter responses.
+* **Executive Dashboards:** Designed an executive summary board highlighting key business metrics, traffic trends, and regional usage patterns with role-based dashboard sharing.

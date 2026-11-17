@@ -6,6 +6,25 @@ File này đóng vai trò là nhật ký ghi nhớ chi tiết (Persistent Memory
 
 ## 🕒 Lịch sử cập nhật bộ nhớ (Memory Update Logs)
 
+### [2026-11-17] Tái cấu trúc và Sắp xếp toàn diện 14 Tuần Worklog theo Lộ trình https://cloudjourney.awsfcaj.com/
+
+- **Bối cảnh & Yêu cầu:** Người dùng yêu cầu đồng bộ toàn bộ tài liệu và sắp xếp thứ tự các tuần trong Worklog từ trên xuống dưới theo đúng lộ trình của `https://cloudjourney.awsfcaj.com/`. Loại bỏ các đoạn văn bản mẫu (placeholder "Làm công việc A..."), xóa bỏ triệt để cảnh báo template (`{{% notice warning %}}`), và đồng bộ lịch trình liên tục 14 tuần (14/09/2026 - 18/12/2026).
+- **Phạm vi cập nhật (26 files):**
+  - **Trang tổng quan Worklog (`content/1-Worklog/_index.vi.md` và `_index.md`):**
+    - Thay thế bảng template 12 tuần cũ bằng Bảng tổng hợp lộ trình 14 tuần thực tập (Master 14-Week Curriculum Roadmap) với đầy đủ ngày tháng, chủ đề, dịch vụ trọng tâm và đường dẫn trực tiếp.
+    - Xóa bỏ hoàn toàn hộp cảnh báo template `notice warning`.
+  - **Chuẩn hóa Weeks 8 - 14 theo thứ tự từ trên xuống dưới của Cloud Journey:**
+    - **Tuần 8 (02/11 – 06/11/2026):** Hạ tầng dưới dạng mã & Tự động hóa (AWS CloudFormation 000037, AWS CDK, AWS Systems Manager SSM 000024, AWS Backup 000038).
+    - **Tuần 9 (09/11 – 13/11/2026):** Di trú hệ thống & Mạng mở rộng lai (VM Import/Export 000027, AWS MGN, AWS DMS 000031 & SCT, AWS Transit Gateway, AWS DataSync & Storage Gateway).
+    - **Tuần 10 (16/11 – 20/11/2026):** Kiến trúc phi máy chủ hướng sự kiện (Amazon API Gateway, Amazon SQS Standard/FIFO/DLQ, Amazon SNS & EventBridge, AWS Step Functions).
+    - **Tuần 11 (23/11 – 27/11/2026):** Điều phối Container doanh nghiệp & Microservices (Docker & Amazon ECR, Amazon ECS Fargate 000067, Amazon EKS Kubernetes 000126, AWS App Runner & ROSA 000071).
+    - **Tuần 12 (30/11 – 04/12/2026):** Hồ dữ liệu lớn & Phân tích thông minh (AWS Lake Formation & S3 Data Lake 000035, AWS Glue ETL, Amazon Athena 000106, Amazon Kinesis, Amazon QuickSight 000073 & Redshift).
+    - **Tuần 13 (07/12 – 11/12/2026):** Trí tuệ nhân tạo thế hệ mới (GenAI) trên AWS (Amazon Bedrock Foundation Models, Prompt Engineering & RAG Knowledge Bases, Bedrock Agents & Action Groups, Amazon SageMaker).
+    - **Tuần 14 (14/12 – 18/12/2026):** Bảo vệ Đồ án tốt nghiệp & Tổng kết thực tập (Đóng gói báo cáo & xuất bản mã nguồn, Slide thuyết trình & Demo kịch bản, Bảo vệ trước Hội đồng Mentor FCAJ, Dọn dẹp tài nguyên Teardown an toàn, Tổng kết kỳ thực tập).
+  - **Loại bỏ cảnh báo template tồn đọng:** Xóa toàn bộ hộp cảnh báo mẫu `notice warning` tại Weeks 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14.
+  - **Đảm bảo nguyên tắc Thứ 6:** Tất cả các tuần Thứ 6 đều chuẩn hóa thành: "Tổng kết tuần X, Viết Worklog & Làm Project (Proposal)".
+  - **Kiểm định chất lượng Hugo:** 94 trang EN, 93 trang VI, 537 static files, build thành công sạch 100% trong 2.2 giây.
+
 ### [2026-11-17] Di trú toàn bộ tài liệu tham khảo sang tên miền chính thức https://cloudjourney.awsfcaj.com/
 
 - **Bối cảnh:** Hệ thống tên miền cũ `awsstudygroup.com` (và các subdomains `0000xx.awsstudygroup.com`, `cloudjourney.awsstudygroup.com`) có nguy cơ bị hủy hoặc không truy cập được do chương trình First Cloud Journey (FCJ) đã chuyển đổi hoàn toàn sang nền tảng tên miền mới `awsfcaj.com`.

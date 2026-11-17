@@ -1,39 +1,44 @@
 ---
 title: "Worklog"
-date: 2024-01-01
+date: 2026-09-14
 weight: 1
 chapter: false
 pre: " <b> 1. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
+![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
-**On this page**, you will need to introduce your worklog. **How** did you complete it? How many weeks did you take to complete the program? **What** did you do in those weeks?
+This **Worklog** section documents the end-to-end learning roadmap, hands-on architectural implementations, and project milestones achieved throughout the **14-week internship program** (from **September 14, 2026** to **December 18, 2026**) at **First Cloud AI Journey (FCAJ)**.
 
-Typically, and as a standard, a worklog is carried out over about 3 months (throughout the internship period) with weekly contents as follows:
+The structured curriculum adheres strictly to the official [The First Cloud Journey Roadmap](https://cloudjourney.awsfcaj.com/) from top to bottom, progressing systematically through core foundational infrastructure, Well-Architected optimizations, cloud migration strategies, decoupled serverless patterns, enterprise container orchestration, big data pipelines, and cutting-edge Generative AI integration for the final **Capstone Project**.
 
-**Week 1:** [Getting familiar with AWS and basic AWS services](1.1-week1/)
+---
 
-**Week 2:** [Doing task A...](1.2-week2/)
+### 🗺️ Master 14-Week Curriculum Roadmap
 
-**Week 3:** [Doing task B...](1.3-week3/)
+| Week | Period | Core Focus & Implemented Services | Roadmap Module | Link |
+| :---: | :---: | :--- | :--- | :---: |
+| **Week 1** | Sep 14 – Sep 18, 2026 | **Core AWS Infrastructure & Security:** AWS Budgets cost governance, IAM permissions, Amazon VPC isolated networking, Amazon EC2 compute instances, Amazon S3 object storage. | [Explore Services](https://cloudjourney.awsfcaj.com/) | [View Week 1](1.1-week1/) |
+| **Week 2** | Sep 21 – Sep 25, 2026 | **Well-Architected System Optimization:** AWS Lambda serverless operations, AWS KMS cryptographic controls, AWS WAF application defense, ECS Fargate containers, Savings Plans & Glue/Athena cost analytics. | [Optimize System](https://cloudjourney.awsfcaj.com/3-optimize/) | [View Week 2](1.2-week2/) |
+| **Week 3** | Sep 28 – Oct 02, 2026 | **App Modernization & Relational Databases:** Serverless SAM & Cognito, Containers ECS/EKS/ROSA, QuickSight & Athena, hands-on Amazon RDS MySQL Multi-AZ database deployment. | [Modernize & DB](https://cloudjourney.awsfcaj.com/4-modernize/) | [View Week 3](1.3-week3/) |
+| **Week 4** | Oct 05 – Oct 09, 2026 | **Elastic Compute & Operational Monitoring:** Amazon Lightsail, Lightsail Container services, EC2 Auto Scaling elasticity with ALB, centralized Amazon CloudWatch metrics and alarms. | [Compute & Monitor](https://cloudjourney.awsfcaj.com/) | [View Week 4](1.4-week4/) |
+| **Week 5** | Oct 12 – Oct 16, 2026 | **Hybrid Networking & Purpose-Built Databases:** Route 53 Hybrid DNS Resolver, command-line operations with AWS CLI, Amazon DynamoDB NoSQL, Amazon ElastiCache Redis in-memory cache. | [Hybrid & Databases](https://cloudjourney.awsfcaj.com/) | [View Week 5](1.5-week5/) |
+| **Week 6** | Oct 19 – Oct 23, 2026 | **Quota Governance & Visual Observability:** AWS Service Quotas limit requests, EC2 cost optimization with Lambda & Slack ChatOps, Tags & Resource Groups, CloudWatch & Grafana dashboards. | [Cost & Observability](https://cloudjourney.awsfcaj.com/3-optimize/) | [View Week 6](1.6-week6/) |
+| **Week 7** | Oct 26 – Oct 30, 2026 | **Deep Observability & Technical Publication:** CloudWatch Advanced Workshop, Logs Insights regex analytics, Metric Math & Dynamic Labels, SNS alarms, community event review & Blog 1 publication. | [Deep Observability](https://catalog.workshops.aws/observability/en-US/) | [View Week 7](1.7-week7/) |
+| **Week 8** | Nov 02 – Nov 06, 2026 | **Infrastructure as Code & Cloud Automation:** AWS CloudFormation stacks, AWS Cloud Development Kit (CDK), server fleet management with AWS Systems Manager (SSM), centralized AWS Backup. | [IaC & Operations](https://cloudjourney.awsfcaj.com/3-optimize/) | [View Week 8](1.8-week8/) |
+| **Week 9** | Nov 09 – Nov 13, 2026 | **Cloud Migration & Extended Hybrid Networking:** VM Import/Export & AWS MGN host migration, AWS DMS & SCT database migration, hub-and-spoke AWS Transit Gateway, AWS DataSync & Storage Gateway. | [Cloud Migration](https://cloudjourney.awsfcaj.com/2-migration/) | [View Week 9](1.9-week9/) |
+| **Week 10** | Nov 16 – Nov 20, 2026 | **Serverless & Event-Driven Architecture:** Amazon API Gateway (REST/HTTP), decoupling with Amazon SQS (Standard/FIFO/DLQ), pub/sub messaging with Amazon SNS & EventBridge, AWS Step Functions state machines. | [Serverless & Event](https://cloudjourney.awsfcaj.com/4-modernize/) | [View Week 10](1.10-week10/) |
+| **Week 11** | Nov 23 – Nov 27, 2026 | **Enterprise Container Orchestration & Microservices:** Container packaging with Docker & Amazon ECR, Amazon ECS Fargate serverless containers, managed Kubernetes with Amazon EKS, AWS App Runner & ROSA. | [Containers & K8s](https://cloudjourney.awsfcaj.com/5-container/) | [View Week 11](1.11-week11/) |
+| **Week 12** | Nov 30 – Dec 04, 2026 | **Big Data Analytics, Data Lakes & BI:** AWS Lake Formation & S3 Data Lake, serverless ETL with AWS Glue, distributed SQL queries with Amazon Athena, stream analytics with Kinesis, Amazon QuickSight & Redshift. | [Data & Analytics](https://cloudjourney.awsfcaj.com/6-dataandanalytic/) | [View Week 12](1.12-week12/) |
+| **Week 13** | Dec 07 – Dec 11, 2026 | **Generative AI & Machine Learning on AWS:** Foundation Models on Amazon Bedrock, Prompt Engineering & RAG Knowledge Bases with Vector Search, autonomous Bedrock Agents, Amazon SageMaker ML endpoints. | [Generative AI](https://cloudjourney.awsfcaj.com/) | [View Week 13](1.13-week13/) |
+| **Week 14** | Dec 14 – Dec 18, 2026 | **Capstone Project Defense & Internship Completion:** Architecture documentation packaging, slide deck & live demo preparation, formal defense before FCAJ Mentors, safe cloud resource teardown. | [Capstone & Completion](https://cloudjourney.awsfcaj.com/) | [View Week 14](1.14-week14/) |
 
-**Week 4:** [Doing task C...](1.4-week4/)
+---
 
-**Week 5:** [Doing task D...](1.5-week5/)
+### 🎯 Execution Principles & Implementation Standards
 
-**Week 6:** [Doing task E...](1.6-week6/)
-
-**Week 7:** [Doing task G...](1.7-week7/)
-
-**Week 8:** [Doing task H...](1.8-week8/)
-
-**Week 9:** [Doing task I...](1.9-week9/)
-
-**Week 10:** [Doing task L...](1.10-week10/)
-
-**Week 11:** [Doing task M...](1.11-week11/)
-
-**Week 12:** [Doing task N...](1.12-week12/)
+1. **Monday to Friday Work Cadence:**
+   - **Monday through Thursday:** Dedicated to architectural design, step-by-step console/CLI/SDK hands-on execution, configuration logging, and capturing verifiable output screenshots.
+   - **Friday:** Strictly reserved for weekly knowledge synthesis, bilingual worklog documentation, resource auditing/cleanup, and developing the **Internship Capstone Project / Proposal**.
+2. **Adherence to Architectural Best Practices:** All workloads and network designs are evaluated against the six pillars of the **AWS Well-Architected Framework**: Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, and Sustainability.
+3. **Official Documentation Sources:** Strictly synchronized with **[https://cloudjourney.awsfcaj.com/](https://cloudjourney.awsfcaj.com/)** and corresponding `https://0000xx.awsfcaj.com/` specialized workshop labs.

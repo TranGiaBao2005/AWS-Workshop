@@ -6,9 +6,7 @@ chapter: false
 pre: " <b> 1.5. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Mục tiêu tuần 5:
 

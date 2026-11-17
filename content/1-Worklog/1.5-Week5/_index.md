@@ -6,9 +6,7 @@ chapter: false
 pre: " <b> 1.5. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Notice:** The information provided below is for reference purposes only. Please do not directly copy the content into your final reports.
-{{% /notice %}}
+![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Week 5 Objectives:
 
