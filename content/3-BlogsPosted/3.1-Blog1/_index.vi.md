@@ -7,11 +7,9 @@ pre: " <b> 3.1. </b> "
 ---
 
 {{% notice info %}}
-* **Nguồn bài viết gốc:** [AWS Continuum for code vulnerabilities is now generally available](https://aws.amazon.com/blogs/aws/aws-continuum-for-code-vulnerabilities-is-now-generally-available/) (AWS News Blog — Tác giả: Esra Kayabali, GA: 22/10/2026).
-* **Bài đăng thảo luận cộng đồng:** [Xem bài viết trên nhóm Facebook AWS Study Group - First Cloud Journey](https://www.facebook.com/groups/awsstudygroupfcj/posts/2319591015472524/).
+* **Link bài post tác giả đã đăng:** [Xem bài viết trên nhóm Facebook AWS Study Group - First Cloud Journey](https://www.facebook.com/groups/awsstudygroupfcj/posts/2319591015472524/)
+* **Nguồn tham khảo bài viết gốc:** [AWS Continuum for code vulnerabilities is now generally available](https://aws.amazon.com/blogs/aws/aws-continuum-for-code-vulnerabilities-is-now-generally-available/) (AWS News Blog — Tác giả: Esra Kayabali, GA: 22/10/2026).
 {{% /notice %}}
-
-![Sơ đồ kiến trúc AWS Continuum](/images/3-BlogsPosted/3.1-Blog1/continuum-architecture.png)
 
 ### 1. Bối cảnh và thách thức trong quy trình DevSecOps
 
@@ -23,33 +21,9 @@ Các công cụ quét mã nguồn tĩnh (SAST) hay quét phần mềm phụ thu�
 
 ### 2. Kiến trúc và cơ chế vận hành của AWS Continuum
 
-Khác biệt với các công cụ cảnh báo thụ động, AWS Continuum vận hành theo mô hình vòng lặp 6 bước khép kín và tự động:
+Khác biệt với các công cụ quét cảnh báo thụ động, AWS Continuum vận hành theo mô hình vòng lặp tự động khép kín kết hợp giữa mã nguồn kho lưu trữ và ngữ cảnh hạ tầng AWS thực tế:
 
-```mermaid
-graph TD
-    subgraph Dev_Env ["💻 Developer Environment (GitHub / GitLab)"]
-        Repo["Source Code Repository"]
-        PR["PR: Continuum fix"]
-        Dev["👤 Dev / Security Reviewer"]
-        Dev -->|6. Review & Merge| PR
-    end
-
-    subgraph AWS_Account ["☁️ Customer AWS Account"]
-        Collector["Continuum Collector<br/>(Context Graph Engine)"]
-        CloudCfg["AWS Config & VPC Topology"]
-        CloudCfg -->|2. Read Cloud Context| Collector
-        Repo -->|1. Scan Code| Collector
-    end
-
-    subgraph Continuum_Managed ["🛡️ AWS Continuum Service (Managed)"]
-        Sandbox["Isolated Testing Sandbox<br/>(PoC Exploit)"]
-        Engine["AI Remediation Engine<br/>(Patch Generation)"]
-        Collector -->|3. Trigger PoC Exploit| Sandbox
-        Sandbox -->|4. Validated Evidence| Engine
-    end
-
-    Engine -->|5. Auto Open PR| PR
-```
+![Sơ đồ kiến trúc AWS Continuum](/images/3-BlogsPosted/3.1-Blog1/continuum-architecture.jpg)
 
 Kiến trúc của Continuum được xây dựng trên 4 nguyên lý công nghệ cốt lõi:
 

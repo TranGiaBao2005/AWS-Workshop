@@ -7,11 +7,9 @@ pre: " <b> 3.1. </b> "
 ---
 
 {{% notice info %}}
-* **Original Article Source:** [AWS Continuum for code vulnerabilities is now generally available](https://aws.amazon.com/blogs/aws/aws-continuum-for-code-vulnerabilities-is-now-generally-available/) (AWS News Blog — Author: Esra Kayabali, GA: October 22, 2026).
-* **Community Discussion Post:** [View discussion post on AWS Study Group - First Cloud Journey](https://www.facebook.com/groups/awsstudygroupfcj/posts/2319591015472524/).
+* **Link to Author's Published Community Post:** [View post on Facebook AWS Study Group - First Cloud Journey](https://www.facebook.com/groups/awsstudygroupfcj/posts/2319591015472524/)
+* **Original Article Reference:** [AWS Continuum for code vulnerabilities is now generally available](https://aws.amazon.com/blogs/aws/aws-continuum-for-code-vulnerabilities-is-now-generally-available/) (AWS News Blog — Author: Esra Kayabali, GA: October 22, 2026).
 {{% /notice %}}
-
-![AWS Continuum Architecture Diagram](/images/3-BlogsPosted/3.1-Blog1/continuum-architecture.png)
 
 ### 1. Background & The DevSecOps Triage Bottleneck
 
@@ -23,33 +21,9 @@ To resolve these chronic challenges, on October 22, 2026, AWS announced the Gene
 
 ### 2. Architectural Breakthrough: How AWS Continuum Operates
 
-Unlike traditional alerting scanners, AWS Continuum establishes a closed-loop, six-stage autonomous remediation lifecycle:
+Unlike traditional alerting scanners, AWS Continuum establishes a closed-loop, automated remediation lifecycle connecting repository source code with live AWS infrastructure topology:
 
-```mermaid
-graph TD
-    subgraph Dev_Env ["💻 Developer Environment (GitHub / GitLab)"]
-        Repo["Source Code Repository"]
-        PR["PR: Continuum fix"]
-        Dev["👤 Dev / Security Reviewer"]
-        Dev -->|6. Review & Merge| PR
-    end
-
-    subgraph AWS_Account ["☁️ Customer AWS Account"]
-        Collector["Continuum Collector<br/>(Context Graph Engine)"]
-        CloudCfg["AWS Config & VPC Topology"]
-        CloudCfg -->|2. Read Cloud Context| Collector
-        Repo -->|1. Scan Code| Collector
-    end
-
-    subgraph Continuum_Managed ["🛡️ AWS Continuum Service (Managed)"]
-        Sandbox["Isolated Testing Sandbox<br/>(PoC Exploit)"]
-        Engine["AI Remediation Engine<br/>(Patch Generation)"]
-        Collector -->|3. Trigger PoC Exploit| Sandbox
-        Sandbox -->|4. Validated Evidence| Engine
-    end
-
-    Engine -->|5. Auto Open PR| PR
-```
+![AWS Continuum Architecture Diagram](/images/3-BlogsPosted/3.1-Blog1/continuum-architecture.jpg)
 
 Continuum's operational model is built on four core technological pillars:
 
