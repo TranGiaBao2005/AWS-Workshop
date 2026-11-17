@@ -1,4 +1,4 @@
----
+﻿---
 title: "Week 4 Worklog"
 date: 2026-10-05
 weight: 4
@@ -22,10 +22,10 @@ pre: " <b> 1.4. </b> "
 
 | Day | Task | Start Date | Completion Date | Reference Material |
 | :--- | :--- | :--- | :--- | :--- |
-| **Monday** | **Amazon Lightsail Deployment:** <br>- Managed MySQL Database & WordPress Instance. <br>- Ubuntu Configuration, Static IP & Networking. <br>- Prestashop E-Commerce Platform. <br>- Snapshots Backup & Hardware Migration. | 05/10/2026 | 05/10/2026 | [Lightsail Workshop](https://000045.awsstudygroup.com/) |
-| **Tuesday** | **Run Applications on Amazon Lightsail Container:** <br>- Setup AWS CLI & Resolve IAM Policy Restrictions. <br>- Provision Lightsail Container Service. <br>- Deploy Public Nginx Container Image. <br>- Package & Push Custom Image via Build-Instance. | 06/10/2026 | 06/10/2026 | [Lightsail Container](https://000046.awsstudygroup.com/) |
-| **Wednesday** | **Scaling Applications with EC2 Auto Scaling:** <br>- Package Custom AMI & Build Launch Template. <br>- Establish Target Group & Application Load Balancer. <br>- Configure Auto Scaling Group & Scaling Policies. <br>- Execute Stress Testing & Validate Scale Out/In. | 07/10/2026 | 07/10/2026 | [Auto Scaling Workshop](https://000006.awsstudygroup.com/) |
-| **Thursday** | **Monitoring with Amazon CloudWatch:** <br>- Install CloudWatch Agent & Stream EC2 Metrics/Logs. <br>- Telemetry plotting with Search Expressions & Math Expressions. <br>- Query log data with CloudWatch Logs Insights. <br>- Configure Metric Filters and automated CloudWatch Alarms. | 08/10/2026 | 08/10/2026 | [CloudWatch Workshop](https://000008.awsstudygroup.com/) |
+| **Monday** | **Amazon Lightsail Deployment:** <br>- Managed MySQL Database & WordPress Instance. <br>- Ubuntu Configuration, Static IP & Networking. <br>- Prestashop E-Commerce Platform. <br>- Snapshots Backup & Hardware Migration. | 05/10/2026 | 05/10/2026 | [Lightsail Workshop](https://000045.awsfcaj.com/) |
+| **Tuesday** | **Run Applications on Amazon Lightsail Container:** <br>- Setup AWS CLI & Resolve IAM Policy Restrictions. <br>- Provision Lightsail Container Service. <br>- Deploy Public Nginx Container Image. <br>- Package & Push Custom Image via Build-Instance. | 06/10/2026 | 06/10/2026 | [Lightsail Container](https://000046.awsfcaj.com/) |
+| **Wednesday** | **Scaling Applications with EC2 Auto Scaling:** <br>- Package Custom AMI & Build Launch Template. <br>- Establish Target Group & Application Load Balancer. <br>- Configure Auto Scaling Group & Scaling Policies. <br>- Execute Stress Testing & Validate Scale Out/In. | 07/10/2026 | 07/10/2026 | [Auto Scaling Workshop](https://000006.awsfcaj.com/) |
+| **Thursday** | **Monitoring with Amazon CloudWatch:** <br>- Install CloudWatch Agent & Stream EC2 Metrics/Logs. <br>- Telemetry plotting with Search Expressions & Math Expressions. <br>- Query log data with CloudWatch Logs Insights. <br>- Configure Metric Filters and automated CloudWatch Alarms. | 08/10/2026 | 08/10/2026 | [CloudWatch Workshop](https://000008.awsfcaj.com/) |
 | **Friday** | **Week 4 Review, Worklog & Project:** <br>- Synthesize concepts across Lightsail, Auto Scaling, and CloudWatch. <br>- Finalize technical details and screenshots for Worklogs 1.4.1 through 1.4.4. <br>- Research AWS architectural patterns and advance internship project proposal. | 09/10/2026 | 09/10/2026 | [Internal Review & Project Documentation](/2-proposal/) |
 
 ---
