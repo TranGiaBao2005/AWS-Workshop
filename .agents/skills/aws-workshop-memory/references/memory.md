@@ -742,10 +742,9 @@ Phần này dùng để tra cứu ngay lập tức khi người dùng hỏi lạ
 ### [2026-11-17] Chuẩn hóa tiêu đề mục Blog & Thiết lập dấu tick xanh tạm thời theo phiên (Session Cache)
 
 - **Chuẩn hóa mục Blog (`content/3-BlogsPosted/`):**
-  - **Blog 1 (`3.1-Blog1`):** Loại bỏ tiêu đề `# H1` thừa trong phần thân bài viết (do Hugo theme tự động sinh thẻ `<h1>` từ frontmatter). Tinh chỉnh frontmatter title thành `Giới thiệu AWS Continuum for Code Vulnerabilities`, loại bỏ lặp từ `Blog 1:`. Cập nhật ảnh minh chứng Facebook post trên AWS Study Group cho cả bản tiếng Việt và tiếng Anh.
-  - **Blog 2 (`3.2-Blog2`):** Chuẩn hóa tiêu đề `Session Policies trong Amazon EKS Pod Identity`. Gỡ bỏ toàn bộ hộp cảnh báo mẫu `notice warning`, tiêu đề `# H1` trùng lặp và các ký tự giữ chỗ `...Hình ảnh...`, thay thế bằng bài phân tích kỹ thuật chuẩn mực, kèm ví dụ JSON policy và câu lệnh AWS CLI liên kết Pod Identity.
-  - **Blog 3 (`3.3-Blog3`):** Chuẩn hóa tiêu đề `Tối ưu hóa Chi phí và Hiệu năng với Amazon S3 Express One Zone`. Xóa bỏ hoàn toàn warning mẫu và hoàn thiện bài viết phân tích bảng so sánh kiến trúc giữa S3 Express One Zone và S3 Standard.
-  - **Trang danh mục Blog (`content/3-BlogsPosted/_index.*`):** Cập nhật danh sách liên kết cả 3 bài viết chỉn chu, rõ ràng.
+  - **Blog 1 (`3.1-Blog1`):** Bài viết duy nhất đã thực hiện và đăng tải chính thức (AWS Continuum for Code Vulnerabilities). Đã loại bỏ tiêu đề `# H1` thừa trong phần thân bài viết (để không bị trùng lặp với thẻ `<h1>` tự động của Hugo), tinh chỉnh title frontmatter gọn gàng, và gắn kèm link + ảnh minh chứng bài đăng trên nhóm Facebook AWS Study Group.
+  - **Blog 2 (`3.2-Blog2`) & Blog 3 (`3.3-Blog3`):** Xác nhận rõ ràng là 2 vị trí dự phòng (Upcoming / Đang cập nhật) dành cho các bài viết tiếp theo trong kỳ thực tập, KHÔNG điền bài viết giả định. Đã dọn sạch cảnh báo mẫu `notice warning` và thay thế bằng trang thông báo bảo lưu tiến độ chuẩn mực.
+  - **Trang danh mục Blog (`content/3-BlogsPosted/_index.*`):** Cập nhật danh sách: Blog 1 là bài viết hoàn tất, Blog 2 & 3 là các thư mục dự phòng đang cập nhật.
 
 - **Khắc phục lỗi hiển thị dấu tick xanh (`.read-icon`) thành bộ nhớ tạm theo phiên (Session Cache):**
   - **Nguyên nhân gốc rễ:** Trong `static/css/theme-workshop.css`, bộ chọn `#sidebar ul.topics li a .read-icon` và `#sidebar ul li a .read-icon` bị gán `display: inline-flex !important;`, khiến mọi mục menu đều bị ép hiện dấu checkmark ngay cả khi chưa đọc.

@@ -19,14 +19,12 @@ Khu vực tổng hợp các bài viết phân tích, chia sẻ kiến thức chu
 
 ---
 
-### [3.2. Session Policies trong Amazon EKS Pod Identity](3.2-Blog2/)
+### [3.2. Blog 2 (Đang cập nhật)](3.2-Blog2/)
 
-- **Chủ đề chính:** Quản trị đặc quyền tối thiểu (Least Privilege) với Session Policies trong Amazon EKS Pod Identity.
-- **Tóm tắt nội dung:** Phân tích cơ chế thu hẹp quyền IAM linh hoạt cho từng pod trong cụm Kubernetes bằng Session Policy inline. Giúp triệt tiêu rủi ro cấp thừa quyền (Over-permissioning), chống tình trạng bùng nổ IAM Role (Role Sprawl) và bảo vệ hệ thống tuân thủ các chuẩn an toàn khắt khe.
+_(Thư mục dự phòng dành cho bài viết tiếp theo trong kỳ thực tập)_
 
 ---
 
-### [3.3. Tối ưu hóa Chi phí và Hiệu năng với Amazon S3 Express One Zone](3.3-Blog3/)
+### [3.3. Blog 3 (Đang cập nhật)](3.3-Blog3/)
 
-- **Chủ đề chính:** Tăng tốc truy xuất dữ liệu với độ trễ dưới 10 mili-giây và giảm tới 50% chi phí request.
-- **Tóm tắt nội dung:** Khảo sát chi tiết lớp lưu trữ S3 Express One Zone cho các workload đòi hỏi hiệu năng cao như huấn luyện mô hình Trí tuệ Nhân tạo (AI/ML), phân tích Big Data và bộ nhớ đệm tốc độ cao.
+_(Thư mục dự phòng dành cho bài viết tiếp theo trong kỳ thực tập)_

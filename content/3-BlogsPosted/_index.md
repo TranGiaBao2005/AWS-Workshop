@@ -19,14 +19,12 @@ This section indexes in-depth technical blogs and cloud architectural analyses p
 
 ---
 
-### [3.2. Session Policies in Amazon EKS Pod Identity](3.2-Blog2/)
+### [3.2. Blog 2 (Upcoming)](3.2-Blog2/)
 
-- **Core Topic:** Fine-grained least-privilege access management with inline session policies in Amazon EKS Pod Identity.
-- **Summary:** Architectural analysis on narrowing pod-level IAM permissions dynamically without multiplying IAM roles. Eliminates over-permissioning risks, prevents IAM role limits exhaustion, and simplifies cluster governance.
+_(Reserved placeholder directory for the next technical article during the internship)_
 
 ---
 
-### [3.3. Optimizing Performance and Cost with Amazon S3 Express One Zone](3.3-Blog3/)
+### [3.3. Blog 3 (Upcoming)](3.3-Blog3/)
 
-- **Core Topic:** Single-digit millisecond latency data access with up to 50% lower request charges.
-- **Summary:** Detailed exploration of Amazon S3 Express One Zone storage class for latency-sensitive cloud workloads including AI/ML model training, interactive big data analytics, and high-speed temporary caching.
+_(Reserved placeholder directory for subsequent technical articles during the internship)_
