@@ -32,16 +32,7 @@ pre: " <b> 3.1. </b> "
 
 #### Hình ảnh minh chứng bài đăng trên nhóm Facebook:
 
-```text
-+-----------------------------------------------------------------------------------+
-|  [KHUNG CHỜ MINH CHỨNG: HÌNH ẢNH CHỤP MÀN HÌNH BÀI ĐĂNG TRÊN AWS STUDY GROUP]     |
-|                                                                                   |
-|  Sau khi bài viết được đăng và duyệt trên group Facebook:                         |
-|  1. Chụp ảnh màn hình bài viết có hiển thị tên tác giả, nội dung và tương tác.   |
-|  2. Lưu ảnh vào: static/images/3-BlogsPosted/3.1-Blog1/facebook-post-proof.png    |
-|  3. Chèn đường dẫn ảnh vào vị trí này để hoàn tất báo cáo minh chứng.            |
-+-----------------------------------------------------------------------------------+
-```
+![Minh chứng bài đăng trên AWS Study Group VN](/images/3-BlogsPosted/3.1-Blog1/facebook-post-proof.png)
 
 ---
 

@@ -32,16 +32,7 @@ pre: " <b> 3.1. </b> "
 
 #### Verification Screenshot from Facebook Group:
 
-```text
-+-----------------------------------------------------------------------------------+
-|  [PROOF PLACEHOLDER: SCREENSHOT OF YOUR FACEBOOK POST IN AWS STUDY GROUP]          |
-|                                                                                   |
-|  After the post is approved on Facebook:                                         |
-|  1. Take a screenshot showing your author name, post body, and reactions.         |
-|  2. Save it to: static/images/3-BlogsPosted/3.1-Blog1/facebook-post-proof.png     |
-|  3. Link the image here to complete your official workshop submission proof.      |
-+-----------------------------------------------------------------------------------+
-```
+![Facebook Community Post Verification Screenshot](/images/3-BlogsPosted/3.1-Blog1/facebook-post-proof.png)
 
 ---
 
