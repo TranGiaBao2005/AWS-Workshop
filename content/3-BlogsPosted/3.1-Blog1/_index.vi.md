@@ -25,7 +25,7 @@ pre: " <b> 3.1. </b> "
 
 {{% notice tip %}}
 **Bài viết chia sẻ kỹ thuật trên cộng đồng AWS Study Group - First Cloud Journey:**
-* **Đường dẫn bài đăng Facebook:** [Đang cập nhật link bài viết](https://www.facebook.com/groups/awsstudygroupfcj) *(Vui lòng dán link bài post sau khi admin duyệt)*
+* **Đường dẫn bài đăng Facebook:** [Xem bài viết trên AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/posts/2319591015472524/)
 * **Nhóm đăng:** [AWS Study Group - First Cloud Journey](https://www.facebook.com/groups/awsstudygroupfcj)
 * **Hashtag chiến dịch:** `#FirstCloudJourney #FCJ #AWSStudyGroup #AWSUserGroupVietnam #AWS #AWSContinuum #DevSecOps #CloudSecurity #GenerativeAI`
 {{% /notice %}}

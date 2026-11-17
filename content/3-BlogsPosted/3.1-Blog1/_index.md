@@ -25,14 +25,23 @@ pre: " <b> 3.1. </b> "
 
 {{% notice tip %}}
 **Technical Sharing Post on AWS Study Group - First Cloud Journey:**
-* **Facebook Post Link:** [Updating post URL](https://www.facebook.com/groups/awsstudygroupfcj) *(Please paste your Facebook permalink after admin approval)*
+* **Facebook Post Link:** [View post on AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/posts/2319591015472524/)
 * **Community Group:** [AWS Study Group - First Cloud Journey](https://www.facebook.com/groups/awsstudygroupfcj)
 * **Campaign Hashtags:** `#FirstCloudJourney #FCJ #AWSStudyGroup #AWSUserGroupVietnam #AWS #AWSContinuum #DevSecOps #CloudSecurity #GenerativeAI`
 {{% /notice %}}
 
 #### Verification Screenshot from Facebook Group:
 
-![Facebook Community Post Verification Screenshot](/images/3-BlogsPosted/3.1-Blog1/facebook-post-proof.png)
+```text
++-----------------------------------------------------------------------------------+
+|  [PROOF PLACEHOLDER: SCREENSHOT OF YOUR FACEBOOK POST IN AWS STUDY GROUP]          |
+|                                                                                   |
+|  After the post is approved on Facebook:                                         |
+|  1. Take a screenshot showing your author name, post body, and reactions.         |
+|  2. Save it to: static/images/3-BlogsPosted/3.1-Blog1/facebook-post-proof.png     |
+|  3. Link the image here to complete your official workshop submission proof.      |
++-----------------------------------------------------------------------------------+
+```
 
 ---
 
