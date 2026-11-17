@@ -1,0 +1,7 @@
+{{- $url := .Destination -}}
+{{- if not (or (hasPrefix $url "http://") (hasPrefix $url "https://") (hasPrefix $url "data:")) -}}
+  {{- $url = (strings.TrimPrefix "/" $url) | relURL -}}
+{{- end -}}
+<a href="{{ $url }}" data-featherlight="image">
+  <img src="{{ $url }}" alt="{{ .Text }}" {{ with .Title }}title="{{ . }}"{{ end }} />
+</a>

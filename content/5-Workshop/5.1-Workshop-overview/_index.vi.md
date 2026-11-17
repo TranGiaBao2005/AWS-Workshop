@@ -1,21 +1,21 @@
 ---
-title : "Tổng quan Kiến trúc & Mô hình Mạng"
-date : 2024-01-01 
-weight : 1
-chapter : false
-pre : " <b> 5.1. </b> "
+title: "Tổng quan Kiến trúc & Mô hình Mạng"
+date: 2024-01-01
+weight: 1
+chapter: false
+pre: " <b> 5.1. </b> "
 ---
 
 #### 1. Cơ chế Hoạt động của VPC Endpoint
 
 VPC Endpoint là thành phần mạng ảo được quản lý hoàn toàn bởi AWS, cho phép thiết lập kết nối riêng tư giữa VPC với các dịch vụ AWS hỗ trợ mà không yêu cầu gán địa chỉ Public IP, Internet Gateway hay thiết bị NAT.
 
-| Tiêu chí | Gateway Endpoint | Interface Endpoint (AWS PrivateLink) |
-| :--- | :--- | :--- |
-| **Dịch vụ hỗ trợ** | Amazon S3, Amazon DynamoDB | Hầu hết dịch vụ AWS (S3, SSM, EC2, CloudWatch...), dịch vụ bên thứ ba |
+| Tiêu chí              | Gateway Endpoint                                           | Interface Endpoint (AWS PrivateLink)                                  |
+| :-------------------- | :--------------------------------------------------------- | :-------------------------------------------------------------------- |
+| **Dịch vụ hỗ trợ**    | Amazon S3, Amazon DynamoDB                                 | Hầu hết dịch vụ AWS (S3, SSM, EC2, CloudWatch...), dịch vụ bên thứ ba |
 | **Cơ chế định tuyến** | Cập nhật Prefix List (`pl-xxxx`) trực tiếp vào Route Table | Khởi tạo Elastic Network Interface (ENI) mang IP Private trong Subnet |
-| **Phạm vi truy cập** | Chỉ nội bộ VPC sở hữu Route Table | Cả nội bộ VPC và mở rộng ra On-Premises (qua VPN / Direct Connect) |
-| **Chi phí** | Hoàn toàn miễn phí | Tính phí theo giờ chạy ENI + dung lượng dữ liệu xử lý (GB processed) |
+| **Phạm vi truy cập**  | Chỉ nội bộ VPC sở hữu Route Table                          | Cả nội bộ VPC và mở rộng ra On-Premises (qua VPN / Direct Connect)    |
+| **Chi phí**           | Hoàn toàn miễn phí                                         | Tính phí theo giờ chạy ENI + dung lượng dữ liệu xử lý (GB processed)  |
 
 ---
 
