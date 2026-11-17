@@ -1,5 +1,5 @@
 ---
-title: "Blog 1: Introducing AWS Continuum for Code Vulnerabilities – Autonomous AI Agent Validating and Patching Code via Automated PRs"
+title: "Introducing AWS Continuum for Code Vulnerabilities"
 date: 2026-10-22
 weight: 1
 chapter: false
@@ -14,8 +14,6 @@ pre: " <b> 3.1. </b> "
 * **Category:** Announcements, Launch, News, Security, Identity, & Compliance.
 * **Reviewer & Synthesis:** Cloud Intern Builder.
 {{% /notice %}}
-
-# Introducing AWS Continuum for Code Vulnerabilities: A Paradigm Shift in Cloud Security with Autonomous AI Agents Proving Exploits and Delivering Automated PR Fixes
 
 ![AWS Continuum Architecture Diagram](/images/3-BlogsPosted/3.1-Blog1/continuum-architecture.png)
 
@@ -32,16 +30,7 @@ pre: " <b> 3.1. </b> "
 
 #### Verification Screenshot from Facebook Group:
 
-```text
-+-----------------------------------------------------------------------------------+
-|  [PROOF PLACEHOLDER: SCREENSHOT OF YOUR FACEBOOK POST IN AWS STUDY GROUP]          |
-|                                                                                   |
-|  After the post is approved on Facebook:                                         |
-|  1. Take a screenshot showing your author name, post body, and reactions.         |
-|  2. Save it to: static/images/3-BlogsPosted/3.1-Blog1/facebook-post-proof.png     |
-|  3. Link the image here to complete your official workshop submission proof.      |
-+-----------------------------------------------------------------------------------+
-```
+![Verification Proof from AWS Study Group VN](/images/3-BlogsPosted/3.1-Blog1/facebook-post-proof.png)
 
 ---
 

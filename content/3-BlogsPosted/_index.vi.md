@@ -10,7 +10,7 @@ Khu vực tổng hợp các bài viết phân tích, chia sẻ kiến thức chu
 
 ---
 
-### [Blog 1 - GIỚI THIỆU AWS CONTINUUM: DỊCH VỤ AI AGENT SĂN LỖ HỔNG VÀ MỞ PULL REQUEST VÁ CODE TỰ ĐỘNG](3.1-Blog1/)
+### [3.1. Giới thiệu AWS Continuum for Code Vulnerabilities](3.1-Blog1/)
 
 - **Nguồn bài viết gốc:** [AWS News Blog (22/10/2026)](https://aws.amazon.com/blogs/aws/aws-continuum-for-code-vulnerabilities-is-now-generally-available/)
 - **Tác giả:** Esra Kayabali (Principal Solutions Architect tại AWS)
@@ -19,12 +19,14 @@ Khu vực tổng hợp các bài viết phân tích, chia sẻ kiến thức chu
 
 ---
 
-### [Blog 2 - ...](3.2-Blog2/)
+### [3.2. Session Policies trong Amazon EKS Pod Identity](3.2-Blog2/)
 
-_(Thư mục dự phòng dành cho bài viết tiếp theo)_
+- **Chủ đề chính:** Quản trị đặc quyền tối thiểu (Least Privilege) với Session Policies trong Amazon EKS Pod Identity.
+- **Tóm tắt nội dung:** Phân tích cơ chế thu hẹp quyền IAM linh hoạt cho từng pod trong cụm Kubernetes bằng Session Policy inline. Giúp triệt tiêu rủi ro cấp thừa quyền (Over-permissioning), chống tình trạng bùng nổ IAM Role (Role Sprawl) và bảo vệ hệ thống tuân thủ các chuẩn an toàn khắt khe.
 
 ---
 
-### [Blog 3 - ...](3.3-Blog3/)
+### [3.3. Tối ưu hóa Chi phí và Hiệu năng với Amazon S3 Express One Zone](3.3-Blog3/)
 
-_(Thư mục dự phòng dành cho bài viết tiếp theo)_
+- **Chủ đề chính:** Tăng tốc truy xuất dữ liệu với độ trễ dưới 10 mili-giây và giảm tới 50% chi phí request.
+- **Tóm tắt nội dung:** Khảo sát chi tiết lớp lưu trữ S3 Express One Zone cho các workload đòi hỏi hiệu năng cao như huấn luyện mô hình Trí tuệ Nhân tạo (AI/ML), phân tích Big Data và bộ nhớ đệm tốc độ cao.

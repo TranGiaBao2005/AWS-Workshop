@@ -6,6 +6,25 @@ File này đóng vai trò là nhật ký ghi nhớ chi tiết (Persistent Memory
 
 ## 🕒 Lịch sử cập nhật bộ nhớ (Memory Update Logs)
 
+### [2026-11-17] Mở rộng chi tiết & Phân bổ 2 ngày cho chủ đề lớn trong 14 Tuần Worklog
+
+- **Bối cảnh & Yêu cầu:** Người dùng yêu cầu mở rộng nội dung dài ra, sâu hơn về mặt kỹ thuật; đối với các phần bài học lớn/nặng thì phân bổ 2 ngày (chia đều, không nhồi nhét), các phần ngắn giữ 1 ngày, và **mỗi ngày phải ghi rõ chi tiết "Ta học được những gì hôm nay?"** (Khái niệm cốt lõi, Các bước thực thi, Câu lệnh CLI/Mã nguồn SDK, và Khó khăn thực tế & Cách xử lý).
+- **Phạm vi cập nhật (Toàn bộ 14 Tuần Worklog):**
+  - **Phân bổ 2 ngày cho các chủ đề công nghệ lớn:**
+    - **Tuần 8:** AWS CloudFormation (2 ngày: Thứ 2 - Cấu trúc Template & Khởi tạo Ngăn xếp; Thứ 3 - Nested Stacks, Change Sets & Drift Detection).
+    - **Tuần 9:** Di trú máy chủ ảo (2 ngày: Thứ 2 - 7Rs & VM Import/Export; Thứ 3 - Sao chép khối thời gian thực với AWS MGN).
+    - **Tuần 10:** Phân tách hệ thống & Hàng đợi tin cậy (2 ngày: Thứ 2 - Quản trị API Gateway; Thứ 3 - Xử lý bất đồng bộ với Amazon SQS Standard/FIFO/DLQ).
+    - **Tuần 11:** Điều phối Kubernetes với Amazon EKS (2 ngày: Thứ 4 - Cụm EKS & Managed Node Groups; Thứ 5 - Ingress Controller & HPA Scaling).
+    - **Tuần 12:** Hồ dữ liệu lớn & ETL (2 ngày: Thứ 2 - AWS Lake Formation phân quyền cấp ô; Thứ 3 - Chu trình ETL phi máy chủ với AWS Glue Studio chuyển đổi Parquet).
+    - **Tuần 13:** Trí tuệ nhân tạo thế hệ mới (2 ngày: Thứ 2 - Foundation Models & Bedrock Runtime API; Thứ 3 - Prompt Engineering & RAG Knowledge Bases với OpenSearch Serverless).
+  - **Mở rộng chiều sâu nội dung mỗi ngày:**
+    - Tất cả các ngày trong tuần (Thứ 2 đến Thứ 6) từ Tuần 1 đến Tuần 14 đều có cấu trúc:
+      - 🎯 Mục tiêu & Nhiệm vụ
+      - 🧠 Ta học được những gì hôm nay? (Lý thuyết, tham số kỹ thuật, cấu hình chi tiết, CLI/Code Boto3/Manifests)
+      - 💡 Khó khăn gặp phải & Cách xử lý (Troubleshooting Memory Bank)
+  - **Đồng bộ song ngữ hoàn hảo:** 100% Tiếng Việt chuẩn kỹ sư đám mây (`.vi.md`) và 100% Tiếng Anh kỹ thuật (`.md`).
+  - **Kiểm định chất lượng Hugo:** 94 trang EN, 93 trang VI, 537 static files, 0 broken links, build thành công trong 1.6 giây.
+
 ### [2026-11-17] Tái cấu trúc và Sắp xếp toàn diện 14 Tuần Worklog theo Lộ trình https://cloudjourney.awsfcaj.com/
 
 - **Bối cảnh & Yêu cầu:** Người dùng yêu cầu đồng bộ toàn bộ tài liệu và sắp xếp thứ tự các tuần trong Worklog từ trên xuống dưới theo đúng lộ trình của `https://cloudjourney.awsfcaj.com/`. Loại bỏ các đoạn văn bản mẫu (placeholder "Làm công việc A..."), xóa bỏ triệt để cảnh báo template (`{{% notice warning %}}`), và đồng bộ lịch trình liên tục 14 tuần (14/09/2026 - 18/12/2026).
@@ -719,6 +738,22 @@ Phần này dùng để tra cứu ngay lập tức khi người dùng hỏi lạ
   - Chạy `scratch/verify_links.ps1`: **0 missing images** (Tất cả 100% hình ảnh trong mọi bài viết đều tồn tại chính xác trên disk).
   - Chạy `scratch/verify_internal_links.ps1`: **0 broken internal links** (Tất cả liên kết bài viết, trang mục lục và proposal đều hoạt động chính xác).
   - Chạy `hugo -D`: **102 trang EN, 101 trang VI, 536 static files, 0 errors, 0 warnings**.
+
+### [2026-11-17] Chuẩn hóa tiêu đề mục Blog & Thiết lập dấu tick xanh tạm thời theo phiên (Session Cache)
+
+- **Chuẩn hóa mục Blog (`content/3-BlogsPosted/`):**
+  - **Blog 1 (`3.1-Blog1`):** Loại bỏ tiêu đề `# H1` thừa trong phần thân bài viết (do Hugo theme tự động sinh thẻ `<h1>` từ frontmatter). Tinh chỉnh frontmatter title thành `Giới thiệu AWS Continuum for Code Vulnerabilities`, loại bỏ lặp từ `Blog 1:`. Cập nhật ảnh minh chứng Facebook post trên AWS Study Group cho cả bản tiếng Việt và tiếng Anh.
+  - **Blog 2 (`3.2-Blog2`):** Chuẩn hóa tiêu đề `Session Policies trong Amazon EKS Pod Identity`. Gỡ bỏ toàn bộ hộp cảnh báo mẫu `notice warning`, tiêu đề `# H1` trùng lặp và các ký tự giữ chỗ `...Hình ảnh...`, thay thế bằng bài phân tích kỹ thuật chuẩn mực, kèm ví dụ JSON policy và câu lệnh AWS CLI liên kết Pod Identity.
+  - **Blog 3 (`3.3-Blog3`):** Chuẩn hóa tiêu đề `Tối ưu hóa Chi phí và Hiệu năng với Amazon S3 Express One Zone`. Xóa bỏ hoàn toàn warning mẫu và hoàn thiện bài viết phân tích bảng so sánh kiến trúc giữa S3 Express One Zone và S3 Standard.
+  - **Trang danh mục Blog (`content/3-BlogsPosted/_index.*`):** Cập nhật danh sách liên kết cả 3 bài viết chỉn chu, rõ ràng.
+
+- **Khắc phục lỗi hiển thị dấu tick xanh (`.read-icon`) thành bộ nhớ tạm theo phiên (Session Cache):**
+  - **Nguyên nhân gốc rễ:** Trong `static/css/theme-workshop.css`, bộ chọn `#sidebar ul.topics li a .read-icon` và `#sidebar ul li a .read-icon` bị gán `display: inline-flex !important;`, khiến mọi mục menu đều bị ép hiện dấu checkmark ngay cả khi chưa đọc.
+  - **Cách khắc phục:**
+    1. Chỉnh sửa `static/css/theme-workshop.css`: Ẩn hoàn toàn `.read-icon` đối với các mục chưa đọc (`display: none !important;`). Chỉ hiển thị dạng `inline-flex` khi mục danh mục có class `.visited` (`#sidebar ul li.visited > a .read-icon`).
+    2. Cập nhật mã màu checkmark sang xanh lá cây hiện đại: `--MENU-VISITED-color: #10b981;` và `color: #10b981 !important;`.
+    3. Tích hợp kịch bản quản lý trong `layouts/partials/custom-footer.html`: Lưu URL trang đã xem vào `sessionStorage`. Do sử dụng `sessionStorage` thay vì `localStorage`, dấu tick xanh chỉ tồn tại trong phiên duyệt web hiện tại; khi người dùng tắt trình duyệt / tab trang web, toàn bộ dấu tick xanh sẽ tự động biến mất hoàn toàn.
+  - **Kiểm thử:** `hugo --minify` thành công 100% trong 1.7s, không phát sinh lỗi.
 
 
 

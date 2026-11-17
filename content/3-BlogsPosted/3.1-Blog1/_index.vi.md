@@ -1,5 +1,5 @@
 ---
-title: "Blog 1: Giới thiệu AWS Continuum for Code Vulnerabilities – Dịch vụ AI Agent Tự động Săn Lỗ Hổng và Mở PR Vá Code"
+title: "Giới thiệu AWS Continuum for Code Vulnerabilities"
 date: 2026-10-22
 weight: 1
 chapter: false
@@ -14,8 +14,6 @@ pre: " <b> 3.1. </b> "
 * **Chuyên mục:** Announcements, Launch, News, Security, Identity, & Compliance.
 * **Người tổng hợp & Đánh giá chuyên môn:** Kỹ sư thực tập Điện toán đám mây (Cloud Intern Builder).
 {{% /notice %}}
-
-# Giới Thiệu AWS Continuum for Code Vulnerabilities: Bước Ngoặt Tự Động Hóa An Ninh Mạng Với AI Agent Săn Lỗ Hổng và Mở PR Vá Code Tự Động
 
 ![Sơ đồ kiến trúc AWS Continuum](/images/3-BlogsPosted/3.1-Blog1/continuum-architecture.png)
 

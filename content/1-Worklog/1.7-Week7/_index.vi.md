@@ -82,10 +82,11 @@ pre: " <b> 1.7. </b> "
 
 ### Mục tiêu cho tuần sau (Tuần 8):
 
-* **Tự động hóa triển khai hạ tầng với AWS CloudFormation (Workshop 000037):**
-  * Thiết kế mẫu template CloudFormation (YAML/JSON) để tự động hóa việc dựng hạ tầng nhiều tầng (Multi-tier Architecture).
-  * Triển khai Nested Stacks, Parameter Store và thực hiện kiểm tra độ sai lệch hạ tầng (Drift Detection).
-* **Quản lý cấu hình và kiểm toán tuân thủ với AWS Config & CloudTrail:**
-  * Kích hoạt AWS CloudTrail ghi nhận toàn bộ nhật ký cuộc gọi API của tài khoản.
-  * Triển khai bộ quy tắc AWS Config Rules tự động đánh giá tuân thủ bảo mật và gửi thông báo khi phát hiện cấu hình sai lệch.
-* **Tổng kết Tuần 8, Viết Worklog & Làm Project:** Hệ thống hóa toàn bộ kiến thức, hoàn thiện bài viết và tiếp tục hoàn thiện đề xuất đồ án.
+* **Hạ tầng dưới dạng mã với AWS CloudFormation (Workshop 000037 - 2 ngày chuyên sâu):**
+  * Làm chủ cấu trúc template khai báo YAML chuẩn, các hàm nội tại (`!Ref`, `!Sub`, `!GetAtt`), khởi tạo ngăn xếp hạ tầng mạng VPC đa vùng.
+  * Thiết kế mô hình ngăn xếp lồng nhau (Nested Stacks), kiểm soát rủi ro với Change Sets, quét sai lệch cấu hình với Drift Detection và thiết lập Termination Protection.
+* **Lập trình hạ tầng hiện đại với AWS Cloud Development Kit (CDK):**
+  * Mô hình hóa hạ tầng đám mây bằng TypeScript/Python với các tầng cấu trúc trừu tượng (L1, L2, L3 Constructs).
+* **Vận hành máy chủ tập trung với AWS Systems Manager (SSM - 000024) & Sao lưu với AWS Backup (000038):**
+  * Quản trị an toàn qua Session Manager, thực thi lệnh hàng loạt Run Command, lưu trữ biến môi trường an toàn qua Parameter Store và bảo vệ dữ liệu với Backup Plans.
+* **Tổng kết Tuần 8, Viết Worklog & Làm Project:** Hệ thống hóa kiến thức IaC và đóng gói template CloudFormation hoàn chỉnh cho Capstone Project.

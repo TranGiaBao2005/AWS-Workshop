@@ -30,24 +30,62 @@ pre: " <b> 1.14. </b> "
 
 ---
 
-### Kết quả đạt được tuần 14:
+### Chi tiết nội dung học tập và kết quả đạt được mỗi ngày:
 
-#### 📌 Kết quả Thứ 2 (14/12/2026) - Đóng gói hồ sơ & Xuất bản mã nguồn:
-* **Hồ sơ năng lực hoàn chỉnh:** Đóng gói toàn bộ tài liệu 14 tuần thực tập với hơn 20 bài workshop chuyên sâu, hệ thống bài viết song ngữ chuẩn mực (100% Tiếng Việt và 100% Tiếng Anh) và báo cáo kỹ thuật chi tiết.
-* **Mã nguồn chuẩn hóa:** Toàn bộ mẫu hạ tầng CloudFormation, CDK scripts và mã kiểm thử được lưu trữ trên kho GitHub công khai, đính kèm tài liệu README hướng dẫn triển khai tự động.
+#### 📌 Thứ 2 (14/12/2026) - Đóng gói hồ sơ & Xuất bản mã nguồn
 
-#### 📌 Kết quả Thứ 3 (15/12/2026) - Chuẩn bị Slide & Kịch bản Demo:
-* **Tài liệu thuyết trình chất lượng:** Hoàn thành bộ 25 slide trình chiếu súc tích, trực quan, tập trung vào bài toán thực tế, mô hình kiến trúc High Availability, chiến lược bảo mật nhiều lớp và phân tích chi phí FinOps.
-* **Kịch bản diễn tập thông suốt:** Diễn tập thành công kịch bản Demo mô phỏng sự cố: tắt máy chủ Database chính để kiểm tra tính năng RDS Multi-AZ tự động chuyển đổi dự phòng (Failover) dưới 60 giây và kích hoạt máy chủ EC2 tự động co giãn khi CPU vượt 70%.
+* **Ta học được những gì hôm nay?**
+  * **Kỹ năng đóng gói hồ sơ kỹ thuật chuyên nghiệp:** Hệ thống hóa toàn bộ các bài viết từ Tuần 1 đến Tuần 13, rà soát tính nhất quán của các tham số kỹ thuật, đường dẫn hình ảnh và bảng thông số tài nguyên. Đảm bảo toàn bộ 14 tuần đều đạt chuẩn song ngữ 100% Tiếng Việt và 100% Tiếng Anh.
+  * **Xuất bản mã nguồn mở trên GitHub:** Đóng gói toàn bộ các file mẫu CloudFormation YAML, mã nguồn AWS CDK TypeScript, script Python Boto3 và Dockerfiles vào kho lưu trữ GitHub chính thức. Viết file `README.md` hướng dẫn triển khai từ đầu (Quick Start Guide) kèm sơ đồ kiến trúc hệ thống trực quan.
+* **Khó khăn gặp phải & Cách xử lý:**
+  * *Lỗi liên kết tệp tin Markdown bị gãy:* Khi rà soát lại các bài viết cũ phát hiện một vài đường dẫn nội bộ bị sai tiền tố URL. Cách xử lý: Sử dụng công cụ `markdown-link-check` quét tự động toàn bộ thư mục `content/` và sửa lại đường dẫn tương đối chuẩn xác.
 
-#### 📌 Kết quả Thứ 4 (16/12/2026) - Bảo vệ Đồ án tốt nghiệp xuất sắc:
-* **Bảo vệ đồ án thành công:** Thuyết trình tự tin giải pháp trước hội đồng Mentor và chuyên gia công nghệ, minh chứng rõ nét tính khả thi và độ tin cậy của kiến trúc đã xây dựng trên AWS.
-* **Phản biện chuyên môn vững vàng:** Trả lời thuyết phục các câu hỏi kỹ thuật về cơ chế mã hóa dữ liệu KMS, tối ưu hóa độ trễ qua ElastiCache Redis và chiến lược phân quyền đặc quyền tối thiểu qua IAM Roles.
+---
 
-#### 📌 Kết quả Thứ 5 (17/12/2026) - Dọn dẹp tài nguyên đám mây an toàn:
-* **Quy trình Teardown chuẩn mực:** Thực hiện giải phóng tài nguyên tuần tự từ tầng ứng dụng xuống tầng hạ tầng mạng (Auto Scaling Groups -> EC2 Instances -> Load Balancers -> RDS Multi-AZ -> ElastiCache Clusters -> NAT Gateways & Elastic IPs -> VPC Endpoints -> VPC), không để xảy ra bất kỳ lỗi phụ thuộc `DependencyViolation`.
-* **Kiểm toán chi phí 0 đồng phát sinh:** Kiểm tra bảng điều khiển AWS Billing và Cost Explorer, đảm bảo mọi tài nguyên trả phí theo giờ đã được dọn sạch hoàn toàn, đưa chi phí phát sinh sau thực tập về $0.
+#### 📌 Thứ 3 (15/12/2026) - Thiết kế Slide thuyết trình & Kịch bản Demo thực chiến
 
-#### 📌 Kết quả Thứ 6 (18/12/2026) - Hoàn tất kỳ thực tập thành công:
-* **Đánh giá xuất sắc:** Hoàn tất bản tự đánh giá kết quả thực tập ([Báo cáo Tự đánh giá](/vi/6-self-evaluation/)) và nhận được đánh giá chính thức tích cực từ Mentor phụ trách chương trình FCAJ.
-* **Trưởng thành nghề nghiệp:** Đúc kết hành trang vững chắc về tư duy thiết kế kiến trúc đám mây chuẩn Well-Architected, kỹ năng giải quyết sự cố thực tế và tác phong làm việc chuyên nghiệp, sẵn sàng đón nhận các cơ hội nghề nghiệp Cloud/DevOps Engineer trong tương lai.
+* **Ta học được những gì hôm nay?**
+  * **Nghệ thuật truyền tải giải pháp kiến trúc đám mây:** Thiết kế bộ 25 slide thuyết trình tập trung vào việc giải quyết bài toán nghiệp vụ, cấu trúc theo phương pháp luận STAR (Situation, Task, Action, Result). Nhấn mạnh các chỉ số định lượng: Khả năng chịu lỗi 99.99%, thời gian phục hồi RTO < 1 phút, và tiết kiệm 42% chi phí hạ tầng.
+  * **Xây dựng kịch bản Demo mô phỏng sự cố thực tế:**
+    1. Kịch bản 1: Bơm tải CPU giả lập lên 85%, quan sát CloudWatch Alarms kích hoạt và EC2 Auto Scaling tự động khởi chạy thêm 2 máy chủ mới trong 3 phút.
+    2. Kịch bản 2: Ép khởi động lại máy chủ cơ sở dữ liệu chính (Reboot with Failover), kiểm chứng Amazon RDS Multi-AZ tự động chuyển hướng kết nối sang máy chủ dự phòng trong vòng 45 giây mà ứng dụng web không bị sập.
+    3. Kịch bản 3: Tương tác trực tiếp với Trợ lý AI Amazon Bedrock hỏi đáp dữ liệu thời gian thực.
+* **Khó khăn gặp phải & Cách xử lý:**
+  * *Thời lượng Demo bị vượt quá giới hạn cho phép:* Bài thuyết trình thử nghiệm kéo dài 28 phút (vượt khung 20 phút của ban giám khảo). Cách xử lý: Cắt bỏ các bước cấu hình chi tiết trên console, tập trung vào sơ đồ kiến trúc tổng quan và kết quả kiểm thử trực tiếp trên dashboard giám sát.
+
+---
+
+#### 📌 Thứ 4 (16/12/2026) - Bảo vệ Đồ án tốt nghiệp trước Hội đồng đánh giá FCAJ
+
+* **Ta học được những gì hôm nay?**
+  * **Bản lĩnh thuyết trình và phản biện kỹ thuật:** Trình bày giải pháp mạch lạc, tự tin trước các chuyên gia giải pháp đám mây (AWS Solutions Architects) và Mentor của chương trình.
+  * **Bài học kinh nghiệm từ câu hỏi phản biện:**
+    * *Câu hỏi về bảo mật:* Làm thế nào để đảm bảo không bị rò rỉ dữ liệu khi giao tiếp giữa EC2 và S3? ➔ Phản biện thuyết phục nhờ giải pháp VPC Gateway Endpoints kèm VPC Endpoint Policy nghiêm ngặt đã thực hành ở Tuần 7.
+    * *Câu hỏi về chi phí:* Tại sao lựa chọn kiến trúc kết hợp EC2 Auto Scaling và RDS Multi-AZ thay vì thuần túy Serverless? ➔ Phân tích rõ bài toán chi phí dự đoán được (Predictable Baseline Traffic) kết hợp Savings Plans giúp tiết kiệm hơn Serverless khi lưu lượng truy cập duy trì ổn định 24/7.
+* **Khó khăn gặp phải & Cách xử lý:**
+  * *Hồi hộp khi Demo trực tiếp:* Kết nối mạng lúc bắt đầu demo hơi chập chờn. Nhờ chuẩn bị sẵn video quay lại kịch bản dự phòng (Backup Recording) và giải thích nguyên lý rõ ràng, hội đồng đánh giá cao sự chuẩn bị chu đáo và tính chuyên nghiệp.
+
+---
+
+#### 📌 Thứ 5 (17/12/2026) - Dọn dẹp tài nguyên đám mây an toàn (Cloud Teardown)
+
+* **Ta học được những gì hôm nay?**
+  * **Quy trình hủy tài nguyên theo đúng chiều phụ thuộc (Dependency Hierarchy):** Tránh lỗi kẹt `DependencyViolation` bằng cách giải phóng tài nguyên tuần tự từ tầng ứng dụng ngược về tầng mạng cốt lõi:
+    1. Hủy Auto Scaling Groups và xóa Launch Templates.
+    2. Xóa Application Load Balancers, Target Groups và giải phóng Elastic IPs.
+    3. Chụp bản Snapshot cuối cùng (Final DB Snapshot) và xóa cụm cơ sở dữ liệu Amazon RDS Multi-AZ.
+    4. Xóa các cụm ElastiCache Redis và các bộ sưu tập OpenSearch Serverless.
+    5. Xóa các VPC Endpoints, Internet Gateways, NAT Gateways và bảng định tuyến.
+    6. Cuối cùng mới xóa mạng Amazon VPC.
+  * **Kiểm toán chi phí FinOps:** Đăng nhập AWS Billing Console và Cost Explorer, kiểm tra từng Region (`us-east-1`, `ap-southeast-1`), xác nhận mọi tài nguyên tính phí theo giờ đã biến mất hoàn toàn, đưa dự toán chi phí sau thực tập về $0.
+* **Khó khăn gặp phải & Cách xử lý:**
+  * *VPC không thể xóa do dính lỗi `DependencyViolation`:* Console báo VPC vẫn đang có Network Interface hoạt động. Nguyên nhân: Một số Elastic Network Interfaces (ENIs) của Lambda gắn vào VPC hoặc VPC Endpoints chưa kịp giải phóng. Cách xử lý: Kiểm tra danh sách Network Interfaces trong bảng điều khiển EC2, ngắt kết nối thủ công các ENI còn sót lại và xóa VPC thành công.
+
+---
+
+#### 📌 Thứ 6 (18/12/2026) - Tổng kết kỳ thực tập & Tiếp thu phản hồi Mentor
+
+* **Ta học được những gì hôm nay?**
+  * **Tự đánh giá và hoàn thiện bản thân:** Hoàn tất bản tự đánh giá kết quả thực tập ([Báo cáo Tự đánh giá](/vi/6-self-evaluation/)), nhìn lại sự tiến bộ vượt bậc sau 14 tuần: từ một người mới bắt đầu làm quen với Console đến một kỹ sư có khả năng thiết kế, triển khai và tự động hóa hệ thống đám mây chuẩn AWS Well-Architected.
+  * **Tiếp thu phản hồi chuyên môn từ Mentor:** Ghi nhận những lời nhận xét quý báu về tư duy tối ưu hóa chi phí (FinOps), kỹ năng viết tài liệu kỹ thuật chuẩn xác và tinh thần chủ động giải quyết sự cố thực tế.
+  * **Định hướng sự nghiệp:** Xác định các mục tiêu tiếp theo: chinh phục chứng chỉ AWS Certified Solutions Architect - Associate (SAA-C03) và theo đuổi con đường kỹ sư Cloud & DevOps chuyên nghiệp.

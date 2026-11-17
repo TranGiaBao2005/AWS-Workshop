@@ -19,7 +19,7 @@
   --MENU-SECTION-ACTIVE-CATEGORY-color: #777; /* Color of active category text */
   --MENU-SECTION-ACTIVE-CATEGORY-BG-color: #fff; /* Color of background for the active category (only) */
 
-  --MENU-VISITED-color: #33a1ff; /* Color of 'page visited' icons in menu */
+  --MENU-VISITED-color: #10b981; /* Color of 'page visited' icons in menu (Green) */
   --MENU-SECTION-HR-color: #20272b; /* Color of <hr> separator in menu */
 }
 
@@ -305,7 +305,10 @@ div.notices.info p {
 }
 
 #sidebar ul.topics li a .read-icon,
-#sidebar ul li a .read-icon,
+#sidebar ul li a .read-icon {
+  display: none !important;
+}
+
 #sidebar ul li.visited > a .read-icon {
   display: inline-flex !important;
   align-items: center !important;
@@ -314,6 +317,7 @@ div.notices.info p {
   margin-left: auto !important;
   margin-right: 6px !important;
   text-align: center !important;
+  color: #10b981 !important;
 }
 
 #sidebar ul.topics li a .submenu-toggle-arrow,

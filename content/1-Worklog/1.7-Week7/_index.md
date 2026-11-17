@@ -82,10 +82,11 @@ pre: " <b> 1.7. </b> "
 
 ### Next Week's Objectives (Week 8):
 
-- **Automated Infrastructure Deployment with AWS CloudFormation (Workshop 000037):**
-  - Design modular CloudFormation templates (YAML/JSON) automating multi-tier VPC architectures.
-  - Deploy Nested Stacks, integrate Systems Manager Parameter Store, and execute Drift Detection audits.
-- **Configuration Governance and Compliance Auditing with AWS Config & CloudTrail:**
-  - Enable AWS CloudTrail capturing immutable multi-region audit trails.
-  - Implement AWS Config Rules for continuous security posture evaluation and automated non-compliance remediation.
-- **Week 8 Review, Worklog & Project:** Consolidate automated governance workflows, polish worklogs, and advance internship project deliverables.
+- **Infrastructure as Code with AWS CloudFormation (Workshop 000037 - 2-Day Deep Dive):**
+  - Master declarative YAML template structure, intrinsic functions (`!Ref`, `!Sub`, `!GetAtt`), and multi-AZ VPC stack provisioning.
+  - Implement modular architectures with Nested Stacks, manage deployment risks with Change Sets, audit out-of-band changes via Drift Detection, and enable Termination Protection.
+- **Modern Software-Defined Infrastructure with AWS CDK:**
+  - Model cloud infrastructure using TypeScript/Python across L1, L2, and L3 construct abstractions.
+- **Centralized Fleet Operations with AWS Systems Manager (SSM - 000024) & AWS Backup (000038):**
+  - Zero-inbound-port access via Session Manager, fleet automation with Run Command, encrypted secrets via Parameter Store, and centralized Backup Plans.
+- **Week 8 Review, Worklog & Project:** Consolidate IaC architectures and package production-ready CloudFormation templates for the Capstone Project.

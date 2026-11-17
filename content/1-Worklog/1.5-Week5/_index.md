@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Week 5 Worklog"
 date: 2026-10-12
 weight: 5

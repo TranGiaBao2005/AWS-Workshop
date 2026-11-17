@@ -25,6 +25,36 @@
 
 <script>
   jQuery(document).ready(function ($) {
+    // 1. Quản lý trạng thái xem bài trong phiên (Session Cache):
+    // Chỉ lưu trạng thái trang đã đọc trong sessionStorage (tự động mất khi đóng tab/trình duyệt)
+    try {
+      // Dọn sạch mọi cache lưu vĩnh viễn ở localStorage cũ nếu có
+      if (window.localStorage) {
+        Object.keys(localStorage).forEach(function (k) {
+          if (k.indexOf('/AWS-Workshop') !== -1 || k.indexOf('content/') !== -1) {
+            localStorage.removeItem(k);
+          }
+        });
+      }
+
+      // Lấy URL trang hiện tại từ body data-url hoặc location pathname
+      var currentUrl = $('body').data('url') || window.location.pathname;
+      if (currentUrl) {
+        sessionStorage.setItem(currentUrl, "1");
+      }
+
+      // Duyệt qua sessionStorage để gán class 'visited' cho các trang đã xem trong phiên
+      for (var i = 0; i < sessionStorage.length; i++) {
+        var key = sessionStorage.key(i);
+        if (sessionStorage.getItem(key) === "1") {
+          $('[data-nav-id="' + key + '"]').addClass('visited');
+        }
+      }
+    } catch (e) {
+      console.warn("Session tracking error:", e);
+    }
+
+    // 2. Xử lý đóng/mở menu mũi tên
     $('#sidebar').on('click', '.submenu-toggle-arrow', function (e) {
       e.preventDefault();
       e.stopPropagation();
