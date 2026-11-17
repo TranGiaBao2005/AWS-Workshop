@@ -6,6 +6,22 @@ File này đóng vai trò là nhật ký ghi nhớ chi tiết (Persistent Memory
 
 ## 🕒 Lịch sử cập nhật bộ nhớ (Memory Update Logs)
 
+### [2026-11-17] Khắc phục GitHub Pages 404 & Tối ưu tự động bung menu Worklog Tuần 1-14
+
+- **Vấn đề 1 (Lỗi GitHub Pages 404 - Page Not Found):**
+  - **Nguyên nhân:** Cài đặt Settings ➔ Pages chọn nhánh `main` (chỉ chứa mã nguồn thô, không có `index.html` của Hugo). File `.gitmodules` gây xung đột khi GitHub Actions checkout theme.
+  - **Khắc phục:** 
+    - Xóa file `.gitmodules` (do thư mục theme `themes/hugo-theme-learn` đã được commit trực tiếp vào git tree).
+    - Cập nhật `.github/workflows/hugo.yml` tích hợp chuẩn GitHub Pages Deployment chính thức (`actions/upload-pages-artifact@v3` và `actions/deploy-pages@v4`).
+    - Hướng dẫn chuyển cài đặt GitHub Pages sang **Source: GitHub Actions**.
+
+- **Vấn đề 2 (Tự động mở danh mục con khi bấm vào Tuần 1 tới Tuần 14):**
+  - **Yêu cầu:** Khi bấm vào bất kỳ tuần nào (Week 1 đến Week 14) trên menu sidebar, tự động hiển thị ngay danh mục bài lab/ngày con bên dưới, không bắt người dùng phải bấm vào mũi tên nhỏ bên phải.
+  - **Khắc phục:**
+    - `layouts/partials/menu.html`: Cập nhật logic `{{ $isActive := or (eq .RelPermalink $currentNode.RelPermalink) (and $currentFileUniqueID .File (eq .File.UniqueID $currentFileUniqueID)) }}` và cấp class `parent` cho `li` khi active (`{{if or $isAncestor $isActive }}parent{{end}}`).
+    - `static/css/theme-workshop.css`: Bổ sung selector `#sidebar ul.topics > li > ul > li.active > ul` hiển thị `display: block !important` và tự động xoay icon mũi tên 90 độ khi tuần đang được chọn.
+    - `layouts/partials/custom-footer.html`: Cập nhật script JavaScript hỗ trợ toggle đóng/mở ngay cả khi `li` có class `active`.
+
 ### [2026-10-04] Tái cấu trúc & Phân bổ nội dung Cloud Journey
 
 - **Dự án & Phạm vi:** AWS Workshop (`d:\AWS\template_AWS\fcj-workshop-template-main`). Hoàn thiện phân bổ lộ trình học từ **Cloud Journey** cho Tuần 1, Tuần 2 và Tuần 3.
