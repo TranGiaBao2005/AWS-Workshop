@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Báo cáo thực tập</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/</link><description>Recent content on Báo cáo thực tập</description><generator>Hugo</generator><language>vi</language><lastBuildDate>Mon, 26 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://trangiabao2005.github.io/AWS-Workshop/vi/index.xml" rel="self" type="application/rss+xml"/><item><title>Giám sát chuyên sâu với Amazon CloudWatch (CloudWatch Advanced Workshop)</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.7-week7/1.7.1-cloudwatch-advanced/</link><pubDate>Mon, 26 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.7-week7/1.7.1-cloudwatch-advanced/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Giám sát chuyên sâu với Amazon CloudWatch (CloudWatch Advanced Workshop)&lt;/strong> được thực hiện vào &lt;strong>Thứ 2 (26/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 7&lt;/strong>. Trang này ghi lại chi tiết toàn bộ quá trình triển khai hạ tầng kiểm thử qua AWS CloudFormation, ứng dụng các kỹ thuật tính toán chỉ số nâng cao (Metric Math, Search Expressions, Dynamic Labels), phân tích nhật ký chuyên sâu với CloudWatch Logs Insights, trích xuất chỉ số từ log qua Metric Filters, và thiết lập cảnh báo đa kênh qua Amazon SNS gắn vào bảng điều khiển tập trung.&lt;/p></description></item><item><title>Quản lý và Nâng hạn mức tài nguyên với AWS Service Quotas</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.1-service-quotas/</link><pubDate>Mon, 19 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.1-service-quotas/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Quản lý và Nâng hạn mức tài nguyên với AWS Service Quotas&lt;/strong> được thực hiện vào &lt;strong>Thứ 2 (19/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 6&lt;/strong>. Trang này ghi lại toàn diện quy trình kiểm tra hạn mức mặc định, gửi yêu cầu nâng trần vCPU cho cụm máy chủ &lt;strong>EC2 Spot Instances&lt;/strong> (&lt;code>All Standard (A, C, D, H, I, M, R, T, Z) Spot Instance Requests&lt;/code>, mã Quota &lt;code>L-34B43A08&lt;/code>) từ &lt;strong>32 lên 64 vCPUs&lt;/strong> tại vùng &lt;strong>us-east-1&lt;/strong>, phân tích chi phí, theo dõi quy trình phê duyệt qua &lt;strong>AWS Support Center&lt;/strong> (Case ID: &lt;code>179257232100832&lt;/code>), xác nhận qua thư điện tử chính thức từ Amazon Web Services và tự động hóa tra cứu bằng &lt;strong>AWS CLI&lt;/strong>.&lt;/p></description></item><item><title>Thiết lập Hybrid DNS với Route 53 Resolver</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.1-hybrid-dns/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.1-hybrid-dns/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Thiết lập Hybrid DNS với Route 53 Resolver&lt;/strong> (Hybrid DNS Management with Amazon Route 53) được thực hiện vào &lt;strong>Thứ 2 (12/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 5&lt;/strong>. Trang này hướng dẫn chi tiết từng bước với đầy đủ thông số mạng, dải IP, câu lệnh kiểm tra &lt;code>nslookup&lt;/code>, giải pháp xử lý sự cố thực tế và trọn bộ 11 hình ảnh minh chứng thực hành.
+&lt;br>🔗 &lt;strong>Nguồn tài liệu thực hành (Workshop Reference):&lt;/strong> &lt;a href="https://000010.awsfcaj.com/">Set up Hybrid DNS with Route 53 Resolver&lt;/a>&lt;/p></description></item><item><title>Triển khai Amazon Lightsail</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.4-week4/1.4.1-amazon-lightsail/</link><pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.4-week4/1.4.1-amazon-lightsail/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Triển khai Amazon Lightsail&lt;/strong> được thực hiện vào &lt;strong>Thứ 2 (05/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 4&lt;/strong>. Trang này hướng dẫn toàn bộ quy trình thiết lập từng bước với các thông số chi tiết, lệnh thực thi, khó khăn gặp phải và bộ hình ảnh minh chứng thực tế.
+&lt;br>🔗 &lt;strong>Nguồn tài liệu thực hành (Workshop Reference):&lt;/strong> &lt;a href="https://000045.awsfcaj.com/">Simplified Computing with Amazon Lightsail&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-mục-tiêu-bài-thực-hành-lab-objectives">🎯 Mục tiêu bài thực hành (Lab Objectives):&lt;/h3>
+&lt;ul>
+&lt;li>Làm quen với giao diện và khả năng đóng gói tinh gọn của dịch vụ &lt;strong>Amazon Lightsail&lt;/strong>.&lt;/li>
+&lt;li>Khởi tạo và quản trị &lt;strong>Cơ sở dữ liệu Quan hệ độc lập (Managed MySQL Database)&lt;/strong> trên Lightsail.&lt;/li>
+&lt;li>Triển khai hai nền tảng web phổ biến: &lt;strong>WordPress&lt;/strong> và &lt;strong>Prestashop (E-Commerce)&lt;/strong> kết nối với cơ sở dữ liệu chung.&lt;/li>
+&lt;li>Cấu hình môi trường máy chủ Linux/Ubuntu, thiết lập &lt;strong>Static IP&lt;/strong> cố định và quy tắc tường lửa (Firewall).&lt;/li>
+&lt;li>Thực hành quy trình sao lưu an toàn (&lt;strong>Snapshots&lt;/strong>) và mở rộng phần cứng bằng cách nâng cấp gói máy chủ (&lt;strong>Migration&lt;/strong>).&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-bảng-tổng-hợp-thông-số-tài-nguyên-đã-triển-khai">📊 Bảng tổng hợp thông số tài nguyên đã triển khai:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Tài nguyên&lt;/th>
+ &lt;th style="text-align: left">Tên / Định danh&lt;/th>
+ &lt;th style="text-align: left">Cấu hình &amp;amp; Thông số chi tiết&lt;/th>
+ &lt;th style="text-align: left">Địa chỉ / Cổng truy cập&lt;/th>
+ &lt;th style="text-align: left">Ghi chú&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Lightsail Database&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Workshop-DB-Instance&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">MySQL 8.0, Standard Plan ($15/tháng, 1GB RAM, 2 vCPUs)&lt;/td>
+ &lt;td style="text-align: left">Port 3306, Master User: &lt;code>LightsailAdmin&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Master DB: &lt;code>dbWordPress&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>WordPress Instance&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>WordPress-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Blueprint: WordPress (Bitnami), Linux/Ubuntu&lt;/td>
+ &lt;td style="text-align: left">Static IP: Attached, Port 80, 443&lt;/td>
+ &lt;td style="text-align: left">Kết nối tới Lightsail DB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Prestashop Instance&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Prestashop-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Blueprint: Prestashop, Linux/Ubuntu&lt;/td>
+ &lt;td style="text-align: left">Static IP: Attached, Port 80, 443&lt;/td>
+ &lt;td style="text-align: left">Nền tảng bán hàng trực tuyến&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Instance Snapshot&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>wordpress-backup-snapshot&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Bản chụp đầy đủ máy chủ WordPress trước khi nâng cấp&lt;/td>
+ &lt;td style="text-align: left">Dung lượng: ~20 GB, Trạng thái: Available&lt;/td>
+ &lt;td style="text-align: left">Dùng để scale-up&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Migrated Instance&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>WordPress-Migrated&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Tạo từ Snapshot, gói cấu hình phần cứng lớn hơn&lt;/td>
+ &lt;td style="text-align: left">Static IP: Re-attached&lt;/td>
+ &lt;td style="text-align: left">Đảm bảo hệ thống vận hành liên tục&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-chi-tiết-các-bước-thực-hiện--hình-ảnh-minh-chứng">🚀 Chi tiết các bước thực hiện &amp;amp; Hình ảnh minh chứng:&lt;/h3>
+&lt;h4 id="bước-1-khởi-tạo-cơ-sở-dữ-liệu-quan-hệ-quản-lý-managed-mysql-database">Bước 1: Khởi tạo Cơ sở Dữ liệu Quan hệ Quản lý (Managed MySQL Database)&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Thao tác / Hướng dẫn:&lt;/strong> Đăng nhập vào bảng điều khiển &lt;strong>Amazon Lightsail&lt;/strong> ➔ Điều hướng tới thẻ &lt;strong>Databases&lt;/strong> ➔ Nhấn nút &lt;strong>Create database&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Thông số điền cụ thể:&lt;/strong>
+&lt;ul>
+&lt;li>&lt;em>Vùng triển khai (Region):&lt;/em> &lt;code>ap-southeast-1&lt;/code> (Singapore)&lt;/li>
+&lt;li>&lt;em>Hệ quản trị CSDL (Database engine):&lt;/em> &lt;code>MySQL&lt;/code> (phiên bản &lt;code>8.0&lt;/code>)&lt;/li>
+&lt;li>&lt;em>Tài khoản quản trị (Master username):&lt;/em> &lt;code>LightsailAdmin&lt;/code>&lt;/li>
+&lt;li>&lt;em>Mật khẩu quản trị:&lt;/em> Lựa chọn tự sinh hoặc nhập mật khẩu quản trị bảo mật&lt;/li>
+&lt;li>&lt;em>Tên cơ sở dữ liệu ban đầu (Database name):&lt;/em> &lt;code>dbWordPress&lt;/code>&lt;/li>
+&lt;li>&lt;em>Gói tài nguyên (Database plan):&lt;/em> &lt;code>Standard Plan&lt;/code> ($15/tháng, 1 GB RAM, 2 vCPUs, 40 GB SSD, 100 GB Data Transfer)&lt;/li>
+&lt;li>&lt;em>Định danh cơ sở dữ liệu (Database identifier):&lt;/em> &lt;code>Workshop-DB-Instance&lt;/code>&lt;/li>
+&lt;li>&lt;em>Gắn thẻ nhận diện (Tags):&lt;/em> Key = &lt;code>dbname&lt;/code>, Value = &lt;code>dbWordPress&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Thao tác tiếp theo:&lt;/strong> Cuộn xuống dưới cùng và nhấn &lt;strong>Create database&lt;/strong>. Chờ hệ thống chuyển từ trạng thái &lt;em>Creating&lt;/em> sang &lt;em>Available&lt;/em>.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.1-amazon-lightsail/create-database.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.1-amazon-lightsail/create-database.png" alt="Deploy Database on Lightsail" />
+&lt;/a>
+&lt;/p></description></item><item><title>Thực hành triển khai Amazon RDS</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.3-week3/1.3.1-amazon-rds/</link><pubDate>Thu, 01 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.3-week3/1.3.1-amazon-rds/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Thực hành triển khai Amazon RDS&lt;/strong> được thực hiện vào &lt;strong>Thứ 5 (01/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 3&lt;/strong>. Trang này ghi lại quy trình thiết kế hạ tầng mạng an toàn đa vùng sẵn sàng (Multi-AZ), phân tách Public/Private Subnets, cấu hình Security Groups đa tầng, khởi tạo cơ sở dữ liệu quan hệ &lt;strong>Amazon RDS MySQL&lt;/strong>, kết nối máy chủ &lt;strong>EC2 Web Server&lt;/strong>, và thực hành quy trình sao lưu (&lt;strong>Snapshot Backup&lt;/strong>) và phục hồi (&lt;strong>Restore&lt;/strong>) dữ liệu.
+&lt;br>🔗 &lt;strong>Nguồn tài liệu thực hành:&lt;/strong> &lt;a href="https://000005.awsfcaj.com/">Get Started with Amazon RDS Workshop&lt;/a>&lt;/p></description></item><item><title>Tối ưu hóa Chi phí Amazon EC2 với AWS Lambda &amp; Thông báo Slack</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.2-aws-lambda/</link><pubDate>Tue, 20 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.2-aws-lambda/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Tối ưu hóa Chi phí Amazon EC2 với AWS Lambda &amp;amp; Thông báo Slack&lt;/strong> được thực hiện vào &lt;strong>Thứ 3 (20/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 6&lt;/strong>. Trang này ghi lại chi tiết giải pháp tự động tắt/bật máy chủ ngoài giờ làm việc bằng serverless AWS Lambda, điều phối với EventBridge Scheduler và gửi thông báo trực tiếp về kênh chat Slack qua Incoming Webhooks.&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-mục-tiêu-bài-thực-hành-lab-objectives">🎯 Mục tiêu bài thực hành (Lab Objectives)&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Tối ưu hóa Chi phí Đám mây (Cloud Cost Optimization):&lt;/strong> Thiết kế và triển khai giải pháp tự động hóa lịch trình vận hành máy chủ Amazon EC2, tự động tắt các máy chủ môi trường thử nghiệm (Dev/Test) ngoài giờ hành chính và bật lại vào đầu ngày làm việc, giúp tiết kiệm tới 65 - 70% chi phí tài nguyên điện toán.&lt;/li>
+&lt;li>&lt;strong>Tự động hóa Không máy chủ (Serverless Automation):&lt;/strong> Lập trình các hàm &lt;strong>AWS Lambda&lt;/strong> (Python 3 Boto3 SDK) phối hợp cùng bộ điều phối lịch trình &lt;strong>Amazon EventBridge Scheduler&lt;/strong> để kiểm soát vòng đời máy ảo hoàn toàn tự động mà không cần duy trì bất kỳ máy chủ quản trị trung gian nào.&lt;/li>
+&lt;li>&lt;strong>Chiến lược Quản trị Tài nguyên bằng Thẻ (Resource Tagging Strategy):&lt;/strong> Áp dụng cặp thẻ định danh &lt;code>environment_auto = true&lt;/code> để Lambda tự động nhận diện và quét chính xác các máy chủ mục tiêu được phân quyền quản trị mà không cần cấu hình cứng Instance ID.&lt;/li>
+&lt;li>&lt;strong>Tích hợp Giám sát Thời gian thực (ChatOps via Slack):&lt;/strong> Kết nối AWS Lambda với dịch vụ giao tiếp nhóm &lt;strong>Slack&lt;/strong> thông qua &lt;strong>Incoming Webhooks&lt;/strong>, tự động gửi thông báo định dạng trực quan về trạng thái bật/tắt của từng máy chủ vào kênh &lt;code>#notification&lt;/code>.&lt;/li>
+&lt;li>&lt;strong>Kỹ năng Xử lý Sự cố Thực chiến (Real-World Troubleshooting):&lt;/strong> Trực tiếp phân tích và khắc phục các sự cố kinh điển như ngoại lệ chuyển giao trạng thái máy ảo &lt;code>IncorrectInstanceState&lt;/code>, xung đột bộ lọc máy ảo đã xóa (&lt;code>Terminated&lt;/code>), phân quyền IAM và kết nối webhook an toàn.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-bảng-tổng-hợp-thông-số-tài-nguyên-đã-triển-khai-provisioned-resource-specifications">📊 Bảng tổng hợp thông số tài nguyên đã triển khai (Provisioned Resource Specifications)&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Thành phần / Tài nguyên&lt;/th>
+ &lt;th style="text-align: left">Tên định danh (Name / ID)&lt;/th>
+ &lt;th style="text-align: left">Thông số kỹ thuật / Cấu hình chi tiết&lt;/th>
+ &lt;th style="text-align: left">Mục đích / Ghi chú&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>AWS Region&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">US East (N. Virginia)&lt;/td>
+ &lt;td style="text-align: left">Khu vực triển khai toàn bộ giải pháp&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Mạng VPC&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lambda-lab&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">CIDR &lt;code>10.0.0.0/16&lt;/code>, Public Subnet &lt;code>10.0.128.0/20&lt;/code> (&lt;code>us-east-1a&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">Môi trường mạng VPC biệt lập cho bài thực hành&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Nhóm bảo mật (SG)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lambda-lab&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Inbound: SSH (Port 22), HTTP (Port 80); Outbound: All Traffic&lt;/td>
+ &lt;td style="text-align: left">Kiểm soát an ninh mạng cho máy chủ EC2&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Máy chủ mục tiêu (EC2)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lambda-lab-instance&lt;/code> / &lt;code>i-003cb6dbd0f4e5b31&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>t3.micro&lt;/code>, Amazon Linux 2023, Tag: &lt;code>environment_auto = true&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Máy chủ môi trường phát triển cần tối ưu chi phí&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM Execution Role&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-role&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Trusted: &lt;code>lambda.amazonaws.com&lt;/code>, Policies: &lt;code>AmazonEC2FullAccess&lt;/code>, &lt;code>CloudWatchFullAccessV2&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Cấp quyền cho Lambda quản trị EC2 và ghi nhật ký Logs&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Hàm Lambda Tắt máy&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-stop&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Runtime: Python 3.14, Memory: 128 MB, Env: &lt;code>environment_auto = true&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Quét và tự động dừng máy chủ EC2 ngoài giờ làm việc&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Hàm Lambda Bật máy&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-start&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Runtime: Python 3.14, Memory: 128 MB, Env: &lt;code>environment_auto = true&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Quét và tự động khởi động máy chủ EC2 đầu ngày mới&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Lịch trình EventBridge (Stop)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-stop&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Recurring Schedule: Rate (9 hours) / Cron, Flexible Window: Off&lt;/td>
+ &lt;td style="text-align: left">Kích hoạt hàm Stop theo chu kỳ định sẵn&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Lịch trình EventBridge (Start)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-start&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Recurring Schedule: Rate (8 hours) / Cron, Flexible Window: Off&lt;/td>
+ &lt;td style="text-align: left">Kích hoạt hàm Start theo chu kỳ định sẵn&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Không gian ChatOps&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>aws-lambda-labs&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Kênh Slack &lt;code>#notification&lt;/code>, App: &lt;code>Lambda-Notifier&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Kênh tiếp nhận thông báo trạng thái vận hành tức thời&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-các-bước-thực-hành-step-by-step-hands-on-implementation">🛠️ Các bước thực hành Step-by-Step (Hands-on Implementation)&lt;/h3>
+&lt;h4 id="bước-1-khởi-tạo-hạ-tầng-mạng-vpc--cấu-hình-subnet-public">Bước 1: Khởi tạo Hạ tầng Mạng VPC &amp;amp; Cấu hình Subnet Public&lt;/h4>
+&lt;ol>
+&lt;li>Truy cập giao diện điều khiển &lt;strong>Amazon VPC&lt;/strong> trên AWS Management Console.&lt;/li>
+&lt;li>Điều hướng tới &lt;strong>Your VPCs&lt;/strong> ➔ Chọn &lt;strong>Create VPC&lt;/strong>.&lt;/li>
+&lt;li>Chọn cấu hình &lt;strong>VPC and more&lt;/strong>, đặt tên định danh &lt;code>lambda-lab&lt;/code> và giữ nguyên dải mạng CIDR tiêu chuẩn. Bấm &lt;strong>Create VPC&lt;/strong>.&lt;/li>
+&lt;li>Truy cập mục &lt;strong>Subnets&lt;/strong>, chọn Subnet Public vừa khởi tạo (&lt;code>lambda-lab-subnet-public...&lt;/code>) ➔ Chọn &lt;strong>Actions&lt;/strong> ➔ &lt;strong>Edit subnet settings&lt;/strong>.&lt;/li>
+&lt;li>Đánh dấu tích vào tùy chọn &lt;strong>Enable auto-assign public IPv4 address&lt;/strong> để máy chủ EC2 khi khởi chạy tự động nhận địa chỉ IP công cộng ➔ Bấm &lt;strong>Save&lt;/strong>.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.2-aws-lambda/2.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.2-aws-lambda/2.1.png" alt="Khởi tạo VPC lambda-lab thành công" />
+&lt;/a>
+
+&lt;em>Hình 1.1: Giao diện chi tiết VPC lambda-lab cùng cấu hình bảng định tuyến và Subnet sau khi khởi tạo thành công.&lt;/em>&lt;/p></description></item><item><title>Thao tác dòng lệnh với AWS CLI</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.2-aws-cli/</link><pubDate>Tue, 13 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.2-aws-cli/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Thao tác dòng lệnh với AWS CLI&lt;/strong> được thực hiện vào &lt;strong>Thứ 3 (13/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 5&lt;/strong>. Trang này ghi lại chi tiết từng bước thực hành thực tế: các bước click chuột, thông số cấu hình cụ thể cần điền, câu lệnh thực thi và cách xử lý các lỗi phát sinh.
+&lt;br>🔗 &lt;strong>Nguồn tài liệu thực hành:&lt;/strong> &lt;a href="https://000011.awsfcaj.com/">Getting Started with the AWS CLI&lt;/a>&lt;/p></description></item><item><title>Triển khai Amazon Lightsail Container</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.4-week4/1.4.2-lightsail-container/</link><pubDate>Tue, 06 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.4-week4/1.4.2-lightsail-container/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Triển khai Amazon Lightsail Container&lt;/strong> (Run Apps on Lightsail Container) được thực hiện vào &lt;strong>Thứ 3 (06/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 4&lt;/strong>. Trang này hướng dẫn chi tiết từng bước thực hiện kèm thông số cụ thể, câu lệnh CLI, giải pháp xử lý sự cố và bộ 11 hình ảnh minh chứng thực hành.
+&lt;br>🔗 &lt;strong>Nguồn tài liệu thực hành (Workshop Reference):&lt;/strong> &lt;a href="https://000046.awsfcaj.com/">Amazon Lightsail Container - Run Apps on Lightsail Container&lt;/a>&lt;/p></description></item><item><title>Quản trị Thẻ định danh và Nhóm tài nguyên AWS (Tags &amp; Resource Groups)</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.3-tags-and-resource-groups/</link><pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.3-tags-and-resource-groups/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Quản trị Thẻ định danh và Nhóm tài nguyên AWS (Tags &amp;amp; Resource Groups)&lt;/strong> được thực hiện vào &lt;strong>Thứ 4 (21/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 6&lt;/strong>. Trang này ghi lại chi tiết toàn bộ quy trình cấu hình phân loại tài nguyên thông qua gắn nhãn (Tags), điều khiển và truy vấn qua giao diện dòng lệnh AWS CLI, và tổ chức quản trị tập trung với AWS Resource Groups.&lt;/p></description></item><item><title>Làm việc với Amazon DynamoDB</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.3-amazon-dynamodb/</link><pubDate>Wed, 14 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.3-amazon-dynamodb/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Làm việc với Amazon DynamoDB&lt;/strong> được triển khai vào &lt;strong>Thứ 4 (14/10/2026)&lt;/strong> thuộc khuôn khổ &lt;strong>Tuần 5&lt;/strong>. Bài viết trình bày chi tiết quy trình thực tế qua 3 phương thức quản trị: Giao diện web AWS Console, Giao diện dòng lệnh AWS CloudShell, và Lập trình tự động hóa với Python SDK (Boto3).
+&lt;br>🔗 &lt;strong>Nguồn tài liệu thực hành:&lt;/strong> &lt;a href="https://000060.awsfcaj.com/">Work with Amazon DynamoDB (Workshop 000060)&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-mục-tiêu-bài-thực-hành-lab-objectives">🎯 Mục tiêu bài thực hành (Lab Objectives):&lt;/h3>
+&lt;ul>
+&lt;li>Nắm vững kiến trúc NoSQL của &lt;strong>Amazon DynamoDB&lt;/strong>, hiểu rõ cơ chế phân vùng với &lt;strong>Partition Key (HASH)&lt;/strong>, khóa kết hợp &lt;strong>Composite Key (HASH + RANGE)&lt;/strong> và các kiểu dữ liệu Scalar/Document.&lt;/li>
+&lt;li>Thực hiện quản trị vòng đời bảng dữ liệu &lt;code>Music&lt;/code> trên &lt;strong>AWS Management Console&lt;/strong>: Tạo bảng, thêm item, cập nhật, truy vấn (Query/Scan), thiết lập và truy vấn &lt;strong>Global Secondary Index (GSI)&lt;/strong> &lt;code>AlbumTitle-index&lt;/code>.&lt;/li>
+&lt;li>Khai thác sức mạnh dòng lệnh của &lt;strong>AWS CloudShell&lt;/strong>: Cấu hình phân quyền IAM, tạo bảng CLI, thực hiện các thao tác CRUD dữ liệu (&lt;code>put-item&lt;/code>, &lt;code>get-item&lt;/code>, &lt;code>update-item&lt;/code>, &lt;code>query&lt;/code>), thêm GSI qua &lt;code>update-table&lt;/code> và xử lý quá trình &lt;strong>Backfilling&lt;/strong>.&lt;/li>
+&lt;li>Làm chủ lập trình SDK trên môi trường Windows với &lt;strong>Python 3&lt;/strong> và thư viện &lt;strong>Boto3&lt;/strong>: Tự động hóa tạo bảng &lt;code>Movies&lt;/code>, CRUD từng bản ghi, nạp hàng loạt dữ liệu mẫu từ file JSON (&lt;code>moviedata.json&lt;/code> với 4.609 phim), truy vấn theo năm và quét bảng (Scan) có lọc điều kiện.&lt;/li>
+&lt;li>Rèn luyện kỹ năng phân tích và khắc phục &lt;strong>10 sự cố kỹ thuật thực tế chuyên sâu&lt;/strong>: Lỗi cú pháp tài liệu gốc, phân quyền IAM Policy, xung đột tài nguyên trùng lặp, ký tự ẩn Unicode &lt;code>\u200b&lt;/code>, cơ chế Pager, lỗi Backfilling index, nhầm lẫn môi trường CMD/Python và lệch Region.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-bảng-tổng-hợp-thông-số-tài-nguyên-đã-triển-khai">📊 Bảng tổng hợp thông số tài nguyên đã triển khai:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Tài nguyên&lt;/th>
+ &lt;th style="text-align: left">Tên / Định danh&lt;/th>
+ &lt;th style="text-align: left">Thuộc tính &amp;amp; Khóa chính (Primary Key)&lt;/th>
+ &lt;th style="text-align: left">Throughput / Chế độ&lt;/th>
+ &lt;th style="text-align: left">Region&lt;/th>
+ &lt;th style="text-align: left">Mục đích sử dụng&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>DynamoDB Table 1&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Music&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Partition Key: &lt;code>Artist&lt;/code> (S) &lt;br>Sort Key: &lt;code>SongTitle&lt;/code> (S)&lt;/td>
+ &lt;td style="text-align: left">Provisioned (RCU=10, WCU=5)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Thực hành Console &amp;amp; CloudShell CLI&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Secondary Index&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>AlbumTitle-index&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Partition Key: &lt;code>AlbumTitle&lt;/code> (S) &lt;br>Projection: &lt;code>ALL&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Provisioned (RCU=10, WCU=5)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Global Secondary Index cho bảng &lt;code>Music&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>DynamoDB Table 2&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Movies&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Partition Key: &lt;code>year&lt;/code> (N) &lt;br>Sort Key: &lt;code>title&lt;/code> (S)&lt;/td>
+ &lt;td style="text-align: left">Provisioned (RCU=10, WCU=10)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Thực hành Python SDK (Boto3)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM User&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>AWS-FCAJ-DynamDB&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Attached Policy: &lt;code>AmazonDynamoDBFullAccess&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Programmatic Access (CLI)&lt;/td>
+ &lt;td style="text-align: left">Global&lt;/td>
+ &lt;td style="text-align: left">Tài khoản thực thi CLI &amp;amp; Python Boto3&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Tập dữ liệu mẫu&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>moviedata.json&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">4.609 bản ghi phim (3.7 MB), định dạng JSON&lt;/td>
+ &lt;td style="text-align: left">Parse Float sang Decimal&lt;/td>
+ &lt;td style="text-align: left">Local&lt;/td>
+ &lt;td style="text-align: left">Dữ liệu kiểm thử Query &amp;amp; Scan nâng cao&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Môi trường SDK&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">Windows Local&lt;/td>
+ &lt;td style="text-align: left">Python 3.14.5 + Boto3 1.43.114&lt;/td>
+ &lt;td style="text-align: left">CLI Default: &lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Local&lt;/td>
+ &lt;td style="text-align: left">Môi trường lập trình máy trạm&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-mục-1-quản-trị-dynamodb-qua-aws-management-console">📋 Mục 1: Quản trị DynamoDB qua AWS Management Console&lt;/h3>
+&lt;h4 id="bước-1-tổng-quan-giao-diện-amazon-dynamodb-console">Bước 1: Tổng quan giao diện Amazon DynamoDB Console&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Thao tác:&lt;/strong> Đăng nhập AWS Management Console ➔ Tìm kiếm và chọn dịch vụ &lt;strong>DynamoDB&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Mục đích:&lt;/strong> Truy cập Dashboard trung tâm để theo dõi tổng thể dung lượng, số lượng bảng và các chỉ số hoạt động.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.5-Week5/1.5.3-amazon-dynamodb/2.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.5-Week5/1.5.3-amazon-dynamodb/2.1.png" alt="Tổng quan DynamoDB Dashboard" />
+&lt;/a>
+&lt;/p></description></item><item><title>Tự động co giãn với EC2 Auto Scaling</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.4-week4/1.4.3-ec2-auto-scaling/</link><pubDate>Wed, 07 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.4-week4/1.4.3-ec2-auto-scaling/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Tự động co giãn với EC2 Auto Scaling&lt;/strong> (Scaling Applications with EC2 Auto Scaling) được thực hiện vào &lt;strong>Thứ 4 (07/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 4&lt;/strong>. Trang này hướng dẫn chi tiết từng bước với đầy đủ thông số điền, câu lệnh kiểm thử tải, giải pháp xử lý sự cố thực tế và trọn bộ 44 hình ảnh minh chứng thực hành.
+&lt;br>🔗 &lt;strong>Nguồn tài liệu thực hành (Workshop Reference):&lt;/strong> &lt;a href="https://000006.awsfcaj.com/">Triển khai ứng dụng FCAJ Management với Auto Scaling Group&lt;/a>&lt;/p></description></item><item><title>Giám sát hệ thống với Grafana &amp; Amazon CloudWatch</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.4-grafana-basic/</link><pubDate>Thu, 22 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.4-grafana-basic/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Giám sát hệ thống với Grafana &amp;amp; Amazon CloudWatch (Getting started with Grafana basic - Workshop 000029)&lt;/strong> được triển khai vào &lt;strong>Thứ 5 (22/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 6&lt;/strong>. Trang này ghi lại đầy đủ toàn bộ quá trình dựng máy chủ giám sát Grafana trên Amazon Linux 2023, phân quyền IAM bảo mật, tích hợp nguồn dữ liệu Amazon CloudWatch và xây dựng các biểu đồ quan sát thời gian thực.&lt;/p></description></item><item><title>Triển khai Amazon ElastiCache - Redis</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.4-amazon-elasticache/</link><pubDate>Thu, 15 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.4-amazon-elasticache/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Amazon ElastiCache - Redis&lt;/strong> được thực hiện vào &lt;strong>Thứ 4 (14/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 5&lt;/strong>. Trang này ghi lại toàn diện quy trình triển khai: các thao tác click chuột trên Console, thiết lập thông số kỹ thuật, cấu hình bảo mật RBAC với Users &amp;amp; User Groups, tự động hóa bằng AWS CLI &amp;amp; Python Boto3 SDK, cùng các khó khăn thực tế phát sinh và giải pháp xử lý triệt để.
+&lt;br>🔗 &lt;strong>Nguồn tài liệu thực hành:&lt;/strong> &lt;a href="https://000061.awsfcaj.com/">Amazon ElastiCache - Redis&lt;/a>&lt;/p></description></item><item><title>Giám sát với Amazon CloudWatch</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.4-week4/1.4.4-amazon-cloudwatch/</link><pubDate>Thu, 08 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.4-week4/1.4.4-amazon-cloudwatch/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Giám sát với Amazon CloudWatch&lt;/strong> (Monitoring with Amazon CloudWatch) được thực hiện vào &lt;strong>Thứ 5 (08/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 4&lt;/strong>. Trang này hướng dẫn chi tiết từng bước với đầy đủ thông số kỹ thuật, cú pháp truy vấn Logs Insights, công thức toán học Math Expressions, xử lý sự cố thực tế và trọn bộ 33 hình ảnh minh chứng thực hành.
+&lt;br>🔗 &lt;strong>Nguồn tài liệu thực hành (Workshop Reference):&lt;/strong> &lt;a href="https://000008.awsfcaj.com/">Monitoring with Amazon CloudWatch&lt;/a>&lt;/p></description></item></channel></rss>

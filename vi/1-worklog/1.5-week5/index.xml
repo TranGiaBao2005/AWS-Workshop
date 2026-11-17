@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tuần 5 on Báo cáo thực tập</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/</link><description>Recent content in Tuần 5 on Báo cáo thực tập</description><generator>Hugo</generator><language>vi</language><lastBuildDate>Thu, 15 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/index.xml" rel="self" type="application/rss+xml"/><item><title>Thiết lập Hybrid DNS với Route 53 Resolver</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.1-hybrid-dns/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.1-hybrid-dns/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Thiết lập Hybrid DNS với Route 53 Resolver&lt;/strong> (Hybrid DNS Management with Amazon Route 53) được thực hiện vào &lt;strong>Thứ 2 (12/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 5&lt;/strong>. Trang này hướng dẫn chi tiết từng bước với đầy đủ thông số mạng, dải IP, câu lệnh kiểm tra &lt;code>nslookup&lt;/code>, giải pháp xử lý sự cố thực tế và trọn bộ 11 hình ảnh minh chứng thực hành.
+&lt;br>🔗 &lt;strong>Nguồn tài liệu thực hành (Workshop Reference):&lt;/strong> &lt;a href="https://000010.awsfcaj.com/">Set up Hybrid DNS with Route 53 Resolver&lt;/a>&lt;/p></description></item><item><title>Thao tác dòng lệnh với AWS CLI</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.2-aws-cli/</link><pubDate>Tue, 13 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.2-aws-cli/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Thao tác dòng lệnh với AWS CLI&lt;/strong> được thực hiện vào &lt;strong>Thứ 3 (13/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 5&lt;/strong>. Trang này ghi lại chi tiết từng bước thực hành thực tế: các bước click chuột, thông số cấu hình cụ thể cần điền, câu lệnh thực thi và cách xử lý các lỗi phát sinh.
+&lt;br>🔗 &lt;strong>Nguồn tài liệu thực hành:&lt;/strong> &lt;a href="https://000011.awsfcaj.com/">Getting Started with the AWS CLI&lt;/a>&lt;/p></description></item><item><title>Làm việc với Amazon DynamoDB</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.3-amazon-dynamodb/</link><pubDate>Wed, 14 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.3-amazon-dynamodb/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Làm việc với Amazon DynamoDB&lt;/strong> được triển khai vào &lt;strong>Thứ 4 (14/10/2026)&lt;/strong> thuộc khuôn khổ &lt;strong>Tuần 5&lt;/strong>. Bài viết trình bày chi tiết quy trình thực tế qua 3 phương thức quản trị: Giao diện web AWS Console, Giao diện dòng lệnh AWS CloudShell, và Lập trình tự động hóa với Python SDK (Boto3).
+&lt;br>🔗 &lt;strong>Nguồn tài liệu thực hành:&lt;/strong> &lt;a href="https://000060.awsfcaj.com/">Work with Amazon DynamoDB (Workshop 000060)&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-mục-tiêu-bài-thực-hành-lab-objectives">🎯 Mục tiêu bài thực hành (Lab Objectives):&lt;/h3>
+&lt;ul>
+&lt;li>Nắm vững kiến trúc NoSQL của &lt;strong>Amazon DynamoDB&lt;/strong>, hiểu rõ cơ chế phân vùng với &lt;strong>Partition Key (HASH)&lt;/strong>, khóa kết hợp &lt;strong>Composite Key (HASH + RANGE)&lt;/strong> và các kiểu dữ liệu Scalar/Document.&lt;/li>
+&lt;li>Thực hiện quản trị vòng đời bảng dữ liệu &lt;code>Music&lt;/code> trên &lt;strong>AWS Management Console&lt;/strong>: Tạo bảng, thêm item, cập nhật, truy vấn (Query/Scan), thiết lập và truy vấn &lt;strong>Global Secondary Index (GSI)&lt;/strong> &lt;code>AlbumTitle-index&lt;/code>.&lt;/li>
+&lt;li>Khai thác sức mạnh dòng lệnh của &lt;strong>AWS CloudShell&lt;/strong>: Cấu hình phân quyền IAM, tạo bảng CLI, thực hiện các thao tác CRUD dữ liệu (&lt;code>put-item&lt;/code>, &lt;code>get-item&lt;/code>, &lt;code>update-item&lt;/code>, &lt;code>query&lt;/code>), thêm GSI qua &lt;code>update-table&lt;/code> và xử lý quá trình &lt;strong>Backfilling&lt;/strong>.&lt;/li>
+&lt;li>Làm chủ lập trình SDK trên môi trường Windows với &lt;strong>Python 3&lt;/strong> và thư viện &lt;strong>Boto3&lt;/strong>: Tự động hóa tạo bảng &lt;code>Movies&lt;/code>, CRUD từng bản ghi, nạp hàng loạt dữ liệu mẫu từ file JSON (&lt;code>moviedata.json&lt;/code> với 4.609 phim), truy vấn theo năm và quét bảng (Scan) có lọc điều kiện.&lt;/li>
+&lt;li>Rèn luyện kỹ năng phân tích và khắc phục &lt;strong>10 sự cố kỹ thuật thực tế chuyên sâu&lt;/strong>: Lỗi cú pháp tài liệu gốc, phân quyền IAM Policy, xung đột tài nguyên trùng lặp, ký tự ẩn Unicode &lt;code>\u200b&lt;/code>, cơ chế Pager, lỗi Backfilling index, nhầm lẫn môi trường CMD/Python và lệch Region.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-bảng-tổng-hợp-thông-số-tài-nguyên-đã-triển-khai">📊 Bảng tổng hợp thông số tài nguyên đã triển khai:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Tài nguyên&lt;/th>
+ &lt;th style="text-align: left">Tên / Định danh&lt;/th>
+ &lt;th style="text-align: left">Thuộc tính &amp;amp; Khóa chính (Primary Key)&lt;/th>
+ &lt;th style="text-align: left">Throughput / Chế độ&lt;/th>
+ &lt;th style="text-align: left">Region&lt;/th>
+ &lt;th style="text-align: left">Mục đích sử dụng&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>DynamoDB Table 1&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Music&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Partition Key: &lt;code>Artist&lt;/code> (S) &lt;br>Sort Key: &lt;code>SongTitle&lt;/code> (S)&lt;/td>
+ &lt;td style="text-align: left">Provisioned (RCU=10, WCU=5)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Thực hành Console &amp;amp; CloudShell CLI&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Secondary Index&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>AlbumTitle-index&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Partition Key: &lt;code>AlbumTitle&lt;/code> (S) &lt;br>Projection: &lt;code>ALL&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Provisioned (RCU=10, WCU=5)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Global Secondary Index cho bảng &lt;code>Music&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>DynamoDB Table 2&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Movies&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Partition Key: &lt;code>year&lt;/code> (N) &lt;br>Sort Key: &lt;code>title&lt;/code> (S)&lt;/td>
+ &lt;td style="text-align: left">Provisioned (RCU=10, WCU=10)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Thực hành Python SDK (Boto3)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM User&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>AWS-FCAJ-DynamDB&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Attached Policy: &lt;code>AmazonDynamoDBFullAccess&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Programmatic Access (CLI)&lt;/td>
+ &lt;td style="text-align: left">Global&lt;/td>
+ &lt;td style="text-align: left">Tài khoản thực thi CLI &amp;amp; Python Boto3&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Tập dữ liệu mẫu&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>moviedata.json&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">4.609 bản ghi phim (3.7 MB), định dạng JSON&lt;/td>
+ &lt;td style="text-align: left">Parse Float sang Decimal&lt;/td>
+ &lt;td style="text-align: left">Local&lt;/td>
+ &lt;td style="text-align: left">Dữ liệu kiểm thử Query &amp;amp; Scan nâng cao&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Môi trường SDK&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">Windows Local&lt;/td>
+ &lt;td style="text-align: left">Python 3.14.5 + Boto3 1.43.114&lt;/td>
+ &lt;td style="text-align: left">CLI Default: &lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Local&lt;/td>
+ &lt;td style="text-align: left">Môi trường lập trình máy trạm&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-mục-1-quản-trị-dynamodb-qua-aws-management-console">📋 Mục 1: Quản trị DynamoDB qua AWS Management Console&lt;/h3>
+&lt;h4 id="bước-1-tổng-quan-giao-diện-amazon-dynamodb-console">Bước 1: Tổng quan giao diện Amazon DynamoDB Console&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Thao tác:&lt;/strong> Đăng nhập AWS Management Console ➔ Tìm kiếm và chọn dịch vụ &lt;strong>DynamoDB&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Mục đích:&lt;/strong> Truy cập Dashboard trung tâm để theo dõi tổng thể dung lượng, số lượng bảng và các chỉ số hoạt động.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.5-Week5/1.5.3-amazon-dynamodb/2.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.5-Week5/1.5.3-amazon-dynamodb/2.1.png" alt="Tổng quan DynamoDB Dashboard" />
+&lt;/a>
+&lt;/p></description></item><item><title>Triển khai Amazon ElastiCache - Redis</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.4-amazon-elasticache/</link><pubDate>Thu, 15 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.5-week5/1.5.4-amazon-elasticache/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Amazon ElastiCache - Redis&lt;/strong> được thực hiện vào &lt;strong>Thứ 4 (14/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 5&lt;/strong>. Trang này ghi lại toàn diện quy trình triển khai: các thao tác click chuột trên Console, thiết lập thông số kỹ thuật, cấu hình bảo mật RBAC với Users &amp;amp; User Groups, tự động hóa bằng AWS CLI &amp;amp; Python Boto3 SDK, cùng các khó khăn thực tế phát sinh và giải pháp xử lý triệt để.
+&lt;br>🔗 &lt;strong>Nguồn tài liệu thực hành:&lt;/strong> &lt;a href="https://000061.awsfcaj.com/">Amazon ElastiCache - Redis&lt;/a>&lt;/p></description></item></channel></rss>

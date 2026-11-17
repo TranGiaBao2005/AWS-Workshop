@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Week 4 on Internship Report</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/</link><description>Recent content in Week 4 on Internship Report</description><generator>Hugo</generator><language>en</language><lastBuildDate>Thu, 08 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/index.xml" rel="self" type="application/rss+xml"/><item><title>Amazon Lightsail Deployment</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.1-amazon-lightsail/</link><pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.1-amazon-lightsail/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Amazon Lightsail Deployment&lt;/strong> hands-on lab was conducted on &lt;strong>Monday (05/10/2026)&lt;/strong> during &lt;strong>Week 4&lt;/strong>. This page provides a comprehensive step-by-step execution guide complete with precise parameter values, CLI commands, troubleshooting resolutions, and verification screenshots.
+&lt;br>🔗 &lt;strong>Lab Reference Material:&lt;/strong> &lt;a href="https://000045.awsfcaj.com/">Simplified Computing with Amazon Lightsail&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Familiarize with the simplified management console and core capabilities of &lt;strong>Amazon Lightsail&lt;/strong>.&lt;/li>
+&lt;li>Provision and manage a standalone &lt;strong>Managed Relational Database (MySQL)&lt;/strong> on Lightsail.&lt;/li>
+&lt;li>Deploy two web applications: &lt;strong>WordPress&lt;/strong> and &lt;strong>Prestashop (E-Commerce)&lt;/strong> connecting to the shared database.&lt;/li>
+&lt;li>Configure the underlying Linux/Ubuntu environment, assign &lt;strong>Static IPs&lt;/strong>, and define firewall rules.&lt;/li>
+&lt;li>Implement data backup procedures using &lt;strong>Snapshots&lt;/strong> and scale up workloads by upgrading instance plans (&lt;strong>Migration&lt;/strong>).&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Resource&lt;/th>
+ &lt;th style="text-align: left">Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Configuration &amp;amp; Detailed Specs&lt;/th>
+ &lt;th style="text-align: left">Address / Ports&lt;/th>
+ &lt;th style="text-align: left">Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Lightsail Database&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Workshop-DB-Instance&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">MySQL 8.0, Standard Plan ($15/mo, 1GB RAM, 2 vCPUs)&lt;/td>
+ &lt;td style="text-align: left">Port 3306, Master User: &lt;code>LightsailAdmin&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Master DB: &lt;code>dbWordPress&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>WordPress Instance&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>WordPress-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Blueprint: WordPress (Bitnami), Linux/Ubuntu&lt;/td>
+ &lt;td style="text-align: left">Static IP: Attached, Port 80, 443&lt;/td>
+ &lt;td style="text-align: left">Connected to Lightsail DB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Prestashop Instance&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Prestashop-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Blueprint: Prestashop, Linux/Ubuntu&lt;/td>
+ &lt;td style="text-align: left">Static IP: Attached, Port 80, 443&lt;/td>
+ &lt;td style="text-align: left">E-Commerce Platform&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Instance Snapshot&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>wordpress-backup-snapshot&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Full point-in-time snapshot before instance upgrade&lt;/td>
+ &lt;td style="text-align: left">Size: ~20 GB, Status: Available&lt;/td>
+ &lt;td style="text-align: left">Used for scale-up&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Migrated Instance&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>WordPress-Migrated&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Created from Snapshot, higher hardware bundle&lt;/td>
+ &lt;td style="text-align: left">Static IP: Re-attached&lt;/td>
+ &lt;td style="text-align: left">Seamless service continuity&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--screenshot-gallery">🚀 Step-by-Step Implementation &amp;amp; Screenshot Gallery:&lt;/h3>
+&lt;h4 id="step-1-provision-a-managed-relational-database-mysql">Step 1: Provision a Managed Relational Database (MySQL)&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Action / Navigation:&lt;/strong> Log into the &lt;strong>Amazon Lightsail&lt;/strong> console ➔ Navigate to the &lt;strong>Databases&lt;/strong> tab ➔ Click &lt;strong>Create database&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Configuration Parameters:&lt;/strong>
+&lt;ul>
+&lt;li>&lt;em>Deployment Region:&lt;/em> &lt;code>ap-southeast-1&lt;/code> (Singapore)&lt;/li>
+&lt;li>&lt;em>Database Engine:&lt;/em> &lt;code>MySQL&lt;/code> (version &lt;code>8.0&lt;/code>)&lt;/li>
+&lt;li>&lt;em>Master Username:&lt;/em> &lt;code>LightsailAdmin&lt;/code>&lt;/li>
+&lt;li>&lt;em>Master Password:&lt;/em> Generate strong automated password or specify custom secure password&lt;/li>
+&lt;li>&lt;em>Initial Database Name:&lt;/em> &lt;code>dbWordPress&lt;/code>&lt;/li>
+&lt;li>&lt;em>Database Plan:&lt;/em> &lt;code>Standard Plan&lt;/code> ($15/month, 1 GB RAM, 2 vCPUs, 40 GB SSD, 100 GB Data Transfer)&lt;/li>
+&lt;li>&lt;em>Database Identifier:&lt;/em> &lt;code>Workshop-DB-Instance&lt;/code>&lt;/li>
+&lt;li>&lt;em>Identification Tags:&lt;/em> Key = &lt;code>dbname&lt;/code>, Value = &lt;code>dbWordPress&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Next Action:&lt;/strong> Scroll down and click &lt;strong>Create database&lt;/strong>. Monitor the status transition from &lt;em>Creating&lt;/em> to &lt;em>Available&lt;/em>.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.1-amazon-lightsail/create-database.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.1-amazon-lightsail/create-database.png" alt="Deploy Database on Lightsail" />
+&lt;/a>
+&lt;/p></description></item><item><title>Amazon Lightsail Container Deployment</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.2-lightsail-container/</link><pubDate>Tue, 06 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.2-lightsail-container/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Amazon Lightsail Container Deployment&lt;/strong> (Run Apps on Lightsail Container) hands-on lab was conducted on &lt;strong>Tuesday (06/10/2026)&lt;/strong> during &lt;strong>Week 4&lt;/strong>. This page provides a thorough step-by-step implementation guide featuring precise parameters, CLI execution commands, troubleshooting solutions, and all 11 verification screenshots.
+&lt;br>🔗 &lt;strong>Lab Reference Material:&lt;/strong> &lt;a href="https://000046.awsfcaj.com/">Amazon Lightsail Container - Run Apps on Lightsail Container&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Familiarize with the &lt;strong>Containers&lt;/strong> feature on Amazon Lightsail — a streamlined solution for running containerized workloads without orchestrator complexity.&lt;/li>
+&lt;li>Install and configure the &lt;strong>AWS CLI&lt;/strong> and the &lt;strong>Lightsail Control (lightsailctl)&lt;/strong> extension plugin to interact with container services from a local workstation.&lt;/li>
+&lt;li>Provision a &lt;strong>Container Service&lt;/strong> on Lightsail utilizing a cost-optimized hardware tier (Nano bundle).&lt;/li>
+&lt;li>Deploy a &lt;strong>Public Container Image&lt;/strong> (Nginx) sourced from Docker Hub onto the Lightsail Container Service.&lt;/li>
+&lt;li>Launch a dedicated virtual machine &lt;strong>Build-Instance&lt;/strong> (Ubuntu) to compile and push a &lt;strong>Custom Container Image&lt;/strong> to the Lightsail private registry via &lt;code>aws lightsail push-container-image&lt;/code>.&lt;/li>
+&lt;li>Enable a Public Endpoint and verify live web application delivery over an auto-managed HTTPS SSL/TLS domain.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Resource&lt;/th>
+ &lt;th style="text-align: left">Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Configuration &amp;amp; Detailed Specs&lt;/th>
+ &lt;th style="text-align: left">Address / Ports&lt;/th>
+ &lt;th style="text-align: left">Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>AWS CLI&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">Version 2.37.9&lt;/td>
+ &lt;td style="text-align: left">Installed via PowerShell, configured Profile&lt;/td>
+ &lt;td style="text-align: left">IAM User: &lt;code>Bao&lt;/code> (&lt;code>ap-southeast-1&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">AWS command-line management tool&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Container Service&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lightsail-container&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Nano (512 MB RAM, 0.25 vCPUs x 1 node)&lt;/td>
+ &lt;td style="text-align: left">Singapore (&lt;code>ap-southeast-1a&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">Status: &lt;code>Running&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Public Deployment&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>test1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Image: &lt;code>nginx&lt;/code> (Docker Hub Public Registry)&lt;/td>
+ &lt;td style="text-align: left">Port 80 (HTTP), Health check: &lt;code>/&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Rapid deployment from public registry&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Build Instance&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Build-Instance&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Ubuntu 22.04 LTS, 512 MB RAM, 20 GB SSD&lt;/td>
+ &lt;td style="text-align: left">Public IP: &lt;code>47.129.162.155&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Used to build &amp;amp; push Docker images&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Stored Container&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>:lightsail-container.nginx-container-hello.1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Custom image uploaded from build instance&lt;/td>
+ &lt;td style="text-align: left">SHA256 digest validation&lt;/td>
+ &lt;td style="text-align: left">Lightsail private container repository&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Public Domain&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lightsail-container...amazonlightsail.com&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">HTTPS auto-issued with AWS SSL certificate&lt;/td>
+ &lt;td style="text-align: left">Port 443 / 80&lt;/td>
+ &lt;td style="text-align: left">Publicly accessible application endpoint&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--screenshot-gallery">🚀 Step-by-Step Implementation &amp;amp; Screenshot Gallery:&lt;/h3>
+&lt;h4 id="step-1-install-aws-cli-v2-on-windows-workstation">Step 1: Install AWS CLI v2 on Windows Workstation&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Action / Navigation:&lt;/strong> Open &lt;strong>PowerShell&lt;/strong> with administrative privileges (Run as Administrator) ➔ Execute the automated installation command for AWS CLI v2.&lt;/li>
+&lt;li>&lt;strong>Command Executed:&lt;/strong>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>irm https&lt;span style="color:#960050;background-color:#1e0010">:&lt;/span>//awscli.amazonaws.com/v2/install.ps1 | iex
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>&lt;strong>Purpose:&lt;/strong> Establish a standardized CLI environment to authenticate, manage resources, and push Docker images to Lightsail.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.2-lightsail-container/lab-step-1-1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.2-lightsail-container/lab-step-1-1.png" alt="Install AWS CLI version 2.37.9 using PowerShell" />
+&lt;/a>
+&lt;/p></description></item><item><title>Auto Scaling with EC2 Auto Scaling</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.3-ec2-auto-scaling/</link><pubDate>Wed, 07 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.3-ec2-auto-scaling/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Auto Scaling with EC2 Auto Scaling&lt;/strong> (Scaling Applications with EC2 Auto Scaling) hands-on lab was conducted on &lt;strong>Wednesday (07/10/2026)&lt;/strong> during &lt;strong>Week 4&lt;/strong>. This page delivers a detailed step-by-step walkthrough covering explicit parameters, stress testing commands, troubleshooting resolutions, and all 44 verification screenshots.
+&lt;br>🔗 &lt;strong>Lab Reference Material:&lt;/strong> &lt;a href="https://000006.awsfcaj.com/">Triển khai ứng dụng FCAJ Management với Auto Scaling Group&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Understand the core design principles of &lt;strong>Scalable &amp;amp; Highly Available Architecture&lt;/strong> on AWS.&lt;/li>
+&lt;li>Package a functional application server into a reusable &lt;strong>Custom AMI&lt;/strong>.&lt;/li>
+&lt;li>Construct a standardized &lt;strong>Launch Template&lt;/strong> defining automated compute specifications.&lt;/li>
+&lt;li>Deploy an &lt;strong>Application Load Balancer (ALB)&lt;/strong> paired with a &lt;strong>Target Group&lt;/strong> for balanced traffic distribution.&lt;/li>
+&lt;li>Configure an &lt;strong>Auto Scaling Group (ASG)&lt;/strong> with &lt;strong>Dynamic Scaling Policies&lt;/strong> driven by CloudWatch CPU metrics.&lt;/li>
+&lt;li>Execute a synthetic &lt;strong>Stress Test&lt;/strong> to validate automated &lt;strong>Scale Out&lt;/strong> and &lt;strong>Scale In&lt;/strong> lifecycle behaviors.&lt;/li>
+&lt;li>Execute a complete teardown procedure to decommission all provisioned resources and prevent unintended costs.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Resource&lt;/th>
+ &lt;th style="text-align: left">Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Configuration &amp;amp; Detailed Specs&lt;/th>
+ &lt;th style="text-align: left">Address / Ports&lt;/th>
+ &lt;th style="text-align: left">Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Custom AMI&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>fcaj-app-ami&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Packaged sample Node.js server + application code&lt;/td>
+ &lt;td style="text-align: left">AMI ID: &lt;code>ami-0...&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Master golden image for fleet instances&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Launch Template&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>fcaj-launch-template&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>t2.micro&lt;/code>, Amazon Linux, SG: Ports 80/3000&lt;/td>
+ &lt;td style="text-align: left">Version 1&lt;/td>
+ &lt;td style="text-align: left">Automates instance provisioning&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Target Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>fcaj-tg&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Target Type: Instance, Protocol: HTTP (Port 80)&lt;/td>
+ &lt;td style="text-align: left">Health Check: &lt;code>/&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Manages target registration and health checks&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Load Balancer&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>fcaj-alb&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Application Load Balancer, Multi-AZ Subnets&lt;/td>
+ &lt;td style="text-align: left">DNS Name of ALB&lt;/td>
+ &lt;td style="text-align: left">Central ingress traffic gateway&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Auto Scaling Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>fcaj-asg&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Min: 1, Desired: 1, Max: 3 instances&lt;/td>
+ &lt;td style="text-align: left">Distributed across 2 Availability Zones&lt;/td>
+ &lt;td style="text-align: left">Auto-manages fleet capacity&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Scaling Policy&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>TargetTracking-CPU&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Metric: Average CPU Utilization &amp;gt; 50%&lt;/td>
+ &lt;td style="text-align: left">Warmup: 300s&lt;/td>
+ &lt;td style="text-align: left">Automatically triggers Scale Out under load&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--screenshot-gallery">🚀 Step-by-Step Implementation &amp;amp; Screenshot Gallery:&lt;/h3>
+&lt;h4 id="step-1-create-custom-ami-from-baseline-ec2-instance">Step 1: Create Custom AMI from Baseline EC2 Instance&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Action / Navigation:&lt;/strong> In the &lt;strong>Amazon EC2&lt;/strong> console ➔ Navigate to &lt;strong>Instances&lt;/strong> ➔ Select the running golden application instance ➔ Click &lt;strong>Actions&lt;/strong> ➔ &lt;strong>Image and templates&lt;/strong> ➔ Click &lt;strong>Create image&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Purpose:&lt;/strong> Package the operating system, code dependencies, and runtime environment into an immutable golden image for automated fleet scaling.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.3-ec2-auto-scaling/2.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.3-ec2-auto-scaling/2.1.png" alt="Create Image from EC2 Instance" />
+&lt;/a>
+&lt;/p></description></item><item><title>Monitoring with Amazon CloudWatch</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.4-amazon-cloudwatch/</link><pubDate>Thu, 08 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.4-amazon-cloudwatch/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Monitoring with Amazon CloudWatch&lt;/strong> hands-on lab was conducted on &lt;strong>Thursday (08/10/2026)&lt;/strong> during &lt;strong>Week 4&lt;/strong>. This page provides a comprehensive step-by-step implementation guide featuring precise configuration parameters, Logs Insights query syntax, Math Expressions, troubleshooting resolutions, and all 33 verification screenshots.
+&lt;br>🔗 &lt;strong>Lab Reference Material:&lt;/strong> &lt;a href="https://000008.awsfcaj.com/">Monitoring with Amazon CloudWatch&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Master the centralized monitoring and observability capabilities of &lt;strong>Amazon CloudWatch&lt;/strong> on AWS.&lt;/li>
+&lt;li>Visualize and analyze real-time performance metrics (&lt;strong>CloudWatch Metrics&lt;/strong>) across cloud infrastructure.&lt;/li>
+&lt;li>Utilize &lt;strong>Search Expressions&lt;/strong> and &lt;strong>Math Expressions&lt;/strong> to dynamically discover, aggregate, and normalize telemetry data.&lt;/li>
+&lt;li>Configure &lt;strong>Dynamic Labels&lt;/strong> for context-aware and automated chart legends.&lt;/li>
+&lt;li>Ingest and analyze system logs (&lt;strong>CloudWatch Logs&lt;/strong>) using the interactive query language &lt;strong>CloudWatch Logs Insights&lt;/strong>.&lt;/li>
+&lt;li>Establish &lt;strong>Metric Filters&lt;/strong> to extract actionable quantitative metrics from unstructured application log streams.&lt;/li>
+&lt;li>Configure &lt;strong>CloudWatch Alarms&lt;/strong> integrated with &lt;strong>Amazon SNS&lt;/strong> to automate proactive incident alerting.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Resource&lt;/th>
+ &lt;th style="text-align: left">Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Configuration &amp;amp; Detailed Specs&lt;/th>
+ &lt;th style="text-align: left">Region / Status&lt;/th>
+ &lt;th style="text-align: left">Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Instance Monitored&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Web-Server-Lab&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Amazon Linux 2023, CloudWatch Agent installed&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Telemetry &amp;amp; log collection&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Metric Monitored&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>CPUUtilization&lt;/code>, &lt;code>DiskReadBytes&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Namespace: &lt;code>AWS/EC2&lt;/code>, Period: 1 minute&lt;/td>
+ &lt;td style="text-align: left">Real-time monitoring&lt;/td>
+ &lt;td style="text-align: left">Graphical performance telemetry&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Search Expression&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>SEARCH(' {AWS/EC2,InstanceId} MetricName=&amp;quot;CPUUtilization&amp;quot; ', 'Average', 300)&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Automated metric query across all fleet instances&lt;/td>
+ &lt;td style="text-align: left">Dynamic Dashboard&lt;/td>
+ &lt;td style="text-align: left">Self-updating on new instance launch&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Math Expression&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>m1 * 100 / MAX(m1)&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Normalizes CPU utilization proportionally&lt;/td>
+ &lt;td style="text-align: left">Math plot expression&lt;/td>
+ &lt;td style="text-align: left">Mathematical data modeling&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Log Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>/aws/ec2/system-logs&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Retention: 7 days&lt;/td>
+ &lt;td style="text-align: left">Ingestion: Active&lt;/td>
+ &lt;td style="text-align: left">OS and web server access logs&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Metric Filter&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>HTTP404ErrorCount&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Pattern: &lt;code>[ip, user, username, timestamp, request, status_code = 404, size]&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Namespace: &lt;code>Custom/Web&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Counts HTTP 404 errors from access logs&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>CloudWatch Alarm&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>High-CPU-Utilization-Alarm&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Static threshold: CPU &amp;gt; 70% across 2 periods&lt;/td>
+ &lt;td style="text-align: left">Status: &lt;code>OK&lt;/code> / &lt;code>ALARM&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Dispatches automated SNS email alerts&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--screenshot-gallery">🚀 Step-by-Step Implementation &amp;amp; Screenshot Gallery:&lt;/h3>
+&lt;h4 id="step-1-environment-setup--cloudwatch-agent-installation-on-ec2">Step 1: Environment Setup &amp;amp; CloudWatch Agent Installation on EC2&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Action / Navigation:&lt;/strong> Launch EC2 instance &lt;code>Web-Server-Lab&lt;/code>, attach IAM Role with policy &lt;code>CloudWatchAgentServerPolicy&lt;/code> ➔ Connect via SSH and install the agent package.&lt;/li>
+&lt;li>&lt;strong>Commands Executed:&lt;/strong>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Install CloudWatch Agent package&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo yum install -y amazon-cloudwatch-agent
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Start CloudWatch Agent daemon with configuration file&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.4-amazon-cloudwatch/2.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.4-amazon-cloudwatch/2.png" alt="Complete environment setup and agent configuration" />
+&lt;/a>
+&lt;/p></description></item></channel></rss>

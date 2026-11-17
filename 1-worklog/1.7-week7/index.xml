@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Week 7 on Internship Report</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.7-week7/</link><description>Recent content in Week 7 on Internship Report</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 26 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.7-week7/index.xml" rel="self" type="application/rss+xml"/><item><title>Advanced Observability with Amazon CloudWatch (CloudWatch Advanced Workshop)</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.7-week7/1.7.1-cloudwatch-advanced/</link><pubDate>Mon, 26 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.7-week7/1.7.1-cloudwatch-advanced/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>This hands-on lab on &lt;strong>Advanced Observability with Amazon CloudWatch (CloudWatch Advanced Workshop)&lt;/strong> was conducted on &lt;strong>Monday (26/10/2026)&lt;/strong> as part of &lt;strong>Week 7&lt;/strong>. This document provides an exhaustive operational walkthrough covering automated infrastructure deployment via AWS CloudFormation, advanced metric calculations (Metric Math, Search Expressions, Dynamic Labels), log stream diagnostics using CloudWatch Logs Insights, log metric filters, multi-channel alerting with Amazon SNS, and operational dashboard creation.&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Automate the provisioning of a multi-instance compute fleet (Instance-A through Instance-E) using an &lt;strong>AWS CloudFormation&lt;/strong> template (&lt;code>AwsWorkshopStack&lt;/code>).&lt;/li>
+&lt;li>Master dynamic metric queries using &lt;strong>Metric Math&lt;/strong> and automated &lt;strong>Search Expressions&lt;/strong> (&lt;code>SEARCH('used', 'Average', 300)&lt;/code> and &lt;code>SEARCH('disk_used_percent', 'Average')&lt;/code>), allowing monitoring graphs to dynamically accommodate new instances without manual dashboard reconfiguration.&lt;/li>
+&lt;li>Standardize telemetry graph legends using &lt;strong>Dynamic Labels&lt;/strong> &lt;code>${PROP('Dim.DimName')}&lt;/code> and &lt;code>${PROP('Dim.InstanceId')}&lt;/code> to enhance visual clarity and operational identification.&lt;/li>
+&lt;li>Connect securely to EC2 instances without opening inbound port 22 using &lt;strong>AWS Systems Manager Session Manager (SSM)&lt;/strong>, and execute a synthetic telemetry script (&lt;code>logger.py&lt;/code>) pushing multi-level events to &lt;code>/var/log/messages&lt;/code>.&lt;/li>
+&lt;li>Harness the full analytical capabilities of &lt;strong>CloudWatch Logs Insights&lt;/strong>: write regex error filtering queries (&lt;code>like /ERROR/&lt;/code>, &lt;code>like /WARN/&lt;/code>), compute stream distribution aggregations (&lt;code>stats count(*) by @logStream&lt;/code>), and render time-bucketed event histograms (&lt;code>stats count(*) by bin(5m)&lt;/code>).&lt;/li>
+&lt;li>Extract quantifiable telemetry from unstructured log files using &lt;strong>CloudWatch Metric Filters&lt;/strong> (&lt;code>PythonAppErrors&lt;/code>), configure &lt;strong>CloudWatch Alarms&lt;/strong> (&lt;code>PythonApplicationErrorAlarm1&lt;/code>) integrated with &lt;strong>Amazon SNS&lt;/strong> email notifications, and construct a centralized operations dashboard &lt;code>ssmDashboard&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-summary-of-deployed-infrastructure--parameters">📊 Summary of Deployed Infrastructure &amp;amp; Parameters:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Component / Resource&lt;/th>
+ &lt;th style="text-align: left">Logical Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Technical Specifications&lt;/th>
+ &lt;th style="text-align: left">Region / AZ&lt;/th>
+ &lt;th style="text-align: left">Operational Purpose&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>CloudFormation Stack&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>AwsWorkshopStack&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Status: &lt;code>CREATE_COMPLETE&lt;/code>, provisions lab infrastructure&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Automated deployment of compute, networking, and IAM&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Test Instance A&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ssmStack/Instance-A/test-instance&lt;/code> (&lt;code>i-01438dfe66b5e77ce&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">Type: &lt;code>t4g.micro&lt;/code>, Arch: Graviton (arm64), Zone: &lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Host generating simulated log data and error telemetry&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Cluster (B-E)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>InstanceBtestinstance&lt;/code> &amp;hellip; &lt;code>InstanceEtestinstance&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Multi-instance target cluster for metric expressions&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Compute cluster monitored via dynamic metric searches&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>SSM Session&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">Session ID: &lt;code>root-dda2vkhqgo5f56rohzj7ipgiva&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Secure browser terminal without SSH keys or open ports&lt;/td>
+ &lt;td style="text-align: left">Host EC2&lt;/td>
+ &lt;td style="text-align: left">Interactive remote management and script deployment&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Log Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>/ec2/linux/var/log/messages&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Stream ID: &lt;code>i-0e4862b2e5b03d06a&lt;/code> / &lt;code>i-01438dfe66b5e77ce&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Ingests operating system and application log events&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Metric Filter&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>PythonAppErrors&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Pattern: &lt;code>[..., appId=&amp;quot;logger.runJob:&amp;quot;, message=&amp;quot;ERROR*&amp;quot;]&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Log Group&lt;/td>
+ &lt;td style="text-align: left">Transforms unstructured ERROR log lines into numeric metrics&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>SNS Alarm Topic&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Default_CloudWatch_Alarms_Topic&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">ARN: &lt;code>arn:aws:sns:us-east-1:887086382708:...&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Delivers instant email notifications upon alarm state change&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>CloudWatch Alarm&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>PythonApplicationErrorAlarm1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Threshold: &lt;code>ERROR &amp;gt; 10 for 1 datapoints within 5 mins&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Metric Filter&lt;/td>
+ &lt;td style="text-align: left">Flags application degradation when error rate crosses threshold&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Custom Dashboard&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ssmDashboard-1dDcqviqU6D2&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Widgets: Commands, Success/Fail sums, Error Alarm&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Unified single-pane-of-glass executive observability console&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--screenshot-evidence">🚀 Step-by-Step Implementation &amp;amp; Screenshot Evidence:&lt;/h3>
+&lt;h4 id="part-1-automated-infrastructure-provisioning-with-cloudformation">Part 1: Automated Infrastructure Provisioning with CloudFormation&lt;/h4>
+&lt;h5 id="step-1-deploy-cloudformation-stack-awsworkshopstack">Step 1: Deploy CloudFormation Stack AwsWorkshopStack&lt;/h5>
+&lt;ul>
+&lt;li>&lt;strong>Action:&lt;/strong> Sign in to the AWS Console in &lt;strong>us-east-1&lt;/strong> (N. Virginia) ➔ Open &lt;strong>AWS CloudFormation&lt;/strong> ➔ Click &lt;strong>Create stack&lt;/strong> ➔ Upload the workshop infrastructure template.&lt;/li>
+&lt;li>&lt;strong>Execution:&lt;/strong> Monitor the creation lifecycle of dependent resources (VPC, subnets, instance profiles, and EC2 instances A through E). The stack successfully reaches &lt;code>CREATE_COMPLETE&lt;/code> status with all instances provisioned.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.7-Week7/1.7.1-cloudwatch-advanced/3.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.7-Week7/1.7.1-cloudwatch-advanced/3.1.png" alt="CloudFormation stack AwsWorkshopStack deployed successfully" />
+&lt;/a>
+&lt;/p></description></item></channel></rss>

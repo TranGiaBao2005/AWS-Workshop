@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Week 6 on Internship Report</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/</link><description>Recent content in Week 6 on Internship Report</description><generator>Hugo</generator><language>en</language><lastBuildDate>Thu, 22 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/index.xml" rel="self" type="application/rss+xml"/><item><title>Resource Limit Governance with AWS Service Quotas</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.1-service-quotas/</link><pubDate>Mon, 19 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.1-service-quotas/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Resource Limit Governance with AWS Service Quotas&lt;/strong> lab was completed on &lt;strong>Monday (19/10/2026)&lt;/strong> as part of &lt;strong>Week 6&lt;/strong>. This page provides comprehensive documentation of reviewing default service quotas, initiating an account-level quota increase request for &lt;strong>EC2 Spot Instances&lt;/strong> (&lt;code>All Standard (A, C, D, H, I, M, R, T, Z) Spot Instance Requests&lt;/code>, Quota code &lt;code>L-34B43A08&lt;/code>) from &lt;strong>32 to 64 vCPUs&lt;/strong> in the &lt;strong>us-east-1&lt;/strong> region, analyzing cloud cost implications, tracking the resolution lifecycle via &lt;strong>AWS Support Center&lt;/strong> (Case ID: &lt;code>179257232100832&lt;/code>), receiving formal confirmation emails from Amazon Web Services, and automating quota queries with the &lt;strong>AWS CLI&lt;/strong>.&lt;/p></description></item><item><title>Optimize Amazon EC2 Costs with AWS Lambda &amp; Slack Notifications</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.2-aws-lambda/</link><pubDate>Tue, 20 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.2-aws-lambda/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Optimize Amazon EC2 Costs with AWS Lambda &amp;amp; Slack Notifications&lt;/strong> hands-on lab was conducted on &lt;strong>Tuesday (20/10/2026)&lt;/strong> as part of &lt;strong>Week 6&lt;/strong>. This document details the serverless operational automation architecture using AWS Lambda, Amazon EventBridge Scheduler, and ChatOps telemetry dispatching via Slack Incoming Webhooks.&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Cloud Cost Optimization:&lt;/strong> Design and implement an automated compute scheduling architecture for Amazon EC2 instances, automatically stopping non-production development/test servers outside business hours and resuming them prior to the start of the workday, realizing up to 65 - 70% in compute cost savings.&lt;/li>
+&lt;li>&lt;strong>Serverless Operational Automation:&lt;/strong> Develop serverless routines using &lt;strong>AWS Lambda&lt;/strong> (Python 3 Boto3 SDK) coupled with &lt;strong>Amazon EventBridge Scheduler&lt;/strong> to govern the complete compute lifecycle without maintaining any dedicated management host or cron server.&lt;/li>
+&lt;li>&lt;strong>Dynamic Resource Tagging Governance:&lt;/strong> Apply tag-based identification strategies (&lt;code>environment_auto = true&lt;/code>) enabling Lambda functions to dynamically query, filter, and control target instances without hardcoding instance IDs.&lt;/li>
+&lt;li>&lt;strong>Real-Time ChatOps Telemetry via Slack:&lt;/strong> Integrate AWS Lambda with &lt;strong>Slack&lt;/strong> channels using &lt;strong>Incoming Webhooks&lt;/strong>, automatically broadcasting formatted operational alerts displaying instance transition states directly into the &lt;code>#notification&lt;/code> channel.&lt;/li>
+&lt;li>&lt;strong>Enterprise Troubleshooting Competence:&lt;/strong> Diagnose and resolve complex runtime exceptions, including state transition constraints (&lt;code>IncorrectInstanceState&lt;/code>), ghost references to terminated instances, IAM policy evaluation boundaries, and resilient webhook dispatching.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Component / Resource&lt;/th>
+ &lt;th style="text-align: left">Identifier (Name / ID)&lt;/th>
+ &lt;th style="text-align: left">Technical Specifications / Configuration&lt;/th>
+ &lt;th style="text-align: left">Purpose / Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>AWS Region&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">US East (N. Virginia)&lt;/td>
+ &lt;td style="text-align: left">Primary operational deployment region&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Virtual Private Cloud&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lambda-lab&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">CIDR &lt;code>10.0.0.0/16&lt;/code>, Public Subnet &lt;code>10.0.128.0/20&lt;/code> (&lt;code>us-east-1a&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">Isolated network perimeter for test workloads&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Security Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lambda-lab&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Inbound: SSH (Port 22), HTTP (Port 80); Outbound: All Traffic&lt;/td>
+ &lt;td style="text-align: left">Network access controls for EC2 compute instances&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Target Workload (EC2)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lambda-lab-instance&lt;/code> / &lt;code>i-003cb6dbd0f4e5b31&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>t3.micro&lt;/code>, Amazon Linux 2023, Tag: &lt;code>environment_auto = true&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Development compute subject to scheduled power cycles&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM Execution Role&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-role&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Trusted: &lt;code>lambda.amazonaws.com&lt;/code>, Policies: &lt;code>AmazonEC2FullAccess&lt;/code>, &lt;code>CloudWatchFullAccessV2&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Grants Lambda full EC2 lifecycle and logging privileges&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Lambda Function (Stop)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-stop&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Runtime: Python 3.14, Memory: 128 MB, Env: &lt;code>environment_auto = true&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Scans and halts target instances post-workday&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Lambda Function (Start)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-start&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Runtime: Python 3.14, Memory: 128 MB, Env: &lt;code>environment_auto = true&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Scans and resumes target instances pre-workday&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EventBridge Schedule (Stop)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-stop&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Recurring Schedule: Rate (9 hours) / Cron, Flexible Window: Off&lt;/td>
+ &lt;td style="text-align: left">Scheduled event trigger invoking the stop function&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EventBridge Schedule (Start)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-start&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Recurring Schedule: Rate (8 hours) / Cron, Flexible Window: Off&lt;/td>
+ &lt;td style="text-align: left">Scheduled event trigger invoking the start function&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>ChatOps Channel&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>aws-lambda-labs&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Slack Channel: &lt;code>#notification&lt;/code>, App: &lt;code>Lambda-Notifier&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Real-time operational alerting channel&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-practical-implementation">🛠️ Step-by-Step Practical Implementation&lt;/h3>
+&lt;h4 id="step-1-network-topology-provisioning--public-subnet-configuration">Step 1: Network Topology Provisioning &amp;amp; Public Subnet Configuration&lt;/h4>
+&lt;ol>
+&lt;li>Open the &lt;strong>Amazon VPC&lt;/strong> console within the AWS Management Console.&lt;/li>
+&lt;li>Navigate to &lt;strong>Your VPCs&lt;/strong> ➔ Select &lt;strong>Create VPC&lt;/strong>.&lt;/li>
+&lt;li>Select the &lt;strong>VPC and more&lt;/strong> workflow, set the name tag to &lt;code>lambda-lab&lt;/code>, and keep the default standard CIDR block. Select &lt;strong>Create VPC&lt;/strong>.&lt;/li>
+&lt;li>In the left navigation pane, select &lt;strong>Subnets&lt;/strong>, select the newly provisioned public subnet (&lt;code>lambda-lab-subnet-public...&lt;/code>) ➔ Select &lt;strong>Actions&lt;/strong> ➔ &lt;strong>Edit subnet settings&lt;/strong>.&lt;/li>
+&lt;li>Enable &lt;strong>Enable auto-assign public IPv4 address&lt;/strong> to ensure newly launched EC2 compute receives a routable public IP. Select &lt;strong>Save&lt;/strong>.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.2-aws-lambda/2.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.2-aws-lambda/2.1.png" alt="Provision VPC lambda-lab successfully" />
+&lt;/a>
+
+&lt;em>Figure 1.1: Detailed overview of VPC lambda-lab route tables and subnets upon successful provisioning.&lt;/em>&lt;/p></description></item><item><title>AWS Tags and Resource Groups Management</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.3-tags-and-resource-groups/</link><pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.3-tags-and-resource-groups/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>AWS Tags and Resource Groups Management&lt;/strong> hands-on lab was conducted on &lt;strong>Wednesday (21/10/2026)&lt;/strong> as part of &lt;strong>Week 6&lt;/strong>. This document provides an exhaustive step-by-step implementation guide for metadata categorization using AWS Tags, command-line automation via the AWS CLI, and centralized infrastructure governance using AWS Resource Groups.&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Understand the strategic importance of &lt;strong>AWS Tags&lt;/strong> in cloud governance, operational automation, cost allocation tracking, and &lt;strong>Attribute-Based Access Control (ABAC)&lt;/strong>.&lt;/li>
+&lt;li>Practice manual tag assignment and tag lifecycle management through the &lt;strong>Amazon EC2 Management Console&lt;/strong> across multiple instances.&lt;/li>
+&lt;li>Master command-line tag administration via the &lt;strong>AWS CLI&lt;/strong>: generate dedicated IAM credentials, configure local profiles, execute atomic &lt;code>create-tags&lt;/code> operations, and construct complex query expressions using &lt;code>describe-instances --filters&lt;/code>.&lt;/li>
+&lt;li>Architect and provision &lt;strong>AWS Resource Groups&lt;/strong>: create a tag-based group named &lt;code>EnvTest&lt;/code> to automatically aggregate compute instances sharing common environmental metadata.&lt;/li>
+&lt;li>Analyze real-world troubleshooting scenarios: tag key case-sensitivity, tag volume limits, CLI parameter escaping in PowerShell, and regional boundaries of resource groups.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Component / Resource&lt;/th>
+ &lt;th style="text-align: left">Identifier (Name / ID)&lt;/th>
+ &lt;th style="text-align: left">Configuration &amp;amp; Assigned Tags&lt;/th>
+ &lt;th style="text-align: left">Region&lt;/th>
+ &lt;th style="text-align: left">Operational Purpose&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Instance 1&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ec2-instance-1&lt;/code> (&lt;code>i-02b440e03f77f9942&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Environment: Test&lt;/code>&lt;br>&lt;code>Service: YourService&lt;/code>&lt;br>&lt;code>Owner: YourName&lt;/code>&lt;br>&lt;code>OS: Amazon Linux&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Test Instance 1, managed via Web Console&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Instance 2&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ec2-instance-2&lt;/code> (&lt;code>i-0abb0b1178954e0a4&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Project: AWS&lt;/code>&lt;br>&lt;code>Env: Test&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Test Instance 2, tagged programmatically via AWS CLI&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Instance 3&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ec2-instance-3&lt;/code> (&lt;code>i-00ecbe56e33f40770&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Environment: Test&lt;/code>&lt;br>&lt;code>Name: ec2-instance-3&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Launched and labeled via AWS CLI&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM Access Key&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>AKIA_DEMO_SAMPLE_KEY_ID&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Programmatic credentials for user &lt;code>trangiabao&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Global&lt;/td>
+ &lt;td style="text-align: left">Secure authentication for AWS CLI workstation&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>AWS Resource Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>EnvTest&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Group Type: &lt;code>Tag based&lt;/code>&lt;br>Query: &lt;code>AWS::EC2::Instance&lt;/code> with tag &lt;code>Environment: Test&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Centralized group view for test environment instances&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--verification">🚀 Step-by-Step Implementation &amp;amp; Verification:&lt;/h3>
+&lt;h4 id="section-1-tag-administration-via-aws-management-console">Section 1: Tag Administration via AWS Management Console&lt;/h4>
+&lt;h5 id="step-1-launch-ec2-instances-and-verify-initial-state">Step 1: Launch EC2 Instances and Verify Initial State&lt;/h5>
+&lt;ul>
+&lt;li>&lt;strong>Action:&lt;/strong> Sign in to the AWS Management Console in the &lt;strong>us-east-1&lt;/strong> (N. Virginia) region ➔ Open &lt;strong>Amazon EC2&lt;/strong> ➔ Navigate to &lt;strong>Instances&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Procedure:&lt;/strong> Launch two standard &lt;code>t3.micro&lt;/code> instances named &lt;code>ec2-instance-1&lt;/code> and &lt;code>ec2-instance-2&lt;/code>. Observe the status transitioning from &lt;code>Initializing&lt;/code> to &lt;code>Running&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.3-tags-and-resource-groups/2.1.1.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.3-tags-and-resource-groups/2.1.1.1.png" alt="EC2 Instance Initialization State" />
+&lt;/a>
+&lt;/p></description></item><item><title>Infrastructure Observability with Grafana &amp; Amazon CloudWatch</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.4-grafana-basic/</link><pubDate>Thu, 22 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.4-grafana-basic/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>This hands-on lab on &lt;strong>Infrastructure Observability with Grafana &amp;amp; Amazon CloudWatch (Getting started with Grafana basic - Workshop 000029)&lt;/strong> was conducted on &lt;strong>Thursday (22/10/2026)&lt;/strong> as part of &lt;strong>Week 6&lt;/strong>. This document provides a complete, end-to-end operational guide for provisioning a Grafana monitoring host on Amazon Linux 2023, configuring secure IAM permissions, integrating Amazon CloudWatch data sources, and building customized telemetry dashboards.&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Understand the hybrid monitoring architecture combining the world-leading open-source visualization suite &lt;strong>Grafana&lt;/strong> with &lt;strong>Amazon CloudWatch&lt;/strong> as the primary metrics repository.&lt;/li>
+&lt;li>Master security best practices following AWS Well-Architected Framework: implement an &lt;strong>IAM Role&lt;/strong> attached directly to the EC2 Instance Profile so Grafana retrieves ephemeral credentials automatically instead of hard-coding static Access Keys.&lt;/li>
+&lt;li>Execute foundational network and security provisioning: verify &lt;strong>VPC&lt;/strong> configuration, enable automatic public IPv4 addressing on the &lt;strong>Public Subnet&lt;/strong>, and configure &lt;strong>Security Groups&lt;/strong> allowing access to port 3000 (Grafana Web UI) and port 22 (SSH).&lt;/li>
+&lt;li>Configure the official Grafana RPM repository, install the software packages, and run the &lt;code>grafana-server&lt;/code> background daemon managed by &lt;code>systemd&lt;/code> on modern &lt;strong>Amazon Linux 2023 (AL2023)&lt;/strong>.&lt;/li>
+&lt;li>Establish a &lt;strong>CloudWatch Data Source&lt;/strong> connection, validate API reachability (&lt;code>CloudWatch Metrics API&lt;/code> and &lt;code>CloudWatch Logs API&lt;/code>), design interactive Dashboards displaying &lt;code>CPUUtilization&lt;/code>, and explore multi-dimensional metrics using Bar charts and Time series panels.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-summary-of-deployed-infrastructure--parameters">📊 Summary of Deployed Infrastructure &amp;amp; Parameters:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Component / Resource&lt;/th>
+ &lt;th style="text-align: left">Logical Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Technical Specifications&lt;/th>
+ &lt;th style="text-align: left">Region / AZ&lt;/th>
+ &lt;th style="text-align: left">Operational Purpose&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>VPC&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Grafana-ASG-vpc&lt;/code> (&lt;code>vpc-02b25cbbec17b38ca&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">CIDR: &lt;code>10.0.0.0/16&lt;/code>, DNS hostnames: Enabled&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Dedicated network perimeter for observability stack&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Public Subnet&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Grafana-ASG-subnet-public1-us-east-1a&lt;/code> (&lt;code>subnet-0fe0631efc71d460b&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">CIDR: &lt;code>10.0.0.0/20&lt;/code>, Auto-assign Public IPv4: &lt;code>Yes&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Public subnet for inbound web access&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Security Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>SG-PUB-Grafana-ASG&lt;/code> (&lt;code>sg-0b5bc8236a3cadcd8&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">Inbound: TCP &lt;code>3000&lt;/code> (Grafana), TCP &lt;code>22&lt;/code> (SSH), All ICMP&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Stateful firewall securing the monitoring host&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Instance&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Grafana-Server&lt;/code> (&lt;code>i-082d165f34a40407f&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">Type: &lt;code>t3.micro&lt;/code>, AMI: Amazon Linux 2023, Public IP: &lt;code>44.203.10.190&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Host instance executing the Grafana service&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM Policy&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>GrafanaAccessPolicy&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">CloudWatch Metrics &amp;amp; Logs Read-Only permissions&lt;/td>
+ &lt;td style="text-align: left">Global&lt;/td>
+ &lt;td style="text-align: left">Least-privilege authorization policy&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM Role&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>GrafanaAccessRole&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Service: &lt;code>ec2.amazonaws.com&lt;/code>, Attached: &lt;code>GrafanaAccessPolicy&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Global&lt;/td>
+ &lt;td style="text-align: left">Instance profile granting temporary AWS credentials&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Grafana Server&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Grafana v13.3.0&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Port &lt;code>3000&lt;/code>, Auth: Admin Console, Service: &lt;code>active (running)&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Host EC2&lt;/td>
+ &lt;td style="text-align: left">Data visualization and alerting engine&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Data Source&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>CloudWatch&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Region: &lt;code>ap-southeast-1&lt;/code> / &lt;code>us-east-1&lt;/code>, Namespace: &lt;code>AWS/EC2&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Grafana Plugin&lt;/td>
+ &lt;td style="text-align: left">Native connector querying telemetry APIs&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--screenshot-evidence">🚀 Step-by-Step Implementation &amp;amp; Screenshot Evidence:&lt;/h3>
+&lt;h4 id="part-1-network--security-configuration">Part 1: Network &amp;amp; Security Configuration&lt;/h4>
+&lt;h5 id="step-1-verify-virtual-private-cloud-vpc-setup">Step 1: Verify Virtual Private Cloud (VPC) Setup&lt;/h5>
+&lt;ul>
+&lt;li>&lt;strong>Action:&lt;/strong> Sign in to the AWS Management Console in the &lt;strong>us-east-1&lt;/strong> (N. Virginia) region ➔ Open &lt;strong>Amazon VPC&lt;/strong> ➔ Select &lt;strong>Your VPCs&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Execution:&lt;/strong> Confirm that the VPC named &lt;code>Grafana-ASG-vpc&lt;/code> (&lt;code>vpc-02b25cbbec17b38ca&lt;/code>) is in an &lt;code>Available&lt;/code> state with DNS Hostnames and DNS Resolution fully enabled.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.4-grafana-basic/2.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.4-grafana-basic/2.1.png" alt="Inspect Grafana-ASG-vpc details" />
+&lt;/a>
+&lt;/p></description></item></channel></rss>

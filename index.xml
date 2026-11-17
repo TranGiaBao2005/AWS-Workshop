@@ -1,0 +1,1245 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Internship Report</title><link>https://trangiabao2005.github.io/AWS-Workshop/</link><description>Recent content on Internship Report</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 26 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://trangiabao2005.github.io/AWS-Workshop/index.xml" rel="self" type="application/rss+xml"/><item><title>Advanced Observability with Amazon CloudWatch (CloudWatch Advanced Workshop)</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.7-week7/1.7.1-cloudwatch-advanced/</link><pubDate>Mon, 26 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.7-week7/1.7.1-cloudwatch-advanced/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>This hands-on lab on &lt;strong>Advanced Observability with Amazon CloudWatch (CloudWatch Advanced Workshop)&lt;/strong> was conducted on &lt;strong>Monday (26/10/2026)&lt;/strong> as part of &lt;strong>Week 7&lt;/strong>. This document provides an exhaustive operational walkthrough covering automated infrastructure deployment via AWS CloudFormation, advanced metric calculations (Metric Math, Search Expressions, Dynamic Labels), log stream diagnostics using CloudWatch Logs Insights, log metric filters, multi-channel alerting with Amazon SNS, and operational dashboard creation.&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Automate the provisioning of a multi-instance compute fleet (Instance-A through Instance-E) using an &lt;strong>AWS CloudFormation&lt;/strong> template (&lt;code>AwsWorkshopStack&lt;/code>).&lt;/li>
+&lt;li>Master dynamic metric queries using &lt;strong>Metric Math&lt;/strong> and automated &lt;strong>Search Expressions&lt;/strong> (&lt;code>SEARCH('used', 'Average', 300)&lt;/code> and &lt;code>SEARCH('disk_used_percent', 'Average')&lt;/code>), allowing monitoring graphs to dynamically accommodate new instances without manual dashboard reconfiguration.&lt;/li>
+&lt;li>Standardize telemetry graph legends using &lt;strong>Dynamic Labels&lt;/strong> &lt;code>${PROP('Dim.DimName')}&lt;/code> and &lt;code>${PROP('Dim.InstanceId')}&lt;/code> to enhance visual clarity and operational identification.&lt;/li>
+&lt;li>Connect securely to EC2 instances without opening inbound port 22 using &lt;strong>AWS Systems Manager Session Manager (SSM)&lt;/strong>, and execute a synthetic telemetry script (&lt;code>logger.py&lt;/code>) pushing multi-level events to &lt;code>/var/log/messages&lt;/code>.&lt;/li>
+&lt;li>Harness the full analytical capabilities of &lt;strong>CloudWatch Logs Insights&lt;/strong>: write regex error filtering queries (&lt;code>like /ERROR/&lt;/code>, &lt;code>like /WARN/&lt;/code>), compute stream distribution aggregations (&lt;code>stats count(*) by @logStream&lt;/code>), and render time-bucketed event histograms (&lt;code>stats count(*) by bin(5m)&lt;/code>).&lt;/li>
+&lt;li>Extract quantifiable telemetry from unstructured log files using &lt;strong>CloudWatch Metric Filters&lt;/strong> (&lt;code>PythonAppErrors&lt;/code>), configure &lt;strong>CloudWatch Alarms&lt;/strong> (&lt;code>PythonApplicationErrorAlarm1&lt;/code>) integrated with &lt;strong>Amazon SNS&lt;/strong> email notifications, and construct a centralized operations dashboard &lt;code>ssmDashboard&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-summary-of-deployed-infrastructure--parameters">📊 Summary of Deployed Infrastructure &amp;amp; Parameters:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Component / Resource&lt;/th>
+ &lt;th style="text-align: left">Logical Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Technical Specifications&lt;/th>
+ &lt;th style="text-align: left">Region / AZ&lt;/th>
+ &lt;th style="text-align: left">Operational Purpose&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>CloudFormation Stack&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>AwsWorkshopStack&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Status: &lt;code>CREATE_COMPLETE&lt;/code>, provisions lab infrastructure&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Automated deployment of compute, networking, and IAM&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Test Instance A&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ssmStack/Instance-A/test-instance&lt;/code> (&lt;code>i-01438dfe66b5e77ce&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">Type: &lt;code>t4g.micro&lt;/code>, Arch: Graviton (arm64), Zone: &lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Host generating simulated log data and error telemetry&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Cluster (B-E)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>InstanceBtestinstance&lt;/code> &amp;hellip; &lt;code>InstanceEtestinstance&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Multi-instance target cluster for metric expressions&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Compute cluster monitored via dynamic metric searches&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>SSM Session&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">Session ID: &lt;code>root-dda2vkhqgo5f56rohzj7ipgiva&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Secure browser terminal without SSH keys or open ports&lt;/td>
+ &lt;td style="text-align: left">Host EC2&lt;/td>
+ &lt;td style="text-align: left">Interactive remote management and script deployment&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Log Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>/ec2/linux/var/log/messages&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Stream ID: &lt;code>i-0e4862b2e5b03d06a&lt;/code> / &lt;code>i-01438dfe66b5e77ce&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Ingests operating system and application log events&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Metric Filter&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>PythonAppErrors&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Pattern: &lt;code>[..., appId=&amp;quot;logger.runJob:&amp;quot;, message=&amp;quot;ERROR*&amp;quot;]&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Log Group&lt;/td>
+ &lt;td style="text-align: left">Transforms unstructured ERROR log lines into numeric metrics&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>SNS Alarm Topic&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Default_CloudWatch_Alarms_Topic&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">ARN: &lt;code>arn:aws:sns:us-east-1:887086382708:...&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Delivers instant email notifications upon alarm state change&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>CloudWatch Alarm&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>PythonApplicationErrorAlarm1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Threshold: &lt;code>ERROR &amp;gt; 10 for 1 datapoints within 5 mins&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Metric Filter&lt;/td>
+ &lt;td style="text-align: left">Flags application degradation when error rate crosses threshold&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Custom Dashboard&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ssmDashboard-1dDcqviqU6D2&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Widgets: Commands, Success/Fail sums, Error Alarm&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Unified single-pane-of-glass executive observability console&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--screenshot-evidence">🚀 Step-by-Step Implementation &amp;amp; Screenshot Evidence:&lt;/h3>
+&lt;h4 id="part-1-automated-infrastructure-provisioning-with-cloudformation">Part 1: Automated Infrastructure Provisioning with CloudFormation&lt;/h4>
+&lt;h5 id="step-1-deploy-cloudformation-stack-awsworkshopstack">Step 1: Deploy CloudFormation Stack AwsWorkshopStack&lt;/h5>
+&lt;ul>
+&lt;li>&lt;strong>Action:&lt;/strong> Sign in to the AWS Console in &lt;strong>us-east-1&lt;/strong> (N. Virginia) ➔ Open &lt;strong>AWS CloudFormation&lt;/strong> ➔ Click &lt;strong>Create stack&lt;/strong> ➔ Upload the workshop infrastructure template.&lt;/li>
+&lt;li>&lt;strong>Execution:&lt;/strong> Monitor the creation lifecycle of dependent resources (VPC, subnets, instance profiles, and EC2 instances A through E). The stack successfully reaches &lt;code>CREATE_COMPLETE&lt;/code> status with all instances provisioned.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.7-Week7/1.7.1-cloudwatch-advanced/3.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.7-Week7/1.7.1-cloudwatch-advanced/3.1.png" alt="CloudFormation stack AwsWorkshopStack deployed successfully" />
+&lt;/a>
+&lt;/p></description></item><item><title>Resource Limit Governance with AWS Service Quotas</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.1-service-quotas/</link><pubDate>Mon, 19 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.1-service-quotas/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Resource Limit Governance with AWS Service Quotas&lt;/strong> lab was completed on &lt;strong>Monday (19/10/2026)&lt;/strong> as part of &lt;strong>Week 6&lt;/strong>. This page provides comprehensive documentation of reviewing default service quotas, initiating an account-level quota increase request for &lt;strong>EC2 Spot Instances&lt;/strong> (&lt;code>All Standard (A, C, D, H, I, M, R, T, Z) Spot Instance Requests&lt;/code>, Quota code &lt;code>L-34B43A08&lt;/code>) from &lt;strong>32 to 64 vCPUs&lt;/strong> in the &lt;strong>us-east-1&lt;/strong> region, analyzing cloud cost implications, tracking the resolution lifecycle via &lt;strong>AWS Support Center&lt;/strong> (Case ID: &lt;code>179257232100832&lt;/code>), receiving formal confirmation emails from Amazon Web Services, and automating quota queries with the &lt;strong>AWS CLI&lt;/strong>.&lt;/p></description></item><item><title>Hybrid DNS with Route 53 Resolver</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.5-week5/1.5.1-hybrid-dns/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.5-week5/1.5.1-hybrid-dns/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Hybrid DNS with Route 53 Resolver&lt;/strong> (Hybrid DNS Management with Amazon Route 53) hands-on lab was conducted on &lt;strong>Monday (12/10/2026)&lt;/strong> during &lt;strong>Week 5&lt;/strong>. This page provides an exhaustive step-by-step implementation guide complete with precise IP CIDR allocations, &lt;code>nslookup&lt;/code> validation commands, troubleshooting resolutions, and all 11 verification screenshots.
+&lt;br>🔗 &lt;strong>Lab Reference Material:&lt;/strong> &lt;a href="https://000010.awsfcaj.com/">Set up Hybrid DNS with Route 53 Resolver&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Master network topology design and &lt;strong>Hybrid DNS&lt;/strong> resolution bridging on-premises enterprise networks with AWS cloud environments.&lt;/li>
+&lt;li>Automate multi-VPC networking infrastructure deployment via &lt;strong>AWS CloudFormation&lt;/strong>.&lt;/li>
+&lt;li>Configure &lt;strong>Security Groups&lt;/strong> permitting bidirectional DNS queries (UDP and TCP Port 53) across VPC boundaries.&lt;/li>
+&lt;li>Deploy &lt;strong>AWS Directory Service (AWS Managed Microsoft Active Directory)&lt;/strong> acting as the authoritative on-premises enterprise DNS controller.&lt;/li>
+&lt;li>Configure &lt;strong>Route 53 Resolver Outbound Endpoints&lt;/strong> and &lt;strong>Resolver Rules&lt;/strong> to conditionally forward queries originating in AWS to on-premises DNS servers.&lt;/li>
+&lt;li>Configure &lt;strong>Route 53 Resolver Inbound Endpoints&lt;/strong> to receive and resolve incoming queries from on-premises clients targeting AWS Private Hosted Zones.&lt;/li>
+&lt;li>Validate end-to-end bidirectional DNS resolution using &lt;code>nslookup&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Resource&lt;/th>
+ &lt;th style="text-align: left">Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Configuration &amp;amp; Detailed Specs&lt;/th>
+ &lt;th style="text-align: left">Environment / Region&lt;/th>
+ &lt;th style="text-align: left">Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Key Pair&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>hybrid-dns-keypair&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">RSA, &lt;code>.pem&lt;/code> format&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Administrative access to RDGW client&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>CloudFormation Stack&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Hybrid-DNS-Stack&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Provisions On-Prem VPC, Cloud VPC, Subnets, Route Tables, NAT GW&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Automates multi-VPC baseline environment&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Security Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Route53-Resolver-SG&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Inbound: TCP/UDP 53 (DNS), Outbound: All traffic&lt;/td>
+ &lt;td style="text-align: left">Cloud &amp;amp; On-prem VPCs&lt;/td>
+ &lt;td style="text-align: left">Secures DNS Resolver query paths&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Microsoft AD&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>corp.example.com&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">AWS Managed Microsoft AD Standard Edition&lt;/td>
+ &lt;td style="text-align: left">On-Prem VPC&lt;/td>
+ &lt;td style="text-align: left">Authoritative on-premises DNS controller&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Outbound Endpoint&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>r53-outbound-resolver&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">2 IP Endpoints across 2 Availability Zones&lt;/td>
+ &lt;td style="text-align: left">Cloud VPC Subnets&lt;/td>
+ &lt;td style="text-align: left">Forwards AWS queries to On-Prem&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Resolver Forwarding Rule&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>forward-to-corp-ad&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Forwards &lt;code>corp.example.com&lt;/code> to Active Directory IPs&lt;/td>
+ &lt;td style="text-align: left">Cloud VPC Association&lt;/td>
+ &lt;td style="text-align: left">Routes on-premises domain queries&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Inbound Endpoint&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>r53-inbound-resolver&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">2 IP Endpoints across 2 Availability Zones&lt;/td>
+ &lt;td style="text-align: left">Cloud VPC Subnets&lt;/td>
+ &lt;td style="text-align: left">Accepts on-premises queries to AWS&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Test Client EC2&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>RDGW-Client-Tester&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Windows Server 2022 / Amazon Linux&lt;/td>
+ &lt;td style="text-align: left">Test Environment&lt;/td>
+ &lt;td style="text-align: left">Executes &lt;code>nslookup&lt;/code> validation scripts&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--screenshot-gallery">🚀 Step-by-Step Implementation &amp;amp; Screenshot Gallery:&lt;/h3>
+&lt;h4 id="step-1-create-administrative-ec2-key-pair-hybrid-dns-keypair">Step 1: Create Administrative EC2 Key Pair (&lt;code>hybrid-dns-keypair&lt;/code>)&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Action / Navigation:&lt;/strong> Open the &lt;strong>Amazon EC2&lt;/strong> console in &lt;strong>us-east-1&lt;/strong> (N. Virginia) ➔ In the sidebar, select &lt;strong>Network &amp;amp; Security&lt;/strong> ➔ &lt;strong>Key Pairs&lt;/strong> ➔ Click &lt;strong>Create key pair&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Configuration Parameters:&lt;/strong>
+&lt;ul>
+&lt;li>&lt;em>Name:&lt;/em> &lt;code>hybrid-dns-keypair&lt;/code>&lt;/li>
+&lt;li>&lt;em>Key pair type:&lt;/em> &lt;code>RSA&lt;/code>&lt;/li>
+&lt;li>&lt;em>Private key file format:&lt;/em> &lt;code>.pem&lt;/code> (for SSH or Windows Administrator password decryption)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Next Action:&lt;/strong> Click &lt;strong>Create key pair&lt;/strong> and securely store the downloaded &lt;code>.pem&lt;/code> file.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.5-Week5/1.5.1-hybrid-dns/2.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.5-Week5/1.5.1-hybrid-dns/2.1.png" alt="Create Key Pair for infrastructure access" />
+&lt;/a>
+&lt;/p></description></item><item><title>Amazon Lightsail Deployment</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.1-amazon-lightsail/</link><pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.1-amazon-lightsail/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Amazon Lightsail Deployment&lt;/strong> hands-on lab was conducted on &lt;strong>Monday (05/10/2026)&lt;/strong> during &lt;strong>Week 4&lt;/strong>. This page provides a comprehensive step-by-step execution guide complete with precise parameter values, CLI commands, troubleshooting resolutions, and verification screenshots.
+&lt;br>🔗 &lt;strong>Lab Reference Material:&lt;/strong> &lt;a href="https://000045.awsfcaj.com/">Simplified Computing with Amazon Lightsail&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Familiarize with the simplified management console and core capabilities of &lt;strong>Amazon Lightsail&lt;/strong>.&lt;/li>
+&lt;li>Provision and manage a standalone &lt;strong>Managed Relational Database (MySQL)&lt;/strong> on Lightsail.&lt;/li>
+&lt;li>Deploy two web applications: &lt;strong>WordPress&lt;/strong> and &lt;strong>Prestashop (E-Commerce)&lt;/strong> connecting to the shared database.&lt;/li>
+&lt;li>Configure the underlying Linux/Ubuntu environment, assign &lt;strong>Static IPs&lt;/strong>, and define firewall rules.&lt;/li>
+&lt;li>Implement data backup procedures using &lt;strong>Snapshots&lt;/strong> and scale up workloads by upgrading instance plans (&lt;strong>Migration&lt;/strong>).&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Resource&lt;/th>
+ &lt;th style="text-align: left">Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Configuration &amp;amp; Detailed Specs&lt;/th>
+ &lt;th style="text-align: left">Address / Ports&lt;/th>
+ &lt;th style="text-align: left">Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Lightsail Database&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Workshop-DB-Instance&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">MySQL 8.0, Standard Plan ($15/mo, 1GB RAM, 2 vCPUs)&lt;/td>
+ &lt;td style="text-align: left">Port 3306, Master User: &lt;code>LightsailAdmin&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Master DB: &lt;code>dbWordPress&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>WordPress Instance&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>WordPress-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Blueprint: WordPress (Bitnami), Linux/Ubuntu&lt;/td>
+ &lt;td style="text-align: left">Static IP: Attached, Port 80, 443&lt;/td>
+ &lt;td style="text-align: left">Connected to Lightsail DB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Prestashop Instance&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Prestashop-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Blueprint: Prestashop, Linux/Ubuntu&lt;/td>
+ &lt;td style="text-align: left">Static IP: Attached, Port 80, 443&lt;/td>
+ &lt;td style="text-align: left">E-Commerce Platform&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Instance Snapshot&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>wordpress-backup-snapshot&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Full point-in-time snapshot before instance upgrade&lt;/td>
+ &lt;td style="text-align: left">Size: ~20 GB, Status: Available&lt;/td>
+ &lt;td style="text-align: left">Used for scale-up&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Migrated Instance&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>WordPress-Migrated&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Created from Snapshot, higher hardware bundle&lt;/td>
+ &lt;td style="text-align: left">Static IP: Re-attached&lt;/td>
+ &lt;td style="text-align: left">Seamless service continuity&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--screenshot-gallery">🚀 Step-by-Step Implementation &amp;amp; Screenshot Gallery:&lt;/h3>
+&lt;h4 id="step-1-provision-a-managed-relational-database-mysql">Step 1: Provision a Managed Relational Database (MySQL)&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Action / Navigation:&lt;/strong> Log into the &lt;strong>Amazon Lightsail&lt;/strong> console ➔ Navigate to the &lt;strong>Databases&lt;/strong> tab ➔ Click &lt;strong>Create database&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Configuration Parameters:&lt;/strong>
+&lt;ul>
+&lt;li>&lt;em>Deployment Region:&lt;/em> &lt;code>ap-southeast-1&lt;/code> (Singapore)&lt;/li>
+&lt;li>&lt;em>Database Engine:&lt;/em> &lt;code>MySQL&lt;/code> (version &lt;code>8.0&lt;/code>)&lt;/li>
+&lt;li>&lt;em>Master Username:&lt;/em> &lt;code>LightsailAdmin&lt;/code>&lt;/li>
+&lt;li>&lt;em>Master Password:&lt;/em> Generate strong automated password or specify custom secure password&lt;/li>
+&lt;li>&lt;em>Initial Database Name:&lt;/em> &lt;code>dbWordPress&lt;/code>&lt;/li>
+&lt;li>&lt;em>Database Plan:&lt;/em> &lt;code>Standard Plan&lt;/code> ($15/month, 1 GB RAM, 2 vCPUs, 40 GB SSD, 100 GB Data Transfer)&lt;/li>
+&lt;li>&lt;em>Database Identifier:&lt;/em> &lt;code>Workshop-DB-Instance&lt;/code>&lt;/li>
+&lt;li>&lt;em>Identification Tags:&lt;/em> Key = &lt;code>dbname&lt;/code>, Value = &lt;code>dbWordPress&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Next Action:&lt;/strong> Scroll down and click &lt;strong>Create database&lt;/strong>. Monitor the status transition from &lt;em>Creating&lt;/em> to &lt;em>Available&lt;/em>.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.1-amazon-lightsail/create-database.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.1-amazon-lightsail/create-database.png" alt="Deploy Database on Lightsail" />
+&lt;/a>
+&lt;/p></description></item><item><title>Deploying Relational Databases with Amazon RDS</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.3-week3/1.3.1-amazon-rds/</link><pubDate>Thu, 01 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.3-week3/1.3.1-amazon-rds/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Deploying Relational Databases with Amazon RDS&lt;/strong> lab was executed on &lt;strong>Thursday (01/10/2026)&lt;/strong> as part of &lt;strong>Week 3&lt;/strong>. This page provides comprehensive technical documentation for designing a highly available, multi-Availability Zone (Multi-AZ) two-tier network architecture, configuring chained security group firewalls, provisioning an &lt;strong>Amazon RDS MySQL&lt;/strong> instance, connecting an &lt;strong>Amazon EC2 Web Server&lt;/strong>, and executing data protection workflows via &lt;strong>Manual DB Snapshots&lt;/strong> and &lt;strong>Point-in-Time Restore&lt;/strong>.
+&lt;br>🔗 &lt;strong>Lab Reference Source:&lt;/strong> &lt;a href="https://000005.awsfcaj.com/">Get Started with Amazon RDS Workshop&lt;/a>&lt;/p></description></item><item><title>Optimize Amazon EC2 Costs with AWS Lambda &amp; Slack Notifications</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.2-aws-lambda/</link><pubDate>Tue, 20 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.2-aws-lambda/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Optimize Amazon EC2 Costs with AWS Lambda &amp;amp; Slack Notifications&lt;/strong> hands-on lab was conducted on &lt;strong>Tuesday (20/10/2026)&lt;/strong> as part of &lt;strong>Week 6&lt;/strong>. This document details the serverless operational automation architecture using AWS Lambda, Amazon EventBridge Scheduler, and ChatOps telemetry dispatching via Slack Incoming Webhooks.&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Cloud Cost Optimization:&lt;/strong> Design and implement an automated compute scheduling architecture for Amazon EC2 instances, automatically stopping non-production development/test servers outside business hours and resuming them prior to the start of the workday, realizing up to 65 - 70% in compute cost savings.&lt;/li>
+&lt;li>&lt;strong>Serverless Operational Automation:&lt;/strong> Develop serverless routines using &lt;strong>AWS Lambda&lt;/strong> (Python 3 Boto3 SDK) coupled with &lt;strong>Amazon EventBridge Scheduler&lt;/strong> to govern the complete compute lifecycle without maintaining any dedicated management host or cron server.&lt;/li>
+&lt;li>&lt;strong>Dynamic Resource Tagging Governance:&lt;/strong> Apply tag-based identification strategies (&lt;code>environment_auto = true&lt;/code>) enabling Lambda functions to dynamically query, filter, and control target instances without hardcoding instance IDs.&lt;/li>
+&lt;li>&lt;strong>Real-Time ChatOps Telemetry via Slack:&lt;/strong> Integrate AWS Lambda with &lt;strong>Slack&lt;/strong> channels using &lt;strong>Incoming Webhooks&lt;/strong>, automatically broadcasting formatted operational alerts displaying instance transition states directly into the &lt;code>#notification&lt;/code> channel.&lt;/li>
+&lt;li>&lt;strong>Enterprise Troubleshooting Competence:&lt;/strong> Diagnose and resolve complex runtime exceptions, including state transition constraints (&lt;code>IncorrectInstanceState&lt;/code>), ghost references to terminated instances, IAM policy evaluation boundaries, and resilient webhook dispatching.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Component / Resource&lt;/th>
+ &lt;th style="text-align: left">Identifier (Name / ID)&lt;/th>
+ &lt;th style="text-align: left">Technical Specifications / Configuration&lt;/th>
+ &lt;th style="text-align: left">Purpose / Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>AWS Region&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">US East (N. Virginia)&lt;/td>
+ &lt;td style="text-align: left">Primary operational deployment region&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Virtual Private Cloud&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lambda-lab&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">CIDR &lt;code>10.0.0.0/16&lt;/code>, Public Subnet &lt;code>10.0.128.0/20&lt;/code> (&lt;code>us-east-1a&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">Isolated network perimeter for test workloads&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Security Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lambda-lab&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Inbound: SSH (Port 22), HTTP (Port 80); Outbound: All Traffic&lt;/td>
+ &lt;td style="text-align: left">Network access controls for EC2 compute instances&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Target Workload (EC2)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lambda-lab-instance&lt;/code> / &lt;code>i-003cb6dbd0f4e5b31&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>t3.micro&lt;/code>, Amazon Linux 2023, Tag: &lt;code>environment_auto = true&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Development compute subject to scheduled power cycles&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM Execution Role&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-role&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Trusted: &lt;code>lambda.amazonaws.com&lt;/code>, Policies: &lt;code>AmazonEC2FullAccess&lt;/code>, &lt;code>CloudWatchFullAccessV2&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Grants Lambda full EC2 lifecycle and logging privileges&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Lambda Function (Stop)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-stop&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Runtime: Python 3.14, Memory: 128 MB, Env: &lt;code>environment_auto = true&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Scans and halts target instances post-workday&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Lambda Function (Start)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-start&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Runtime: Python 3.14, Memory: 128 MB, Env: &lt;code>environment_auto = true&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Scans and resumes target instances pre-workday&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EventBridge Schedule (Stop)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-stop&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Recurring Schedule: Rate (9 hours) / Cron, Flexible Window: Off&lt;/td>
+ &lt;td style="text-align: left">Scheduled event trigger invoking the stop function&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EventBridge Schedule (Start)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-start&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Recurring Schedule: Rate (8 hours) / Cron, Flexible Window: Off&lt;/td>
+ &lt;td style="text-align: left">Scheduled event trigger invoking the start function&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>ChatOps Channel&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>aws-lambda-labs&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Slack Channel: &lt;code>#notification&lt;/code>, App: &lt;code>Lambda-Notifier&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Real-time operational alerting channel&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-practical-implementation">🛠️ Step-by-Step Practical Implementation&lt;/h3>
+&lt;h4 id="step-1-network-topology-provisioning--public-subnet-configuration">Step 1: Network Topology Provisioning &amp;amp; Public Subnet Configuration&lt;/h4>
+&lt;ol>
+&lt;li>Open the &lt;strong>Amazon VPC&lt;/strong> console within the AWS Management Console.&lt;/li>
+&lt;li>Navigate to &lt;strong>Your VPCs&lt;/strong> ➔ Select &lt;strong>Create VPC&lt;/strong>.&lt;/li>
+&lt;li>Select the &lt;strong>VPC and more&lt;/strong> workflow, set the name tag to &lt;code>lambda-lab&lt;/code>, and keep the default standard CIDR block. Select &lt;strong>Create VPC&lt;/strong>.&lt;/li>
+&lt;li>In the left navigation pane, select &lt;strong>Subnets&lt;/strong>, select the newly provisioned public subnet (&lt;code>lambda-lab-subnet-public...&lt;/code>) ➔ Select &lt;strong>Actions&lt;/strong> ➔ &lt;strong>Edit subnet settings&lt;/strong>.&lt;/li>
+&lt;li>Enable &lt;strong>Enable auto-assign public IPv4 address&lt;/strong> to ensure newly launched EC2 compute receives a routable public IP. Select &lt;strong>Save&lt;/strong>.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.2-aws-lambda/2.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.2-aws-lambda/2.1.png" alt="Provision VPC lambda-lab successfully" />
+&lt;/a>
+
+&lt;em>Figure 1.1: Detailed overview of VPC lambda-lab route tables and subnets upon successful provisioning.&lt;/em>&lt;/p></description></item><item><title>Command Line Operations with AWS CLI</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.5-week5/1.5.2-aws-cli/</link><pubDate>Tue, 13 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.5-week5/1.5.2-aws-cli/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Command Line Operations with AWS CLI&lt;/strong> workshop was conducted on &lt;strong>Tuesday (13/10/2026)&lt;/strong> as part of &lt;strong>Week 5&lt;/strong>. This page records the authentic step-by-step walkthrough: exact console clicks, specific parameter inputs, shell commands executed, and resolution of encountered technical issues.
+&lt;br>🔗 &lt;strong>Workshop Reference:&lt;/strong> &lt;a href="https://000011.awsfcaj.com/">Getting Started with the AWS CLI&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Establish a standard practice environment using &lt;strong>IAM User Groups&lt;/strong>, &lt;strong>IAM Users&lt;/strong> (&lt;code>aws-cli-user&lt;/code>, &lt;code>devops&lt;/code>), and generated &lt;strong>CLI Access Keys&lt;/strong>.&lt;/li>
+&lt;li>Launch an &lt;strong>Amazon EC2 Management Instance (Amazon Linux 2023)&lt;/strong> workstation and establish secure remote access via &lt;strong>MobaXterm&lt;/strong>.&lt;/li>
+&lt;li>Install the latest version of &lt;strong>AWS CLI v2&lt;/strong> in a Linux environment and configure multiple profiles (&lt;code>default&lt;/code>, &lt;code>devops&lt;/code>).&lt;/li>
+&lt;li>Use AWS CLI to manage object storage on &lt;strong>Amazon S3&lt;/strong> (bucket creation, file upload, object listing, and safe deletion using the &lt;code>--force&lt;/code> flag).&lt;/li>
+&lt;li>Administer notification messaging services using &lt;strong>Amazon SNS&lt;/strong> (Topic creation, Email subscription, subscription confirmation, and CLI message publication).&lt;/li>
+&lt;li>Construct a complete &lt;strong>Amazon VPC&lt;/strong> networking architecture via CLI (VPC, Subnet, Internet Gateway, Route Table, and route associations).&lt;/li>
+&lt;li>Automate the complete compute lifecycle of &lt;strong>Amazon EC2&lt;/strong> via CLI (Key Pair creation, Security Group configuration, opening inbound port 22, executing &lt;code>run-instances&lt;/code>, allocating/associating an Elastic IP, SSH verification, and terminating instances).&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Resource&lt;/th>
+ &lt;th style="text-align: left">Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Configuration &amp;amp; Detailed Specs&lt;/th>
+ &lt;th style="text-align: left">Region&lt;/th>
+ &lt;th style="text-align: left">Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>aws-cli&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Policy: &lt;code>AdministratorAccess&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Global&lt;/td>
+ &lt;td style="text-align: left">Centralized privilege management&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM User 1&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>aws-cli-user&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Group: &lt;code>aws-cli&lt;/code> + CLI Access Key&lt;/td>
+ &lt;td style="text-align: left">Global&lt;/td>
+ &lt;td style="text-align: left">Configured for &lt;code>default&lt;/code> profile&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM User 2&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>devops&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Group: &lt;code>aws-cli&lt;/code> + CLI Access Key&lt;/td>
+ &lt;td style="text-align: left">Global&lt;/td>
+ &lt;td style="text-align: left">Configured for &lt;code>--profile devops&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Management&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>aws-cli-instance&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>t3.micro&lt;/code>, Amazon Linux 2023, Key: &lt;code>aws-cli-keypair&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Bastion workstation connected via MobaXterm&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Management Subnet&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>subnet-01&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">CIDR: &lt;code>172.31.100.0/24&lt;/code>, Auto-assign Public IP: Yes&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Subnet with Internet Gateway routing&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>S3 Bucket&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>aws-cli-trangiabao-2026&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Standard Storage, Globally unique bucket name&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Object storage for testing file &lt;code>text.txt&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>SNS Topic&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>aws-cli&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">ARN: &lt;code>arn:aws:sns:ap-southeast-1:887086382708:aws-cli&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Notification topic for email alerts&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>VPC (via CLI)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>vpc-07ebcfa7f5b9c659c&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">CIDR: &lt;code>10.0.0.0/16&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Isolated custom network infrastructure&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Subnet (via CLI)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>subnet-03c90d43fb1f53b06&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">CIDR: &lt;code>10.0.1.0/24&lt;/code>, AZ: &lt;code>ap-southeast-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Subnet hosting CLI-provisioned EC2&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Internet Gateway&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>igw-006783ef67381e1d4&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Attached to &lt;code>vpc-07ebcfa7f5b9c659c&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">VPC Internet egress gateway&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Route Table (CLI)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>rtb-xxxx&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Route: &lt;code>0.0.0.0/0&lt;/code> targeted to Internet Gateway&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Routes internet traffic for custom subnet&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Key Pair (CLI)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>MyKeyPair&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Type: RSA, file saved as: &lt;code>MyKeyPair.pem&lt;/code> (chmod 400)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">SSH credential for automated EC2&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Security Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>SSHAccess&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Inbound: Port 22 (TCP) from &lt;code>0.0.0.0/0&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Firewall rule allowing remote SSH&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Automated EC2&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>i-03171455cd0278073&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>t2.micro&lt;/code>, Private IP: &lt;code>10.0.1.41&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Automated EC2 instance launched via CLI&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Elastic IP&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>47.131.189.63&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Allocation: &lt;code>eipalloc-0f52955fe9fe8ad41&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Public IP attached to access instance&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-section-1-prerequisites--identity-setup">📋 Section 1: Prerequisites &amp;amp; Identity Setup&lt;/h3>
+&lt;h4 id="step-1-create-an-iam-user-group">Step 1: Create an IAM User Group&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Action:&lt;/strong> Log in to the AWS Management Console ➔ Navigate to &lt;strong>IAM&lt;/strong> ➔ In the left navigation pane, select &lt;strong>User groups&lt;/strong> ➔ Click &lt;strong>Create group&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Purpose:&lt;/strong> Establish a centralized group for granting administrative privileges to CLI users.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.5-Week5/1.5.2-aws-cli/2.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.5-Week5/1.5.2-aws-cli/2.png" alt="Create IAM User Group" />
+&lt;/a>
+&lt;/p></description></item><item><title>Amazon Lightsail Container Deployment</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.2-lightsail-container/</link><pubDate>Tue, 06 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.2-lightsail-container/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Amazon Lightsail Container Deployment&lt;/strong> (Run Apps on Lightsail Container) hands-on lab was conducted on &lt;strong>Tuesday (06/10/2026)&lt;/strong> during &lt;strong>Week 4&lt;/strong>. This page provides a thorough step-by-step implementation guide featuring precise parameters, CLI execution commands, troubleshooting solutions, and all 11 verification screenshots.
+&lt;br>🔗 &lt;strong>Lab Reference Material:&lt;/strong> &lt;a href="https://000046.awsfcaj.com/">Amazon Lightsail Container - Run Apps on Lightsail Container&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Familiarize with the &lt;strong>Containers&lt;/strong> feature on Amazon Lightsail — a streamlined solution for running containerized workloads without orchestrator complexity.&lt;/li>
+&lt;li>Install and configure the &lt;strong>AWS CLI&lt;/strong> and the &lt;strong>Lightsail Control (lightsailctl)&lt;/strong> extension plugin to interact with container services from a local workstation.&lt;/li>
+&lt;li>Provision a &lt;strong>Container Service&lt;/strong> on Lightsail utilizing a cost-optimized hardware tier (Nano bundle).&lt;/li>
+&lt;li>Deploy a &lt;strong>Public Container Image&lt;/strong> (Nginx) sourced from Docker Hub onto the Lightsail Container Service.&lt;/li>
+&lt;li>Launch a dedicated virtual machine &lt;strong>Build-Instance&lt;/strong> (Ubuntu) to compile and push a &lt;strong>Custom Container Image&lt;/strong> to the Lightsail private registry via &lt;code>aws lightsail push-container-image&lt;/code>.&lt;/li>
+&lt;li>Enable a Public Endpoint and verify live web application delivery over an auto-managed HTTPS SSL/TLS domain.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Resource&lt;/th>
+ &lt;th style="text-align: left">Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Configuration &amp;amp; Detailed Specs&lt;/th>
+ &lt;th style="text-align: left">Address / Ports&lt;/th>
+ &lt;th style="text-align: left">Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>AWS CLI&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">Version 2.37.9&lt;/td>
+ &lt;td style="text-align: left">Installed via PowerShell, configured Profile&lt;/td>
+ &lt;td style="text-align: left">IAM User: &lt;code>Bao&lt;/code> (&lt;code>ap-southeast-1&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">AWS command-line management tool&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Container Service&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lightsail-container&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Nano (512 MB RAM, 0.25 vCPUs x 1 node)&lt;/td>
+ &lt;td style="text-align: left">Singapore (&lt;code>ap-southeast-1a&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">Status: &lt;code>Running&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Public Deployment&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>test1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Image: &lt;code>nginx&lt;/code> (Docker Hub Public Registry)&lt;/td>
+ &lt;td style="text-align: left">Port 80 (HTTP), Health check: &lt;code>/&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Rapid deployment from public registry&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Build Instance&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Build-Instance&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Ubuntu 22.04 LTS, 512 MB RAM, 20 GB SSD&lt;/td>
+ &lt;td style="text-align: left">Public IP: &lt;code>47.129.162.155&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Used to build &amp;amp; push Docker images&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Stored Container&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>:lightsail-container.nginx-container-hello.1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Custom image uploaded from build instance&lt;/td>
+ &lt;td style="text-align: left">SHA256 digest validation&lt;/td>
+ &lt;td style="text-align: left">Lightsail private container repository&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Public Domain&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lightsail-container...amazonlightsail.com&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">HTTPS auto-issued with AWS SSL certificate&lt;/td>
+ &lt;td style="text-align: left">Port 443 / 80&lt;/td>
+ &lt;td style="text-align: left">Publicly accessible application endpoint&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--screenshot-gallery">🚀 Step-by-Step Implementation &amp;amp; Screenshot Gallery:&lt;/h3>
+&lt;h4 id="step-1-install-aws-cli-v2-on-windows-workstation">Step 1: Install AWS CLI v2 on Windows Workstation&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Action / Navigation:&lt;/strong> Open &lt;strong>PowerShell&lt;/strong> with administrative privileges (Run as Administrator) ➔ Execute the automated installation command for AWS CLI v2.&lt;/li>
+&lt;li>&lt;strong>Command Executed:&lt;/strong>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>irm https&lt;span style="color:#960050;background-color:#1e0010">:&lt;/span>//awscli.amazonaws.com/v2/install.ps1 | iex
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>&lt;strong>Purpose:&lt;/strong> Establish a standardized CLI environment to authenticate, manage resources, and push Docker images to Lightsail.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.2-lightsail-container/lab-step-1-1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.2-lightsail-container/lab-step-1-1.png" alt="Install AWS CLI version 2.37.9 using PowerShell" />
+&lt;/a>
+&lt;/p></description></item><item><title>AWS Tags and Resource Groups Management</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.3-tags-and-resource-groups/</link><pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.3-tags-and-resource-groups/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>AWS Tags and Resource Groups Management&lt;/strong> hands-on lab was conducted on &lt;strong>Wednesday (21/10/2026)&lt;/strong> as part of &lt;strong>Week 6&lt;/strong>. This document provides an exhaustive step-by-step implementation guide for metadata categorization using AWS Tags, command-line automation via the AWS CLI, and centralized infrastructure governance using AWS Resource Groups.&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Understand the strategic importance of &lt;strong>AWS Tags&lt;/strong> in cloud governance, operational automation, cost allocation tracking, and &lt;strong>Attribute-Based Access Control (ABAC)&lt;/strong>.&lt;/li>
+&lt;li>Practice manual tag assignment and tag lifecycle management through the &lt;strong>Amazon EC2 Management Console&lt;/strong> across multiple instances.&lt;/li>
+&lt;li>Master command-line tag administration via the &lt;strong>AWS CLI&lt;/strong>: generate dedicated IAM credentials, configure local profiles, execute atomic &lt;code>create-tags&lt;/code> operations, and construct complex query expressions using &lt;code>describe-instances --filters&lt;/code>.&lt;/li>
+&lt;li>Architect and provision &lt;strong>AWS Resource Groups&lt;/strong>: create a tag-based group named &lt;code>EnvTest&lt;/code> to automatically aggregate compute instances sharing common environmental metadata.&lt;/li>
+&lt;li>Analyze real-world troubleshooting scenarios: tag key case-sensitivity, tag volume limits, CLI parameter escaping in PowerShell, and regional boundaries of resource groups.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Component / Resource&lt;/th>
+ &lt;th style="text-align: left">Identifier (Name / ID)&lt;/th>
+ &lt;th style="text-align: left">Configuration &amp;amp; Assigned Tags&lt;/th>
+ &lt;th style="text-align: left">Region&lt;/th>
+ &lt;th style="text-align: left">Operational Purpose&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Instance 1&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ec2-instance-1&lt;/code> (&lt;code>i-02b440e03f77f9942&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Environment: Test&lt;/code>&lt;br>&lt;code>Service: YourService&lt;/code>&lt;br>&lt;code>Owner: YourName&lt;/code>&lt;br>&lt;code>OS: Amazon Linux&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Test Instance 1, managed via Web Console&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Instance 2&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ec2-instance-2&lt;/code> (&lt;code>i-0abb0b1178954e0a4&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Project: AWS&lt;/code>&lt;br>&lt;code>Env: Test&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Test Instance 2, tagged programmatically via AWS CLI&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Instance 3&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ec2-instance-3&lt;/code> (&lt;code>i-00ecbe56e33f40770&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Environment: Test&lt;/code>&lt;br>&lt;code>Name: ec2-instance-3&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Launched and labeled via AWS CLI&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM Access Key&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>AKIA_DEMO_SAMPLE_KEY_ID&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Programmatic credentials for user &lt;code>trangiabao&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Global&lt;/td>
+ &lt;td style="text-align: left">Secure authentication for AWS CLI workstation&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>AWS Resource Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>EnvTest&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Group Type: &lt;code>Tag based&lt;/code>&lt;br>Query: &lt;code>AWS::EC2::Instance&lt;/code> with tag &lt;code>Environment: Test&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Centralized group view for test environment instances&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--verification">🚀 Step-by-Step Implementation &amp;amp; Verification:&lt;/h3>
+&lt;h4 id="section-1-tag-administration-via-aws-management-console">Section 1: Tag Administration via AWS Management Console&lt;/h4>
+&lt;h5 id="step-1-launch-ec2-instances-and-verify-initial-state">Step 1: Launch EC2 Instances and Verify Initial State&lt;/h5>
+&lt;ul>
+&lt;li>&lt;strong>Action:&lt;/strong> Sign in to the AWS Management Console in the &lt;strong>us-east-1&lt;/strong> (N. Virginia) region ➔ Open &lt;strong>Amazon EC2&lt;/strong> ➔ Navigate to &lt;strong>Instances&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Procedure:&lt;/strong> Launch two standard &lt;code>t3.micro&lt;/code> instances named &lt;code>ec2-instance-1&lt;/code> and &lt;code>ec2-instance-2&lt;/code>. Observe the status transitioning from &lt;code>Initializing&lt;/code> to &lt;code>Running&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.3-tags-and-resource-groups/2.1.1.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.3-tags-and-resource-groups/2.1.1.1.png" alt="EC2 Instance Initialization State" />
+&lt;/a>
+&lt;/p></description></item><item><title>Work with Amazon DynamoDB</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.5-week5/1.5.3-amazon-dynamodb/</link><pubDate>Wed, 14 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.5-week5/1.5.3-amazon-dynamodb/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Work with Amazon DynamoDB&lt;/strong> hands-on lab was conducted on &lt;strong>Wednesday (14/10/2026)&lt;/strong> as part of &lt;strong>Week 5&lt;/strong>. This document details the end-to-end implementation process across three operational methods: AWS Management Console, AWS CloudShell CLI, and Programmatic Automation with Python SDK (Boto3).
+&lt;br>🔗 &lt;strong>Workshop Source:&lt;/strong> &lt;a href="https://000060.awsfcaj.com/">Work with Amazon DynamoDB (Workshop 000060)&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Master the NoSQL architecture of &lt;strong>Amazon DynamoDB&lt;/strong>, comprehend partition distribution mechanisms using &lt;strong>Partition Key (HASH)&lt;/strong>, composite key strategies using &lt;strong>Composite Primary Key (HASH + RANGE)&lt;/strong>, and schema flexibility with Scalar/Document attribute types.&lt;/li>
+&lt;li>Perform lifecycle management for the &lt;code>Music&lt;/code> table via &lt;strong>AWS Management Console&lt;/strong>: table creation, item insertion, in-place updates, conditional queries and full table scans, alongside configuring and querying a &lt;strong>Global Secondary Index (GSI)&lt;/strong> named &lt;code>AlbumTitle-index&lt;/code>.&lt;/li>
+&lt;li>Leverage the command-line interface of &lt;strong>AWS CloudShell&lt;/strong>: authenticate via IAM credentials, provision tables, perform atomic CRUD operations (&lt;code>put-item&lt;/code>, &lt;code>get-item&lt;/code>, &lt;code>update-item&lt;/code>, &lt;code>query&lt;/code>), attach a GSI via &lt;code>update-table&lt;/code>, and understand the asynchronous &lt;strong>Backfilling&lt;/strong> phase.&lt;/li>
+&lt;li>Implement programmatic automation on Windows using &lt;strong>Python 3&lt;/strong> and &lt;strong>Boto3 SDK&lt;/strong>: automated provisioning of the &lt;code>Movies&lt;/code> table, item CRUD scripts, batch ingestion from a JSON payload (&lt;code>moviedata.json&lt;/code> with 4,609 records), key-based queries, and filtered table scans (&lt;code>MoviesScan.py&lt;/code>).&lt;/li>
+&lt;li>Analyze and document &lt;strong>10 in-depth real-world troubleshooting scenarios&lt;/strong>: workshop documentation flag typos, IAM policy authorization, duplicate resource conflicts, hidden zero-width Unicode characters (&lt;code>\u200b&lt;/code>), terminal CLI pager behavior, GSI backfilling locks, environment execution mismatches, and multi-region routing.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Resource&lt;/th>
+ &lt;th style="text-align: left">Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Attributes &amp;amp; Key Schema&lt;/th>
+ &lt;th style="text-align: left">Throughput / Mode&lt;/th>
+ &lt;th style="text-align: left">Region&lt;/th>
+ &lt;th style="text-align: left">Purpose&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>DynamoDB Table 1&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Music&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Partition Key: &lt;code>Artist&lt;/code> (S) &lt;br>Sort Key: &lt;code>SongTitle&lt;/code> (S)&lt;/td>
+ &lt;td style="text-align: left">Provisioned (RCU=10, WCU=5)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Console &amp;amp; CloudShell CLI lab exercises&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Secondary Index&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>AlbumTitle-index&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Partition Key: &lt;code>AlbumTitle&lt;/code> (S) &lt;br>Projection: &lt;code>ALL&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Provisioned (RCU=10, WCU=5)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Global Secondary Index for &lt;code>Music&lt;/code> table&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>DynamoDB Table 2&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Movies&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Partition Key: &lt;code>year&lt;/code> (N) &lt;br>Sort Key: &lt;code>title&lt;/code> (S)&lt;/td>
+ &lt;td style="text-align: left">Provisioned (RCU=10, WCU=10)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Python SDK (Boto3) lab automation&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM User&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>AWS-FCAJ-DynamDB&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Attached Policy: &lt;code>AmazonDynamoDBFullAccess&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Programmatic CLI Access&lt;/td>
+ &lt;td style="text-align: left">Global&lt;/td>
+ &lt;td style="text-align: left">Dedicated identity for CLI and SDK access&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Dataset Payload&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>moviedata.json&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">4,609 movie entries (3.7 MB), JSON format&lt;/td>
+ &lt;td style="text-align: left">Parsed Floats to Decimal&lt;/td>
+ &lt;td style="text-align: left">Local&lt;/td>
+ &lt;td style="text-align: left">Benchmark dataset for query &amp;amp; scan routines&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>SDK Environment&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">Windows Workstation&lt;/td>
+ &lt;td style="text-align: left">Python 3.14.5 + Boto3 1.43.114&lt;/td>
+ &lt;td style="text-align: left">CLI Default: &lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Local&lt;/td>
+ &lt;td style="text-align: left">Host environment for Python test scripts&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-section-1-managing-dynamodb-via-aws-management-console">📋 Section 1: Managing DynamoDB via AWS Management Console&lt;/h3>
+&lt;h4 id="step-1-accessing-the-amazon-dynamodb-console">Step 1: Accessing the Amazon DynamoDB Console&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Action:&lt;/strong> Sign in to the AWS Management Console and open the &lt;strong>DynamoDB&lt;/strong> service dashboard.&lt;/li>
+&lt;li>&lt;strong>Purpose:&lt;/strong> Access the centralized control pane to monitor database capacity, active tables, and operational metrics.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.5-Week5/1.5.3-amazon-dynamodb/2.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.5-Week5/1.5.3-amazon-dynamodb/2.1.png" alt="DynamoDB Dashboard Overview" />
+&lt;/a>
+&lt;/p></description></item><item><title>Auto Scaling with EC2 Auto Scaling</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.3-ec2-auto-scaling/</link><pubDate>Wed, 07 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.3-ec2-auto-scaling/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Auto Scaling with EC2 Auto Scaling&lt;/strong> (Scaling Applications with EC2 Auto Scaling) hands-on lab was conducted on &lt;strong>Wednesday (07/10/2026)&lt;/strong> during &lt;strong>Week 4&lt;/strong>. This page delivers a detailed step-by-step walkthrough covering explicit parameters, stress testing commands, troubleshooting resolutions, and all 44 verification screenshots.
+&lt;br>🔗 &lt;strong>Lab Reference Material:&lt;/strong> &lt;a href="https://000006.awsfcaj.com/">Triển khai ứng dụng FCAJ Management với Auto Scaling Group&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Understand the core design principles of &lt;strong>Scalable &amp;amp; Highly Available Architecture&lt;/strong> on AWS.&lt;/li>
+&lt;li>Package a functional application server into a reusable &lt;strong>Custom AMI&lt;/strong>.&lt;/li>
+&lt;li>Construct a standardized &lt;strong>Launch Template&lt;/strong> defining automated compute specifications.&lt;/li>
+&lt;li>Deploy an &lt;strong>Application Load Balancer (ALB)&lt;/strong> paired with a &lt;strong>Target Group&lt;/strong> for balanced traffic distribution.&lt;/li>
+&lt;li>Configure an &lt;strong>Auto Scaling Group (ASG)&lt;/strong> with &lt;strong>Dynamic Scaling Policies&lt;/strong> driven by CloudWatch CPU metrics.&lt;/li>
+&lt;li>Execute a synthetic &lt;strong>Stress Test&lt;/strong> to validate automated &lt;strong>Scale Out&lt;/strong> and &lt;strong>Scale In&lt;/strong> lifecycle behaviors.&lt;/li>
+&lt;li>Execute a complete teardown procedure to decommission all provisioned resources and prevent unintended costs.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Resource&lt;/th>
+ &lt;th style="text-align: left">Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Configuration &amp;amp; Detailed Specs&lt;/th>
+ &lt;th style="text-align: left">Address / Ports&lt;/th>
+ &lt;th style="text-align: left">Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Custom AMI&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>fcaj-app-ami&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Packaged sample Node.js server + application code&lt;/td>
+ &lt;td style="text-align: left">AMI ID: &lt;code>ami-0...&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Master golden image for fleet instances&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Launch Template&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>fcaj-launch-template&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>t2.micro&lt;/code>, Amazon Linux, SG: Ports 80/3000&lt;/td>
+ &lt;td style="text-align: left">Version 1&lt;/td>
+ &lt;td style="text-align: left">Automates instance provisioning&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Target Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>fcaj-tg&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Target Type: Instance, Protocol: HTTP (Port 80)&lt;/td>
+ &lt;td style="text-align: left">Health Check: &lt;code>/&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Manages target registration and health checks&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Load Balancer&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>fcaj-alb&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Application Load Balancer, Multi-AZ Subnets&lt;/td>
+ &lt;td style="text-align: left">DNS Name of ALB&lt;/td>
+ &lt;td style="text-align: left">Central ingress traffic gateway&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Auto Scaling Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>fcaj-asg&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Min: 1, Desired: 1, Max: 3 instances&lt;/td>
+ &lt;td style="text-align: left">Distributed across 2 Availability Zones&lt;/td>
+ &lt;td style="text-align: left">Auto-manages fleet capacity&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Scaling Policy&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>TargetTracking-CPU&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Metric: Average CPU Utilization &amp;gt; 50%&lt;/td>
+ &lt;td style="text-align: left">Warmup: 300s&lt;/td>
+ &lt;td style="text-align: left">Automatically triggers Scale Out under load&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--screenshot-gallery">🚀 Step-by-Step Implementation &amp;amp; Screenshot Gallery:&lt;/h3>
+&lt;h4 id="step-1-create-custom-ami-from-baseline-ec2-instance">Step 1: Create Custom AMI from Baseline EC2 Instance&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Action / Navigation:&lt;/strong> In the &lt;strong>Amazon EC2&lt;/strong> console ➔ Navigate to &lt;strong>Instances&lt;/strong> ➔ Select the running golden application instance ➔ Click &lt;strong>Actions&lt;/strong> ➔ &lt;strong>Image and templates&lt;/strong> ➔ Click &lt;strong>Create image&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Purpose:&lt;/strong> Package the operating system, code dependencies, and runtime environment into an immutable golden image for automated fleet scaling.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.3-ec2-auto-scaling/2.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.3-ec2-auto-scaling/2.1.png" alt="Create Image from EC2 Instance" />
+&lt;/a>
+&lt;/p></description></item><item><title>Infrastructure Observability with Grafana &amp; Amazon CloudWatch</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.4-grafana-basic/</link><pubDate>Thu, 22 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.6-week6/1.6.4-grafana-basic/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>This hands-on lab on &lt;strong>Infrastructure Observability with Grafana &amp;amp; Amazon CloudWatch (Getting started with Grafana basic - Workshop 000029)&lt;/strong> was conducted on &lt;strong>Thursday (22/10/2026)&lt;/strong> as part of &lt;strong>Week 6&lt;/strong>. This document provides a complete, end-to-end operational guide for provisioning a Grafana monitoring host on Amazon Linux 2023, configuring secure IAM permissions, integrating Amazon CloudWatch data sources, and building customized telemetry dashboards.&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Understand the hybrid monitoring architecture combining the world-leading open-source visualization suite &lt;strong>Grafana&lt;/strong> with &lt;strong>Amazon CloudWatch&lt;/strong> as the primary metrics repository.&lt;/li>
+&lt;li>Master security best practices following AWS Well-Architected Framework: implement an &lt;strong>IAM Role&lt;/strong> attached directly to the EC2 Instance Profile so Grafana retrieves ephemeral credentials automatically instead of hard-coding static Access Keys.&lt;/li>
+&lt;li>Execute foundational network and security provisioning: verify &lt;strong>VPC&lt;/strong> configuration, enable automatic public IPv4 addressing on the &lt;strong>Public Subnet&lt;/strong>, and configure &lt;strong>Security Groups&lt;/strong> allowing access to port 3000 (Grafana Web UI) and port 22 (SSH).&lt;/li>
+&lt;li>Configure the official Grafana RPM repository, install the software packages, and run the &lt;code>grafana-server&lt;/code> background daemon managed by &lt;code>systemd&lt;/code> on modern &lt;strong>Amazon Linux 2023 (AL2023)&lt;/strong>.&lt;/li>
+&lt;li>Establish a &lt;strong>CloudWatch Data Source&lt;/strong> connection, validate API reachability (&lt;code>CloudWatch Metrics API&lt;/code> and &lt;code>CloudWatch Logs API&lt;/code>), design interactive Dashboards displaying &lt;code>CPUUtilization&lt;/code>, and explore multi-dimensional metrics using Bar charts and Time series panels.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-summary-of-deployed-infrastructure--parameters">📊 Summary of Deployed Infrastructure &amp;amp; Parameters:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Component / Resource&lt;/th>
+ &lt;th style="text-align: left">Logical Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Technical Specifications&lt;/th>
+ &lt;th style="text-align: left">Region / AZ&lt;/th>
+ &lt;th style="text-align: left">Operational Purpose&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>VPC&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Grafana-ASG-vpc&lt;/code> (&lt;code>vpc-02b25cbbec17b38ca&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">CIDR: &lt;code>10.0.0.0/16&lt;/code>, DNS hostnames: Enabled&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Dedicated network perimeter for observability stack&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Public Subnet&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Grafana-ASG-subnet-public1-us-east-1a&lt;/code> (&lt;code>subnet-0fe0631efc71d460b&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">CIDR: &lt;code>10.0.0.0/20&lt;/code>, Auto-assign Public IPv4: &lt;code>Yes&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Public subnet for inbound web access&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Security Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>SG-PUB-Grafana-ASG&lt;/code> (&lt;code>sg-0b5bc8236a3cadcd8&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">Inbound: TCP &lt;code>3000&lt;/code> (Grafana), TCP &lt;code>22&lt;/code> (SSH), All ICMP&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Stateful firewall securing the monitoring host&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Instance&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Grafana-Server&lt;/code> (&lt;code>i-082d165f34a40407f&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">Type: &lt;code>t3.micro&lt;/code>, AMI: Amazon Linux 2023, Public IP: &lt;code>44.203.10.190&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Host instance executing the Grafana service&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM Policy&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>GrafanaAccessPolicy&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">CloudWatch Metrics &amp;amp; Logs Read-Only permissions&lt;/td>
+ &lt;td style="text-align: left">Global&lt;/td>
+ &lt;td style="text-align: left">Least-privilege authorization policy&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM Role&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>GrafanaAccessRole&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Service: &lt;code>ec2.amazonaws.com&lt;/code>, Attached: &lt;code>GrafanaAccessPolicy&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Global&lt;/td>
+ &lt;td style="text-align: left">Instance profile granting temporary AWS credentials&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Grafana Server&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Grafana v13.3.0&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Port &lt;code>3000&lt;/code>, Auth: Admin Console, Service: &lt;code>active (running)&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Host EC2&lt;/td>
+ &lt;td style="text-align: left">Data visualization and alerting engine&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Data Source&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>CloudWatch&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Region: &lt;code>ap-southeast-1&lt;/code> / &lt;code>us-east-1&lt;/code>, Namespace: &lt;code>AWS/EC2&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Grafana Plugin&lt;/td>
+ &lt;td style="text-align: left">Native connector querying telemetry APIs&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--screenshot-evidence">🚀 Step-by-Step Implementation &amp;amp; Screenshot Evidence:&lt;/h3>
+&lt;h4 id="part-1-network--security-configuration">Part 1: Network &amp;amp; Security Configuration&lt;/h4>
+&lt;h5 id="step-1-verify-virtual-private-cloud-vpc-setup">Step 1: Verify Virtual Private Cloud (VPC) Setup&lt;/h5>
+&lt;ul>
+&lt;li>&lt;strong>Action:&lt;/strong> Sign in to the AWS Management Console in the &lt;strong>us-east-1&lt;/strong> (N. Virginia) region ➔ Open &lt;strong>Amazon VPC&lt;/strong> ➔ Select &lt;strong>Your VPCs&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Execution:&lt;/strong> Confirm that the VPC named &lt;code>Grafana-ASG-vpc&lt;/code> (&lt;code>vpc-02b25cbbec17b38ca&lt;/code>) is in an &lt;code>Available&lt;/code> state with DNS Hostnames and DNS Resolution fully enabled.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.4-grafana-basic/2.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.4-grafana-basic/2.1.png" alt="Inspect Grafana-ASG-vpc details" />
+&lt;/a>
+&lt;/p></description></item><item><title>Deploy Amazon ElastiCache - Redis</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.5-week5/1.5.4-amazon-elasticache/</link><pubDate>Thu, 15 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.5-week5/1.5.4-amazon-elasticache/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Amazon ElastiCache - Redis&lt;/strong> workshop was conducted on &lt;strong>Wednesday (10/14/2026)&lt;/strong> as part of &lt;strong>Week 5&lt;/strong>. This document presents a comprehensive technical walkthrough: AWS Console configurations, infrastructure specifications, RBAC security hardening with Users and User Groups, programmatic automation with AWS CLI &amp;amp; Python Boto3 SDK, as well as hands-on troubleshooting of real-world operational challenges.
+&lt;br>🔗 &lt;strong>Reference Documentation:&lt;/strong> &lt;a href="https://000061.awsfcaj.com/">Amazon ElastiCache - Redis&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Design and provision an isolated VPC network topology with &lt;strong>3 Subnets distributed across 3 Availability Zones&lt;/strong> (&lt;code>us-east-1a&lt;/code>, &lt;code>us-east-1b&lt;/code>, &lt;code>us-east-1c&lt;/code>) and configure an &lt;strong>ElastiCache Subnet Group&lt;/strong> to satisfy Multi-AZ high availability and data sharding requirements.&lt;/li>
+&lt;li>Configure &lt;strong>Security Group&lt;/strong> firewall policies permitting inbound traffic on TCP port &lt;strong>6379&lt;/strong> (Redis) and TCP port &lt;strong>22&lt;/strong> (SSH).&lt;/li>
+&lt;li>Provision an intermediate &lt;strong>Amazon EC2 Client (&lt;code>redis-client&lt;/code>)&lt;/strong> within the same VPC to interface with the private, isolated cache clusters.&lt;/li>
+&lt;li>Deploy and manage Redis clusters across both fundamental architectures:
+&lt;ul>
+&lt;li>&lt;strong>Cluster Mode Disabled:&lt;/strong> 1 Shard, 1 Primary node, and 2 Replica nodes with automated failover (Auto-failover).&lt;/li>
+&lt;li>&lt;strong>Cluster Mode Enabled:&lt;/strong> Multi-shard distributed architecture (3 Shards, 9 Nodes) enabling horizontal scaling and hash slot partitioning.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Fully automate Redis cluster provisioning utilizing the &lt;strong>AWS CLI&lt;/strong> and the &lt;strong>Python Boto3 SDK&lt;/strong>.&lt;/li>
+&lt;li>Implement enterprise-grade security controls: &lt;strong>Transit Encryption (TLS)&lt;/strong> paired with &lt;strong>Role-Based Access Control (RBAC)&lt;/strong> using custom Users and User Groups.&lt;/li>
+&lt;li>Develop Python client scripts to interact with Redis: cluster connectivity verification, string storage (&lt;strong>Strings&lt;/strong>) with Time-to-Live (&lt;strong>TTL&lt;/strong>), hash map data structures (&lt;strong>Hash&lt;/strong>), and real-time asynchronous message streaming (&lt;strong>Pub/Sub&lt;/strong>).&lt;/li>
+&lt;li>Resolve 12 critical technical challenges (Route Table Blackholes, missing package managers, deprecated third-party libraries, WRONGTYPE schema collisions, and User Group dependency errors).&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Resource&lt;/th>
+ &lt;th style="text-align: left">Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Technical Configuration &amp;amp; Specs&lt;/th>
+ &lt;th style="text-align: left">Region / AZ&lt;/th>
+ &lt;th style="text-align: left">Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>VPC&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>vpc-0fc9d5490a843944e&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">CIDR: &lt;code>10.0.0.0/16&lt;/code>, attached Internet Gateway &lt;code>my-igw&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Isolated network environment for ElastiCache&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Subnet Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>subnet-group&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">3 subnets spanning 3 distinct Availability Zones&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1a, 1b, 1c&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Satisfies Multi-AZ &amp;amp; Sharding topology constraints&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Security Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>sg-06c03603fe1cca808&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Inbound: Port 22 (SSH), Port 6379 (Redis)&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Firewall protecting EC2 and ElastiCache&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Redis Client&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>redis-client&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">ID: &lt;code>i-02673f346989f7c23&lt;/code>, AL2023, Python 3 + &lt;code>redis&lt;/code> v8.1.0&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1a&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Bastion client accessed via EC2 Instance Connect&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Cluster 1 (Console)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>my-cluster-disable&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Mode: Disabled, &lt;code>cache.r6g.large&lt;/code>, 1 Shard, 3 Nodes, Multi-AZ&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Primary Endpoint: &lt;code>my-cluster-disable.1vblox.ng.0001.use1...:6379&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Cluster 2 (Console)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>my-cluster-enable&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Mode: Enabled, &lt;code>cache.r6g.large&lt;/code>, 3 Shards, 9 Nodes, Multi-AZ&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Config Endpoint: &lt;code>my-cluster-enable.1vblox.clustercfg.use1...:6379&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Cluster 3 (SDK)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>redis-disabled-sdk&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Mode: Disabled, &lt;code>cache.t4g.micro&lt;/code>, Engine 6.0, 2 Nodes&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Automated provisioning via Boto3 script&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Cluster 4 (SDK)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>redis-enabled-sdk&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Mode: Enabled, &lt;code>cache.t4g.micro&lt;/code>, 2 Shards, 4 Nodes&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Automated provisioning via Boto3 script&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Cluster 5 (SDK + RBAC)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>redis-rbac-sdk&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Mode: Disabled, Transit Encryption: True, UserGroup: &lt;code>mygroup&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Primary Endpoint: &lt;code>master.redis-rbac-sdk.1vblox.use1...:6379&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Cluster 6 (SDK + RBAC)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>redis-enabled-rbac-sdk&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Mode: Enabled, 2 Shards, TLS Encryption: True, UserGroup: &lt;code>mygroup&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Sharded cluster protected by TLS and RBAC&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>RBAC User Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>mygroup&lt;/code>, &lt;code>mygroup2&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">User Groups governing authenticated client access&lt;/td>
+ &lt;td style="text-align: left">Global / Regional&lt;/td>
+ &lt;td style="text-align: left">Bound to TLS-enabled Redis clusters&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>RBAC Users&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>myuser&lt;/code>, &lt;code>default&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Password: &lt;code>MyStrongPasswordWithNumbers123&lt;/code>, Access: &lt;code>on ~* +@all&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Global / Regional&lt;/td>
+ &lt;td style="text-align: left">Assigned to User Groups &lt;code>mygroup&lt;/code> and &lt;code>mygroup2&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-section-1-environment-preparation--identity-management-prerequisites">📋 Section 1: Environment Preparation &amp;amp; Identity Management (Prerequisites)&lt;/h3>
+&lt;h4 id="step-1-create-iam-user-for-elasticache-administration">Step 1: Create IAM User for ElastiCache Administration&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Action:&lt;/strong> Navigate to the AWS Management Console ➔ Access &lt;strong>IAM&lt;/strong> ➔ Select &lt;strong>Users&lt;/strong> in the left navigation pane ➔ Click &lt;strong>Create user&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Configuration:&lt;/strong>
+&lt;ul>
+&lt;li>&lt;strong>User name:&lt;/strong> &lt;code>ElastiCache&lt;/code>&lt;/li>
+&lt;li>&lt;strong>Permissions options:&lt;/strong> Select &lt;strong>Attach policies directly&lt;/strong> ➔ Attach &lt;code>AmazonElastiCacheFullAccess&lt;/code> and &lt;code>AdministratorAccess&lt;/code> to facilitate automated administration.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Objective:&lt;/strong> Establish a dedicated programmatic identity for ElastiCache operations via AWS CLI and Python SDK.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.5-Week5/1.5.4-amazon-elasticache/2.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.5-Week5/1.5.4-amazon-elasticache/2.1.png" alt="IAM User ElastiCache Creation" />
+&lt;/a>
+&lt;/p></description></item><item><title>Monitoring with Amazon CloudWatch</title><link>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.4-amazon-cloudwatch/</link><pubDate>Thu, 08 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/1-worklog/1.4-week4/1.4.4-amazon-cloudwatch/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>The &lt;strong>Monitoring with Amazon CloudWatch&lt;/strong> hands-on lab was conducted on &lt;strong>Thursday (08/10/2026)&lt;/strong> during &lt;strong>Week 4&lt;/strong>. This page provides a comprehensive step-by-step implementation guide featuring precise configuration parameters, Logs Insights query syntax, Math Expressions, troubleshooting resolutions, and all 33 verification screenshots.
+&lt;br>🔗 &lt;strong>Lab Reference Material:&lt;/strong> &lt;a href="https://000008.awsfcaj.com/">Monitoring with Amazon CloudWatch&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-lab-objectives">🎯 Lab Objectives:&lt;/h3>
+&lt;ul>
+&lt;li>Master the centralized monitoring and observability capabilities of &lt;strong>Amazon CloudWatch&lt;/strong> on AWS.&lt;/li>
+&lt;li>Visualize and analyze real-time performance metrics (&lt;strong>CloudWatch Metrics&lt;/strong>) across cloud infrastructure.&lt;/li>
+&lt;li>Utilize &lt;strong>Search Expressions&lt;/strong> and &lt;strong>Math Expressions&lt;/strong> to dynamically discover, aggregate, and normalize telemetry data.&lt;/li>
+&lt;li>Configure &lt;strong>Dynamic Labels&lt;/strong> for context-aware and automated chart legends.&lt;/li>
+&lt;li>Ingest and analyze system logs (&lt;strong>CloudWatch Logs&lt;/strong>) using the interactive query language &lt;strong>CloudWatch Logs Insights&lt;/strong>.&lt;/li>
+&lt;li>Establish &lt;strong>Metric Filters&lt;/strong> to extract actionable quantitative metrics from unstructured application log streams.&lt;/li>
+&lt;li>Configure &lt;strong>CloudWatch Alarms&lt;/strong> integrated with &lt;strong>Amazon SNS&lt;/strong> to automate proactive incident alerting.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-provisioned-resource-specifications">📊 Provisioned Resource Specifications:&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Resource&lt;/th>
+ &lt;th style="text-align: left">Name / Identifier&lt;/th>
+ &lt;th style="text-align: left">Configuration &amp;amp; Detailed Specs&lt;/th>
+ &lt;th style="text-align: left">Region / Status&lt;/th>
+ &lt;th style="text-align: left">Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>EC2 Instance Monitored&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>Web-Server-Lab&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Amazon Linux 2023, CloudWatch Agent installed&lt;/td>
+ &lt;td style="text-align: left">&lt;code>ap-southeast-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Telemetry &amp;amp; log collection&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Metric Monitored&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>CPUUtilization&lt;/code>, &lt;code>DiskReadBytes&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Namespace: &lt;code>AWS/EC2&lt;/code>, Period: 1 minute&lt;/td>
+ &lt;td style="text-align: left">Real-time monitoring&lt;/td>
+ &lt;td style="text-align: left">Graphical performance telemetry&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Search Expression&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>SEARCH(' {AWS/EC2,InstanceId} MetricName=&amp;quot;CPUUtilization&amp;quot; ', 'Average', 300)&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Automated metric query across all fleet instances&lt;/td>
+ &lt;td style="text-align: left">Dynamic Dashboard&lt;/td>
+ &lt;td style="text-align: left">Self-updating on new instance launch&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Math Expression&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>m1 * 100 / MAX(m1)&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Normalizes CPU utilization proportionally&lt;/td>
+ &lt;td style="text-align: left">Math plot expression&lt;/td>
+ &lt;td style="text-align: left">Mathematical data modeling&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Log Group&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>/aws/ec2/system-logs&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Retention: 7 days&lt;/td>
+ &lt;td style="text-align: left">Ingestion: Active&lt;/td>
+ &lt;td style="text-align: left">OS and web server access logs&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Metric Filter&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>HTTP404ErrorCount&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Pattern: &lt;code>[ip, user, username, timestamp, request, status_code = 404, size]&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Namespace: &lt;code>Custom/Web&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Counts HTTP 404 errors from access logs&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>CloudWatch Alarm&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>High-CPU-Utilization-Alarm&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Static threshold: CPU &amp;gt; 70% across 2 periods&lt;/td>
+ &lt;td style="text-align: left">Status: &lt;code>OK&lt;/code> / &lt;code>ALARM&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Dispatches automated SNS email alerts&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-step-by-step-implementation--screenshot-gallery">🚀 Step-by-Step Implementation &amp;amp; Screenshot Gallery:&lt;/h3>
+&lt;h4 id="step-1-environment-setup--cloudwatch-agent-installation-on-ec2">Step 1: Environment Setup &amp;amp; CloudWatch Agent Installation on EC2&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>Action / Navigation:&lt;/strong> Launch EC2 instance &lt;code>Web-Server-Lab&lt;/code>, attach IAM Role with policy &lt;code>CloudWatchAgentServerPolicy&lt;/code> ➔ Connect via SSH and install the agent package.&lt;/li>
+&lt;li>&lt;strong>Commands Executed:&lt;/strong>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Install CloudWatch Agent package&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo yum install -y amazon-cloudwatch-agent
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Start CloudWatch Agent daemon with configuration file&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.4-amazon-cloudwatch/2.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.4-Week4/1.4.4-amazon-cloudwatch/2.png" alt="Complete environment setup and agent configuration" />
+&lt;/a>
+&lt;/p></description></item></channel></rss>

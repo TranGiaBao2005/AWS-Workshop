@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tuần 6 on Báo cáo thực tập</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/</link><description>Recent content in Tuần 6 on Báo cáo thực tập</description><generator>Hugo</generator><language>vi</language><lastBuildDate>Thu, 22 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/index.xml" rel="self" type="application/rss+xml"/><item><title>Quản lý và Nâng hạn mức tài nguyên với AWS Service Quotas</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.1-service-quotas/</link><pubDate>Mon, 19 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.1-service-quotas/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Quản lý và Nâng hạn mức tài nguyên với AWS Service Quotas&lt;/strong> được thực hiện vào &lt;strong>Thứ 2 (19/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 6&lt;/strong>. Trang này ghi lại toàn diện quy trình kiểm tra hạn mức mặc định, gửi yêu cầu nâng trần vCPU cho cụm máy chủ &lt;strong>EC2 Spot Instances&lt;/strong> (&lt;code>All Standard (A, C, D, H, I, M, R, T, Z) Spot Instance Requests&lt;/code>, mã Quota &lt;code>L-34B43A08&lt;/code>) từ &lt;strong>32 lên 64 vCPUs&lt;/strong> tại vùng &lt;strong>us-east-1&lt;/strong>, phân tích chi phí, theo dõi quy trình phê duyệt qua &lt;strong>AWS Support Center&lt;/strong> (Case ID: &lt;code>179257232100832&lt;/code>), xác nhận qua thư điện tử chính thức từ Amazon Web Services và tự động hóa tra cứu bằng &lt;strong>AWS CLI&lt;/strong>.&lt;/p></description></item><item><title>Tối ưu hóa Chi phí Amazon EC2 với AWS Lambda &amp; Thông báo Slack</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.2-aws-lambda/</link><pubDate>Tue, 20 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.2-aws-lambda/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Tối ưu hóa Chi phí Amazon EC2 với AWS Lambda &amp;amp; Thông báo Slack&lt;/strong> được thực hiện vào &lt;strong>Thứ 3 (20/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 6&lt;/strong>. Trang này ghi lại chi tiết giải pháp tự động tắt/bật máy chủ ngoài giờ làm việc bằng serverless AWS Lambda, điều phối với EventBridge Scheduler và gửi thông báo trực tiếp về kênh chat Slack qua Incoming Webhooks.&lt;/p>
+
+&lt;/div>
+
+&lt;h3 id="-mục-tiêu-bài-thực-hành-lab-objectives">🎯 Mục tiêu bài thực hành (Lab Objectives)&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Tối ưu hóa Chi phí Đám mây (Cloud Cost Optimization):&lt;/strong> Thiết kế và triển khai giải pháp tự động hóa lịch trình vận hành máy chủ Amazon EC2, tự động tắt các máy chủ môi trường thử nghiệm (Dev/Test) ngoài giờ hành chính và bật lại vào đầu ngày làm việc, giúp tiết kiệm tới 65 - 70% chi phí tài nguyên điện toán.&lt;/li>
+&lt;li>&lt;strong>Tự động hóa Không máy chủ (Serverless Automation):&lt;/strong> Lập trình các hàm &lt;strong>AWS Lambda&lt;/strong> (Python 3 Boto3 SDK) phối hợp cùng bộ điều phối lịch trình &lt;strong>Amazon EventBridge Scheduler&lt;/strong> để kiểm soát vòng đời máy ảo hoàn toàn tự động mà không cần duy trì bất kỳ máy chủ quản trị trung gian nào.&lt;/li>
+&lt;li>&lt;strong>Chiến lược Quản trị Tài nguyên bằng Thẻ (Resource Tagging Strategy):&lt;/strong> Áp dụng cặp thẻ định danh &lt;code>environment_auto = true&lt;/code> để Lambda tự động nhận diện và quét chính xác các máy chủ mục tiêu được phân quyền quản trị mà không cần cấu hình cứng Instance ID.&lt;/li>
+&lt;li>&lt;strong>Tích hợp Giám sát Thời gian thực (ChatOps via Slack):&lt;/strong> Kết nối AWS Lambda với dịch vụ giao tiếp nhóm &lt;strong>Slack&lt;/strong> thông qua &lt;strong>Incoming Webhooks&lt;/strong>, tự động gửi thông báo định dạng trực quan về trạng thái bật/tắt của từng máy chủ vào kênh &lt;code>#notification&lt;/code>.&lt;/li>
+&lt;li>&lt;strong>Kỹ năng Xử lý Sự cố Thực chiến (Real-World Troubleshooting):&lt;/strong> Trực tiếp phân tích và khắc phục các sự cố kinh điển như ngoại lệ chuyển giao trạng thái máy ảo &lt;code>IncorrectInstanceState&lt;/code>, xung đột bộ lọc máy ảo đã xóa (&lt;code>Terminated&lt;/code>), phân quyền IAM và kết nối webhook an toàn.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-bảng-tổng-hợp-thông-số-tài-nguyên-đã-triển-khai-provisioned-resource-specifications">📊 Bảng tổng hợp thông số tài nguyên đã triển khai (Provisioned Resource Specifications)&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Thành phần / Tài nguyên&lt;/th>
+ &lt;th style="text-align: left">Tên định danh (Name / ID)&lt;/th>
+ &lt;th style="text-align: left">Thông số kỹ thuật / Cấu hình chi tiết&lt;/th>
+ &lt;th style="text-align: left">Mục đích / Ghi chú&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>AWS Region&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>us-east-1&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">US East (N. Virginia)&lt;/td>
+ &lt;td style="text-align: left">Khu vực triển khai toàn bộ giải pháp&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Mạng VPC&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lambda-lab&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">CIDR &lt;code>10.0.0.0/16&lt;/code>, Public Subnet &lt;code>10.0.128.0/20&lt;/code> (&lt;code>us-east-1a&lt;/code>)&lt;/td>
+ &lt;td style="text-align: left">Môi trường mạng VPC biệt lập cho bài thực hành&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Nhóm bảo mật (SG)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lambda-lab&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Inbound: SSH (Port 22), HTTP (Port 80); Outbound: All Traffic&lt;/td>
+ &lt;td style="text-align: left">Kiểm soát an ninh mạng cho máy chủ EC2&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Máy chủ mục tiêu (EC2)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>lambda-lab-instance&lt;/code> / &lt;code>i-003cb6dbd0f4e5b31&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>t3.micro&lt;/code>, Amazon Linux 2023, Tag: &lt;code>environment_auto = true&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Máy chủ môi trường phát triển cần tối ưu chi phí&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>IAM Execution Role&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-role&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Trusted: &lt;code>lambda.amazonaws.com&lt;/code>, Policies: &lt;code>AmazonEC2FullAccess&lt;/code>, &lt;code>CloudWatchFullAccessV2&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Cấp quyền cho Lambda quản trị EC2 và ghi nhật ký Logs&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Hàm Lambda Tắt máy&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-stop&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Runtime: Python 3.14, Memory: 128 MB, Env: &lt;code>environment_auto = true&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Quét và tự động dừng máy chủ EC2 ngoài giờ làm việc&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Hàm Lambda Bật máy&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-start&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Runtime: Python 3.14, Memory: 128 MB, Env: &lt;code>environment_auto = true&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Quét và tự động khởi động máy chủ EC2 đầu ngày mới&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Lịch trình EventBridge (Stop)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-stop&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Recurring Schedule: Rate (9 hours) / Cron, Flexible Window: Off&lt;/td>
+ &lt;td style="text-align: left">Kích hoạt hàm Stop theo chu kỳ định sẵn&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Lịch trình EventBridge (Start)&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>dc-common-lambda-auto-start&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Recurring Schedule: Rate (8 hours) / Cron, Flexible Window: Off&lt;/td>
+ &lt;td style="text-align: left">Kích hoạt hàm Start theo chu kỳ định sẵn&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;strong>Không gian ChatOps&lt;/strong>&lt;/td>
+ &lt;td style="text-align: left">&lt;code>aws-lambda-labs&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Kênh Slack &lt;code>#notification&lt;/code>, App: &lt;code>Lambda-Notifier&lt;/code>&lt;/td>
+ &lt;td style="text-align: left">Kênh tiếp nhận thông báo trạng thái vận hành tức thời&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-các-bước-thực-hành-step-by-step-hands-on-implementation">🛠️ Các bước thực hành Step-by-Step (Hands-on Implementation)&lt;/h3>
+&lt;h4 id="bước-1-khởi-tạo-hạ-tầng-mạng-vpc--cấu-hình-subnet-public">Bước 1: Khởi tạo Hạ tầng Mạng VPC &amp;amp; Cấu hình Subnet Public&lt;/h4>
+&lt;ol>
+&lt;li>Truy cập giao diện điều khiển &lt;strong>Amazon VPC&lt;/strong> trên AWS Management Console.&lt;/li>
+&lt;li>Điều hướng tới &lt;strong>Your VPCs&lt;/strong> ➔ Chọn &lt;strong>Create VPC&lt;/strong>.&lt;/li>
+&lt;li>Chọn cấu hình &lt;strong>VPC and more&lt;/strong>, đặt tên định danh &lt;code>lambda-lab&lt;/code> và giữ nguyên dải mạng CIDR tiêu chuẩn. Bấm &lt;strong>Create VPC&lt;/strong>.&lt;/li>
+&lt;li>Truy cập mục &lt;strong>Subnets&lt;/strong>, chọn Subnet Public vừa khởi tạo (&lt;code>lambda-lab-subnet-public...&lt;/code>) ➔ Chọn &lt;strong>Actions&lt;/strong> ➔ &lt;strong>Edit subnet settings&lt;/strong>.&lt;/li>
+&lt;li>Đánh dấu tích vào tùy chọn &lt;strong>Enable auto-assign public IPv4 address&lt;/strong> để máy chủ EC2 khi khởi chạy tự động nhận địa chỉ IP công cộng ➔ Bấm &lt;strong>Save&lt;/strong>.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;a href="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.2-aws-lambda/2.1.png" data-featherlight="image">
+ &lt;img src="https://trangiabao2005.github.io/AWS-Workshop/AWS-Workshop/images/1-Worklog/1.6-Week6/1.6.2-aws-lambda/2.1.png" alt="Khởi tạo VPC lambda-lab thành công" />
+&lt;/a>
+
+&lt;em>Hình 1.1: Giao diện chi tiết VPC lambda-lab cùng cấu hình bảng định tuyến và Subnet sau khi khởi tạo thành công.&lt;/em>&lt;/p></description></item><item><title>Quản trị Thẻ định danh và Nhóm tài nguyên AWS (Tags &amp; Resource Groups)</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.3-tags-and-resource-groups/</link><pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.3-tags-and-resource-groups/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Quản trị Thẻ định danh và Nhóm tài nguyên AWS (Tags &amp;amp; Resource Groups)&lt;/strong> được thực hiện vào &lt;strong>Thứ 4 (21/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 6&lt;/strong>. Trang này ghi lại chi tiết toàn bộ quy trình cấu hình phân loại tài nguyên thông qua gắn nhãn (Tags), điều khiển và truy vấn qua giao diện dòng lệnh AWS CLI, và tổ chức quản trị tập trung với AWS Resource Groups.&lt;/p></description></item><item><title>Giám sát hệ thống với Grafana &amp; Amazon CloudWatch</title><link>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.4-grafana-basic/</link><pubDate>Thu, 22 Oct 2026 00:00:00 +0000</pubDate><guid>https://trangiabao2005.github.io/AWS-Workshop/vi/1-worklog/1.6-week6/1.6.4-grafana-basic/</guid><description>&lt;div
+ class="notices info"
+ 
+>
+ &lt;p>Bài thực hành &lt;strong>Giám sát hệ thống với Grafana &amp;amp; Amazon CloudWatch (Getting started with Grafana basic - Workshop 000029)&lt;/strong> được triển khai vào &lt;strong>Thứ 5 (22/10/2026)&lt;/strong> trong khuôn khổ &lt;strong>Tuần 6&lt;/strong>. Trang này ghi lại đầy đủ toàn bộ quá trình dựng máy chủ giám sát Grafana trên Amazon Linux 2023, phân quyền IAM bảo mật, tích hợp nguồn dữ liệu Amazon CloudWatch và xây dựng các biểu đồ quan sát thời gian thực.&lt;/p></description></item></channel></rss>
