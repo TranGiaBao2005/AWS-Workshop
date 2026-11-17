@@ -6,6 +6,19 @@ File này đóng vai trò là nhật ký ghi nhớ chi tiết (Persistent Memory
 
 ## 🕒 Lịch sử cập nhật bộ nhớ (Memory Update Logs)
 
+### [2026-11-17] Khắc phục toàn diện lỗi mất hình ảnh trên GitHub Pages & Hướng dẫn minh chứng Blog Facebook
+
+- **Nguyên nhân mất hình ảnh (Lỗi 404 hình ảnh trên GitHub Pages):**
+  - Website được deploy tại subpath `https://trangiabao2005.github.io/AWS-Workshop/`.
+  - Trong Markdown, các thẻ ảnh ghi đường dẫn gốc tuyệt đối: `![alt](/images/...)`.
+  - Trình duyệt hiểu dấu `/` đầu tiên là root domain, dẫn đến gửi request tới `https://trangiabao2005.github.io/images/...` (thiếu tiền tố repo `/AWS-Workshop/`), gây lỗi 404 cho toàn bộ hình ảnh.
+- **Giải pháp xử lý triệt để:**
+  - Tạo render hook Markdown chính thức tại `layouts/_default/_markup/render-image.html`: Tự động loại bỏ dấu `/` đầu và chạy qua pipe `| relURL` của Hugo.
+  - Kết quả: Mọi ảnh trên toàn website tự động được gán tiền tố `/AWS-Workshop/images/...` khi deploy lên GitHub Pages và tích hợp popup zoom ảnh `data-featherlight="image"` mượt mà.
+- **Hỗ trợ minh chứng bài đăng Facebook Blog 1 (`3.1-Blog1`):**
+  - Vị trí dán link: `content/3-BlogsPosted/3.1-Blog1/_index.vi.md` và `_index.md`.
+  - Thư mục lưu ảnh chụp màn hình minh chứng: `static/images/3-BlogsPosted/3.1-Blog1/facebook-post-proof.png`.
+
 ### [2026-11-17] Tích hợp Skill Avoid-AI-Writing & Chuẩn hóa toàn bộ Mục 5 (Workshop S3 Hybrid Access)
 
 - **Tích hợp Skill `avoid-ai-writing`:**
