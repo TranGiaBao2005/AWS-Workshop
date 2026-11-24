@@ -6,6 +6,13 @@ File này đóng vai trò là nhật ký ghi nhớ chi tiết (Persistent Memory
 
 ## 🕒 Lịch sử cập nhật bộ nhớ (Memory Update Logs)
 
+### [2026-11-24] Khôi phục Mục 5 (Workshop), Mục 6 (Tự đánh giá), Mục 7 (Feedback) về bản mẫu gốc & Để trống Tuần 12
+
+- **Bối cảnh & Yêu cầu:** Người dùng yêu cầu khôi phục các mục `5-Workshop`, `6-Self-evaluation`, `7-Feedback` về lại bản mẫu (template gốc) ban đầu, và để trống nội dung `1.12-Week12` vì chưa tới Tuần 12.
+- **Thực thi chi tiết:**
+  - Khôi phục toàn bộ `content/5-Workshop/`, `content/6-Self-evaluation/` và `content/7-Feedback/` về đúng nguyên bản template gốc tại commit `7dad704`.
+  - Xóa nội dung mô phỏng trong `content/1-Worklog/1.12-Week12/_index.vi.md` và `_index.md` (chỉ giữ lại frontmatter `Tuần 12` / `Week 12`), đồng thời cập nhật dòng Tuần 12 trong bảng tổng quan `content/1-Worklog/_index.*` thành `—`.
+
 ### [2026-11-24] Gộp toàn bộ các trang lab con (1.3.1 – 1.7.1) trực tiếp vào từng Tuần Worklog & Xóa mũi tên menu con
 
 - **Bối cảnh & Yêu cầu:** Người dùng yêu cầu gộp toàn bộ các tiêu đề/trang con trong Worklog (`1.3.1`, `1.4.1–1.4.4`, `1.5.1–1.5.4`, `1.6.1–1.6.4`, `1.7.1`) vào thẳng trang tuần tương ứng (`Tuần 3` – `Tuần 7`) và bỏ mũi tên xổ tiêu đề con ở thanh menu bên trái.

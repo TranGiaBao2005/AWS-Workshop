@@ -1,53 +1,43 @@
 ---
-title : "Creating an S3 Interface Endpoint (AWS PrivateLink)"
+title : "Create an S3 Interface endpoint"
 date : 2024-01-01
 weight : 2
 chapter : false
 pre : " <b> 5.4.2 </b> "
 ---
 
-#### Step-by-Step Procedure:
+In this section you will create and test an S3 interface endpoint using the simulated on-premises environment deployed as part of this workshop.
 
-1. Open the [Amazon VPC Management Console](https://us-east-1.console.aws.amazon.com/vpc/home?region=us-east-1#Home:) in region `us-east-1` (N. Virginia).
-2. In the left navigation pane, select **Endpoints** and click **Create endpoint**.
+1. Return to the Amazon VPC menu. In the navigation pane, choose Endpoints, then click Create Endpoint.
 
-3. Configure Endpoint Identity:
-   - **Name tag:** Enter `s3-interface-endpoint`
-   - **Service category:** Select **AWS services**
+2. In Create endpoint console:
++ Name the interface endpoint
++ In Service category, choose **aws services** 
 
 ![name](/images/5-Workshop/5.4-S3-onprem/s3-interface-endpoint1.png)
 
-4. Service Selection:
-   - In the **Services** search filter, type `s3` and hit Enter.
-   - Select service: `com.amazonaws.us-east-1.s3`
-   - **Verify the Type column:** Ensure the selected row indicates **Interface**.
+3.  In the Search box, type S3 and press Enter. Select the endpoint named com.amazonaws.us-east-1.s3. Ensure that the Type column indicates Interface.
 
 ![service](/images/5-Workshop/5.4-S3-onprem/s3-interface-endpoint2.png)
 
-5. Network Association:
-   - **VPC:** Select **VPC Cloud** from the dropdown menu.
-
-> [!WARNING]
-> Verify you select **VPC Cloud**. Do not attach this interface endpoint to `VPC On-prem`.
-
-   - Expand **Additional settings**: Ensure **Enable DNS name** is **UNCHECKED** (we will simulate custom corporate DNS routing in step 5.4.4).
+4. For VPC, select VPC Cloud from the drop-down.
+{{% notice warning %}}
+Make sure to choose "VPC Cloud" and not "VPC On-prem"
+{{% /notice %}}
++ Expand **Additional settings** and ensure that Enable DNS name is *not* selected (we will use this in the next part of the workshop)
 
 ![vpc](/images/5-Workshop/5.4-S3-onprem/s3-interface-endpoint3.png)
 
-6. Subnet Placement (Multi-AZ):
-   - Select 2 private subnets across two distinct Availability Zones: **`us-east-1a`** and **`us-east-1b`** for fault tolerance.
+5. Select 2 subnets in the following AZs: us-east-1a and us-east-1b
 
 ![subnets](/images/5-Workshop/5.4-S3-onprem/s3-interface-endpoint4.png)
 
-7. Security Group Association:
-   - Select Security Group: **`SGforS3Endpoint`** (configured to permit inbound HTTPS port 443 from internal network CIDRs).
+6. For Security group, choose SGforS3Endpoint:
 
 ![sg](/images/5-Workshop/5.4-S3-onprem/s3-interface-endpoint5.png)
 
-8. Finalize Provisioning:
-   - Retain default policy: **Full access**.
-   - Click **Create endpoint**.
+7. Keep the default policy - full access and click Create endpoint
 
 ![success](/images/5-Workshop/5.4-S3-onprem/s3-interface-endpoint-success.png)
 
-The console confirms endpoint creation. Wait approximately 1-2 minutes until status becomes **Available**.
+Congratulation on successfully creating S3 interface endpoint. In the next step, we will test the interface endpoint.

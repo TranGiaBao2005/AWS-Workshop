@@ -6,30 +6,28 @@ chapter: false
 pre: " <b> 5. </b> "
 ---
 
-# Thiết lập Kết nối Hybrid An toàn tới Amazon S3 qua VPC Endpoints
+{{% notice warning %}}
+⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
+{{% /notice %}}
 
-#### Mục tiêu Kiến trúc
-Trong môi trường doanh nghiệp kết hợp (Hybrid Cloud), việc kết nối trực tiếp các ứng dụng nội bộ tới dịch vụ lưu trữ đám mây như **Amazon S3** thường gặp rủi ro rò rỉ dữ liệu nếu lưu lượng phải định tuyến qua Internet công cộng. Bài thực hành chuyên sâu (Workshop) này triển khai giải pháp cô lập lưu lượng hoàn toàn trong mạng nội bộ AWS thông qua hai cơ chế **VPC Endpoints**:
 
-1. **Gateway VPC Endpoint (Truy cập nội bộ AWS VPC):** Định tuyến trực tiếp các gói tin từ máy chủ EC2 tới Amazon S3 thông qua bảng định tuyến nội bộ của VPC (Route Table), không cần gắn Internet Gateway (IGW) hay NAT Gateway.
-2. **Interface VPC Endpoint / AWS PrivateLink (Truy cập từ On-Premises):** Cung cấp các địa chỉ IP private (ENI) trong dải mạng VPC, cho phép các máy chủ từ trung tâm dữ liệu On-Premises truy cập S3 qua đường truyền riêng (Site-to-Site VPN hoặc AWS Direct Connect).
+# Đảm bảo truy cập Hybrid an toàn đến S3 bằng cách sử dụng VPC endpoint
 
-```
-[On-Premises Data Center] 
-       │ (IPsec VPN / Direct Connect)
-       ▼
-[AWS Transit Gateway] 
-       ▼
-[Interface Endpoint (ENI Private IP)] ────(AWS PrivateLink)────► [Amazon S3]
-                                                                      ▲
-[Cloud VPC EC2] ─────(Route Table: Gateway Endpoint)─────────────────┘
-```
+#### Tổng quan
 
-#### Cấu trúc Bài thực hành
+**AWS PrivateLink** cung cấp kết nối riêng tư đến các dịch vụ aws từ VPCs hoặc trung tâm dữ liệu (on-premise) mà không làm lộ lưu lượng truy cập ra ngoài public internet.
 
-1. [5.1 Tổng quan kiến trúc Workshop](5.1-Workshop-overview/) — Sơ đồ kết nối giữa VPC Cloud và VPC On-Premises.
-2. [5.2 Khởi tạo môi trường & Phân quyền IAM](5.2-Prerequiste/) — Triển khai hạ tầng mẫu bằng AWS CloudFormation và cấu hình chính sách IAM.
-3. [5.3 Truy cập Amazon S3 nội bộ từ VPC (Gateway Endpoint)](5.3-S3-vpc/) — Cấu hình bảng định tuyến và kiểm thử tải tệp 1GB qua AWS Systems Manager.
-4. [5.4 Truy cập Amazon S3 từ On-Premises (Interface Endpoint & PrivateLink)](5.4-S3-onprem/) — Thiết lập định tuyến VPN StrongSwan, Interface Endpoint và Route 53 Resolver DNS forwarding.
-5. [5.5 Kiểm soát truy cập với VPC Endpoint Policy](5.5-Policy/) — Giới hạn quyền truy cập chỉ cho phép thao tác trên Bucket được chỉ định.
-6. [5.6 Dọn dẹp tài nguyên & Đánh giá chi phí](5.6-Cleanup/) — Xóa Hosted Zone, Resolver Rule, Endpoint và hủy CloudFormation Stacks để tối ưu chi phí.
+Trong bài lab này, chúng ta sẽ học cách tạo, cấu hình, và kiểm tra VPC endpoints để cho phép workload của bạn tiếp cận các dịch vụ AWS mà không cần đi qua Internet công cộng.
+
+Chúng ta sẽ tạo hai loại endpoints để truy cập đến Amazon S3: gateway vpc endpoint và interface vpc endpoint. Hai loại vpc endpoints này mang đến nhiều lợi ích tùy thuộc vào việc bạn truy cập đến S3 từ môi trường cloud hay từ trung tâm dữ liệu (on-premise).
++ **Gateway** - Tạo gateway endpoint để gửi lưu lượng đến Amazon S3 hoặc DynamoDB using private IP addresses. Bạn điều hướng lưu lượng từ VPC của bạn đến gateway endpoint bằng các bảng định tuyến (route tables)
++ **Interface** - Tạo interface endpoint để gửi lưu lượng đến các dịch vụ điểm cuối (endpoints) sử dụng Network Load Balancer để phân phối lưu lượng. Lưu lượng dành cho dịch vụ điểm cuối được resolved bằng DNS.
+
+#### Nội dung
+
+1. [Tổng quan về workshop](5.1-Workshop-overview/)
+2. [Chuẩn bị](5.2-Prerequiste/)
+3. [Truy cập đến S3 từ VPC](5.3-S3-vpc/)
+4. [Truy cập đến S3 từ TTDL On-premises](5.4-S3-onprem/)
+5. [VPC Endpoint Policies (làm thêm)](5.5-Policy/)
+6. [Dọn dẹp tài nguyên](5.6-Cleanup/)

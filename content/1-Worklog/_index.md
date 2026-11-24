@@ -29,7 +29,7 @@ The curriculum is evenly balanced and aligned with the official [The First Cloud
 | **Week 9** | Nov 09 – Nov 13, 2026 | **Cloud Migration & Extended Hybrid Networking:** 7Rs Framework, VM Import/Export & AWS MGN, AWS DMS & SCT, hub-and-spoke AWS Transit Gateway, AWS DataSync & Storage Gateway. | [Cloud Migration](https://cloudjourney.awsfcaj.com/2-migration/) | [View Week 9](1.9-week9/) |
 | **Week 10** | Nov 16 – Nov 20, 2026 | **Event-Driven Serverless & Container Orchestration:** Amazon API Gateway & SQS (Standard/FIFO/DLQ), SNS/EventBridge & Step Functions, Docker/ECR & ECS Fargate, Amazon EKS Kubernetes. | [Serverless & Containers](https://cloudjourney.awsfcaj.com/5-container/) | [View Week 10](1.10-week10/) |
 | **Week 11** | Nov 23 – Nov 27, 2026 | **Big Data Analytics & Generative AI on AWS:** AWS Lake Formation & Glue ETL (Parquet), Athena/Kinesis/QuickSight/Redshift, Amazon Bedrock & RAG Knowledge Bases, Bedrock Agents & SageMaker. | [Data & Generative AI](https://cloudjourney.awsfcaj.com/6-dataandanalytic/) | [View Week 11](1.11-week11/) |
-| **Week 12** | Nov 30 – Dec 04, 2026 | **Capstone Defense & Internship Completion:** Documentation packaging & GitHub release, slide deck & live demo prep, formal defense before FCAJ Mentors, disciplined teardown ($0 audit) & self-evaluation. | [Capstone & Completion](https://cloudjourney.awsfcaj.com/) | [View Week 12](1.12-week12/) |
+| **Week 12** | Nov 30 – Dec 04, 2026 | — | — | [View Week 12](1.12-week12/) |
 
 ---
 

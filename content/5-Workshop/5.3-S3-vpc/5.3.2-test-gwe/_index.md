@@ -1,95 +1,94 @@
 ---
-title : "Testing Gateway Endpoint Connectivity"
+title : "Test the Gateway Endpoint"
 date : 2024-01-01 
 weight : 2
 chapter : false
 pre : " <b> 5.3.2 </b> "
 ---
 
-#### 1. Provision an Amazon S3 Bucket
+#### Create S3 bucket
 
-1. Open the [Amazon S3 Management Console](https://s3.console.aws.amazon.com/s3/home?region=us-east-1).
-2. Click **Create bucket**.
+1. Navigate to **S3 management console**
+2. In the Bucket console, choose **Create bucket**
 
 ![Create bucket](/images/5-Workshop/5.3-S3-vpc/create-bucket.png)
 
-3. Configure General Settings:
-   - **Bucket name:** Enter a globally unique name (e.g., `fcj-hybrid-s3-test-<your-name>`).
-   - **AWS Region:** `us-east-1` (US East - N. Virginia).
+3. In **the Create bucket console**
++ **Name the bucket**: choose a name that hasn't been given to any bucket globally (hint: lab number and your name)
 
 ![Bucket name](/images/5-Workshop/5.3-S3-vpc/bucket-name.png)
 
-4. Retain all default security configurations (Block all public access enabled). Scroll to the bottom and click **Create bucket**.
++ Leave other fields as they are (default)
++ Scroll down and choose **Create bucket**
 
-![Create](/images/5-Workshop/5.3-S3-vpc/create-button.png)    
+![Create](/images/5-Workshop/5.3-S3-vpc/create-button.png) 
 
-5. Verify that the bucket status is confirmed in the S3 bucket list.
++ Successfully create S3 bucket.
 
 ![Success](/images/5-Workshop/5.3-S3-vpc/bucket-success.png)
 
----
+#### Connect to EC2 with session manager
 
-#### 2. Establish Session Manager Shell to EC2
++ For this workshop, you will use **AWS Session Manager** to access several **EC2 instances**. **Session Manager** is a fully managed **AWS Systems Manager** capability that allows you to manage your **Amazon EC2 instances**  and on-premises virtual machines (VMs) through an interactive one-click browser-based shell. Session Manager provides secure and auditable instance management without the need to open inbound ports, maintain bastion hosts, or manage SSH keys.
 
-1. In the AWS console search bar, type **Systems Manager** and open the service.
++ First Cloud AI Journey [Lab](https://000058.awsstudygroup.com/1-introduce/) for indepth understanding of Session manager.
+
+1. In the **AWS Management Console**, start typing ```Systems Manager``` in the quick search box and press **Enter**:
 
 ![system manager](/images/5-Workshop/5.3-S3-vpc/sm.png)
 
-2. From the left navigation menu, locate **Node Management** and select **Session Manager**.
+2. From the **Systems Manager** menu, find **Node Management** in the left menu and click **Session Manager**:
 
 ![system manager](/images/5-Workshop/5.3-S3-vpc/sm1.png)
 
-3. Click **Start session** and select the EC2 instance named **`Test-Gateway-Endpoint`**.
-
-> [!NOTE]
-> This EC2 instance runs in an isolated private subnet of `VPC Cloud` with zero public IP addresses and no Internet Gateway. The interactive terminal functions entirely over private Systems Manager interface endpoints.
+3. Click **Start Session**, and select **the EC2 instance** named **Test-Gateway-Endpoint**. 
+{{% notice info %}}
+This EC2 instance is already running in "VPC Cloud" and will be used to test connectivity to Amazon S3 through the Gateway endpoint you just created (s3-gwe). {{% /notice %}}
 
 ![Start session](/images/5-Workshop/5.3-S3-vpc/start-session.png)
 
-4. A new browser tab opens with the shell prompt: `sh-4.2$` (or `ssm-user@ip-10-0-x-x`).
+**Session Manager** will open a new browser tab with a shell prompt: sh-4.2 $
 
 ![Success](/images/5-Workshop/5.3-S3-vpc/start-session-success.png)
 
----
+You have successfully start a session - connect to the EC2 instance in VPC cloud. In the next step, we will create a S3 bucket and a file in it. 
 
-#### 3. Generate 1GB Test Payload and Upload via AWS CLI
+#### Create a file and upload to s3 bucket
 
-1. Switch to the `ssm-user` home directory:
-   ```bash
-   cd ~
-   pwd
-   ```
+1. Change to the ssm-user's home directory by typing ```cd ~``` in the CLI
 
 ![Change user's dir](/images/5-Workshop/5.3-S3-vpc/cli1.png)
 
-2. Generate a 1GB test file using the `fallocate` utility:
-   ```bash
-   fallocate -l 1G testfile.xyz
-   ls -lh testfile.xyz
-   ```
+2. Create a new file to use for testing with the command ```fallocate -l 1G testfile.xyz```, which will create a file of 1GB size named "testfile.xyz".
 
 ![Create file](/images/5-Workshop/5.3-S3-vpc/cli-file.png)
 
-3. Upload the payload to the S3 bucket via AWS CLI (replace `<your-bucket-name>` with your actual bucket name):
-   ```bash
-   aws s3 cp testfile.xyz s3://<your-bucket-name>
-   ```
+3. Upload file to S3 bucket with command ```aws s3 cp testfile.xyz s3://your-bucket-name```. Replace your-bucket-name with the name of S3 bucket that you created earlier.
 
 ![Uploaded](/images/5-Workshop/5.3-S3-vpc/uploaded.png)
 
-The upload finishes rapidly over the AWS internal software-defined network.
+You have successfully uploaded the file to your S3 bucket. You can now terminate the session.
 
----
+#### Check object in S3 bucket
 
-#### 4. Confirm Upload in S3 Console
-
-1. Return to the Amazon S3 Console and click your bucket name.
-2. Under the **Objects** tab, verify that `testfile.xyz` (1.0 GB) is stored successfully.
+1. Navigate to S3 console.  
+2. Click the name of your s3 bucket
+3. In the Bucket console, you will see the file you have uploaded to your S3 bucket
 
 ![Check S3](/images/5-Workshop/5.3-S3-vpc/check-s3-bucket.png)
 
----
+#### Section summary
 
-#### 5. Technical Validation Summary
+Congratulation on completing access to S3 from VPC. In this section, you created a Gateway endpoint for Amazon S3, and used the AWS CLI to upload an object. The upload worked because the Gateway endpoint allowed communication to S3, without needing an Internet Gateway attached to "VPC Cloud". This demonstrates the functionality of the Gateway endpoint as a secure path to S3 without traversing the Public Internet.
 
-The successful 1GB file transmission validates that VPC Cloud routes traffic to Amazon S3 strictly over the private AWS backbone via the **Gateway VPC Endpoint (`s3-gwe`)**. No NAT Gateway or Internet Gateway is traversed, ensuring maximum throughput, zero egress data charges across the public internet, and robust network isolation.
+
+
+
+
+
+
+
+
+
+
+

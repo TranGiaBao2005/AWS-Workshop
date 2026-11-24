@@ -1,25 +1,26 @@
 ---
-title : "Accessing S3 from On-Premises via Interface Endpoint"
-date : 2024-01-01 
-weight : 4 
+title : "Access S3 from on-premises"
+date : 2024-01-01
+weight : 4
 chapter : false
 pre : " <b> 5.4. </b> "
 ---
 
-#### Hybrid Cloud Architecture Overview
+#### Overview
 
-When workloads hosted inside on-premises corporate datacenters require low-latency, private connectivity to Amazon S3, **Gateway VPC Endpoints** cannot serve this requirement because gateway endpoints are restricted to the local VPC route table.
++ In this section, you will create an Interface endpoint to access Amazon S3 from a simulated on-premises environment. The Interface endpoint will allow you to route to Amazon S3 over a VPN connection from your simulated on-premises environment.
 
-AWS solves this hybrid connectivity challenge via **Interface VPC Endpoints powered by AWS PrivateLink**:
-1. **Elastic Network Interfaces (ENIs):** Allocates private IP addresses from your VPC subnets (`10.0.x.x`) to act as entry points for S3 traffic.
-2. **Hybrid Network Extension:** Because ENIs carry private routable IP addresses, on-premises systems can reach them over an **AWS Site-to-Site VPN** tunnel or **AWS Direct Connect** dedicated circuit.
-3. **Seamless DNS Integration:** Leverages Amazon Route 53 Resolver conditional forwarding to resolve standard S3 endpoints (`s3.us-east-1.amazonaws.com`) directly to the private interface endpoint IPs.
++ Why using **Interface endpoint**: 
+    + Gateway endpoints only work with resources running in the VPC where they are created. Interface endpoints work with resources running in VPC, and also resources running in on-premises environments. Connectivty from your on-premises environment to the cloud can be provided by AWS Site-to-Site VPN or AWS Direct Connect.
+    + Interface endpoints allow you to connect to services powered by AWS PrivateLink. These services include some AWS services, services hosted by other AWS customers and partners in their own VPCs (referred to as PrivateLink Endpoint Services), and supported AWS Marketplace Partner services. For this workshop, we will focus on connecting to Amazon S3.
 
 ![Interface endpoint architecture](/images/5-Workshop/5.4-S3-onprem/diagram3.png)
 
-#### Execution Roadmap:
+#### Content
 
-1. [5.4.1 Infrastructure Preparation & VPN Routing](5.4.1-prepare/) — Configure StrongSwan VPN routing table target and deploy Route 53 Resolver endpoints.
-2. [5.4.2 Create S3 Interface Endpoint](5.4.2-create-interface-enpoint/) — Provision multi-AZ interface endpoints with dedicated security groups.
-3. [5.4.3 Test Direct Connectivity via Endpoint URL](5.4.3-test-endpoint/) — Execute AWS CLI transfer commands with the `--endpoint-url` flag from simulated on-premises hosts.
-4. [5.4.4 Configure Route 53 Conditional DNS Forwarding](5.4.4-dns-simulation/) — Configure Private Hosted Zone alias records and resolver rules for transparent DNS resolution.
+1. [Preparation](5.4.1-prepare/)
+2. [Create Interface Endpoint](5.4.2-create-interface-enpoint/)
+3. [Test Endpoint](5.4.3-test-endpoint/)
+4. [DNS Simulation](5.4.4-dns-simulation/)
+
+

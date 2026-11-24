@@ -1,67 +1,54 @@
 ---
-title : "Kiểm tra Kết nối Endpoint từ On-Premises"
+title : "Kiểm tra Interface Endpoint"
 date : 2024-01-01
 weight : 3
 chapter : false
 pre : " <b> 5.4.3 </b> "
 ---
 
-#### 1. Lấy Tên miền Regional DNS Name của Interface Endpoint
+#### Lấy regional DNS name (tên DNS khu vực) của S3 interface endpoint
+1. Trong Amazon VPC menu, chọn Endpoints.
 
-1. Trong **Amazon VPC Console**, chọn mục **Endpoints**.
-2. Chọn endpoint vừa tạo: **`s3-interface-endpoint`** ➔ Xem tab **Details**.
-3. Sao chép giá trị **Regional DNS name** (mục đầu tiên trong danh sách DNS names, có định dạng `vpce-xxxx-xxxx.s3.us-east-1.vpce.amazonaws.com`) và lưu lại vào trình soạn thảo.
+2. Click tên của endpoint chúng ta mới tạo ở mục 4.2: s3-interface-endpoint. Click details và lưu lại regional DNS name của endpoint (cái đầu tiên) vào text-editor của bạn để dùng ở các bước sau.
 
 ![dns name](/images/5-Workshop/5.4-S3-onprem/dns.png)
 
----
+#### Kết nối đến EC2 instance ở trong "VPC On-prem" (giả lập môi trường truyền thống)
 
-#### 2. Kết nối tới Máy chủ On-Premises qua AWS Session Manager
+1. Đi đến **Session manager** bằng cách gõ "session manager" vào ô tìm kiếm
 
-1. Mở **AWS Systems Manager Console** ➔ Chọn **Session Manager** ➔ Nhấp **Start session**.
-2. Chọn máy chủ EC2 mang tên **`Test-Interface-Endpoint`**. 
-   - Máy chủ này đặt tại `VPC On-Prem`, đại diện cho máy chủ ứng dụng đặt tại trung tâm dữ liệu On-Premises của doanh nghiệp.
-3. Trình duyệt mở tab terminal mới với dấu nhắc lệnh: `sh-4.2$`.
+2. Click **Start Session**, chọn EC2 instance có tên **Test-Interface-Endpoint**. EC2 instance này đang chạy trên "VPC On-prem" và sẽ được sử dụng để kiểm tra kết nối đến Amazon S3 thông qua Interface endpoint. Session Manager sẽ mở 1 browser tab mới với shell prompt: **sh-4.2 $**
 
 ![Start session](/images/5-Workshop/5.4-S3-onprem/start-session.png)
 
----
+3. Đi đến ssm-user's home directory với lệnh "cd ~"
 
-#### 3. Khởi tạo Tệp Dữ liệu và Truyền tải qua Tham số `--endpoint-url`
-
-1. Chuyển về thư mục người dùng `ssm-user`:
-   ```bash
-   cd ~
-   pwd
-   ```
-
-2. Tạo tệp kiểm thử 1GB mang tên `testfile2.xyz`:
-   ```bash
-   fallocate -l 1G testfile2.xyz
-   ls -lh testfile2.xyz
-   ```
+4. Tạo 1 file tên testfile2.xyz
+```
+fallocate -l 1G testfile2.xyz
+```
 
 ![user](/images/5-Workshop/5.4-S3-onprem/cli1.png)
 
-3. Tải tệp lên S3 Bucket thông qua Interface Endpoint (AWS PrivateLink):
-   ```bash
-   aws s3 cp --endpoint-url https://bucket.<Regional-DNS-Name> testfile2.xyz s3://<your-bucket-name>
-   ```
-
-> [!IMPORTANT]
-> - Thay thế `<Regional-DNS-Name>` bằng giá trị đã lưu ở Bước 1 (Ví dụ: `vpce-0123456789abcdef0-xxxx.s3.us-east-1.vpce.amazonaws.com`). Lưu ý không lấy ký tự `*` nếu có.
-> - Thay thế `<your-bucket-name>` bằng tên bucket S3 bạn đã khởi tạo.
-> - Tham số `--endpoint-url` bắt buộc phải có vì máy chủ On-Premises chưa được cấu hình phân giải tên miền tự động, nên cần chỉ định endpoint URL cụ thể để gói tin định tuyến qua ENI PrivateLink.
+5. Copy file vào S3 bucket mình tạo ở section 4.2
+```
+aws s3 cp --endpoint-url https://bucket.<Regional-DNS-Name> testfile2.xyz s3://<your-bucket-name>
+``` 
++ Câu lệnh này yêu cầu thông số --endpoint-url, bởi vì bạn cần sử dụng DNS name chỉ định cho endpoint để truy cập vào S3 thông qua Interface endpoint.
++ Không lấy ' * ' khi copy/paste tên DNS khu vực.
++ Cung cấp tên S3 bucket của bạn
 
 ![copy file](/images/5-Workshop/5.4-S3-onprem/cli2.png)
 
-Tệp dữ liệu 1GB được truyền tải thành công qua đường hầm IPsec VPN và đẩy lên S3 qua Interface Endpoint nội bộ.
+Bây giờ tệp đã được thêm vào bộ chứa S3 của bạn. Hãy kiểm tra bộ chứa S3 của bạn trong bước tiếp theo.
 
----
+#### Kiểm tra Object trong S3 bucket
 
-#### 4. Xác nhận Dữ liệu trên S3 Console
-
-1. Mở lại **Amazon S3 Console** ➔ Nhấp vào tên bucket của bạn.
-2. Tại danh sách Objects: Xác nhận tệp `testfile2.xyz` đã xuất hiện đầy đủ bên cạnh `testfile.xyz`.
+1. Đi đến S3 console
+2. Click Buckets
+3. Click tên bucket của bạn và bạn sẽ thấy testfile2.xyz đã được thêm vào s3 bucket của bạn
 
 ![check bucket](/images/5-Workshop/5.4-S3-onprem/check-bucket.png)
+
+
+

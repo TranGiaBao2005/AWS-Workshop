@@ -90,12 +90,4 @@ pre: " <b> 1.11. </b> "
 * **What did I learn today?**
   * **End-to-End Data & AI Value Chain:** Unified S3 Data Lakes (Lake Formation, Glue, Athena, QuickSight) with production-ready Generative AI capabilities (Bedrock RAG, Agents, SageMaker).
   * **Strict AI FinOps Cleanup:** Deleted OpenSearch Serverless collections and SageMaker endpoints immediately after validation to prevent costly OCU and hourly compute accruals.
-  * **Preparing for Week 12 (Final Week):** Finalized core architecture deliverables and demo scope ahead of the Capstone Project defense.
-
----
-
-### Next Week's Objectives (Week 12 - Final Internship Week):
-
-- **Final Packaging & GitHub Release:** Audit all 11 prior weeks, Proposal, Blogs, Events, and infrastructure repositories.
-- **Presentation & Capstone Defense:** Build the final slide deck, rehearse live demos, and defend the project before the FCAJ Mentor panel.
-- **Disciplined Cloud Teardown ($0 Audit) & Completion:** Execute dependency-ordered resource cleanup, complete Self-Evaluation (`6-Self-evaluation`), and gather Mentor feedback.
+  * **Preparing for Week 12:** Finalized core architecture deliverables and demo scope ahead of the final internship week.

@@ -90,12 +90,4 @@ pre: " <b> 1.11. </b> "
 * **Ta học được những gì hôm nay?**
   * **Liên kết chuỗi giá trị Data & AI trên AWS:** Nắm vững luồng dữ liệu hoàn chỉnh từ Data Lake (Lake Formation/Glue/Athena/QuickSight) tới tầng ứng dụng trí tuệ nhân tạo (Bedrock RAG, Bedrock Agents, SageMaker).
   * **Kiểm soát chi phí FinOps cho tài nguyên AI:** Xóa sạch các OpenSearch Serverless Collections và SageMaker Endpoints ngay sau khi thử nghiệm xong để tránh phí duy trì OCU/giờ rất cao.
-  * **Chuẩn bị cho Tuần 12 (Bảo vệ Đồ án):** Hoàn tất tích hợp các thành phần kiến trúc trọng tâm, chốt phạm vi demo và chuẩn bị bước vào tuần tổng kết cuối kỳ.
-
----
-
-### Mục tiêu cho tuần sau (Tuần 12 - Tuần cuối kỳ thực tập):
-
-* **Đóng gói hồ sơ & Xuất bản mã nguồn:** Rà soát toàn bộ 11 tuần Worklog, Proposal, Blogs, Events và mã nguồn trên GitHub.
-* **Thuyết trình & Bảo vệ Capstone Project:** Thiết kế Slide, diễn tập Demo trực tiếp và bảo vệ trước Hội đồng Mentor FCAJ.
-* **Dọn dẹp tài nguyên ($0 Audit) & Tổng kết thực tập:** Thực hiện Cloud Teardown theo chiều phụ thuộc, hoàn tất Tự đánh giá (`6-Self-evaluation`) và tiếp thu phản hồi Mentor.
+  * **Chuẩn bị cho Tuần 12:** Hoàn tất tích hợp các thành phần kiến trúc trọng tâm, chốt phạm vi demo và chuẩn bị bước vào tuần cuối kỳ.

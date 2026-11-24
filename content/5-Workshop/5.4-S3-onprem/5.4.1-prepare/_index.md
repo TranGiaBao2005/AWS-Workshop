@@ -1,57 +1,56 @@
 ---
-title : "Resource Preparation & VPN Routing"
+title : "Prepare the environment"
 date : 2024-01-01
 weight : 1
 chapter : false
 pre : " <b> 5.4.1 </b> "
 ---
 
-#### Preparation Objectives
+To prepare for this part of the workshop you will need to:
++ Deploying a CloudFormation stack 
++ Modifying a VPC route table. 
 
-This phase establishes the foundational routing and DNS components required for hybrid communication:
-1. Deploy a CloudFormation stack provisioning Route 53 Resolver endpoints (Inbound/Outbound) and a Private Hosted Zone.
-2. Update the `VPC On-Prem` route table to forward all cloud-bound packets through the StrongSwan IPsec VPN gateway.
+These components work together to simulate on-premises DNS forwarding and name resolution.
 
----
+#### Deploy the CloudFormation stack
 
-#### 1. Deploy CloudFormation Stack (Route 53 Resolver Infrastructure)
-
-The CloudFormation template provisions the advanced DNS architecture:
-- **Route 53 Private Hosted Zone:** Hosts alias records pointing to the S3 PrivateLink Interface Endpoint.
-- **Route 53 Inbound Resolver Endpoint:** Deployed in `VPC Cloud` to receive and process DNS resolution requests originating from on-premises.
-- **Route 53 Outbound Resolver Endpoint:** Deployed in `VPC On-Prem` to forward S3 queries to the Cloud Inbound endpoint.
+The CloudFormation template will create additional services to support an on-premises simulation:
++ One Route 53 Private Hosted Zone that hosts Alias records for the PrivateLink S3 endpoint
++ One Route 53 Inbound Resolver endpoint that enables "VPC Cloud" to resolve inbound DNS resolution requests to the Private Hosted Zone
++ One Route 53 Outbound Resolver endpoint that enables "VPC On-prem" to forward DNS requests for S3 to "VPC Cloud"
 
 ![route 53 diagram](/images/5-Workshop/5.4-S3-onprem/route53.png)
 
-1. Open the [AWS CloudFormation Stack Launch Link](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?templateURL=https://s3.amazonaws.com/reinvent-endpoints-builders-session/R53CF.yaml&stackName=PLOnpremSetup).
-2. Accept the pre-filled template parameters and click **Create stack**.
+1. Click the following link to open the [AWS CloudFormation console](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?templateURL=https://s3.amazonaws.com/reinvent-endpoints-builders-session/R53CF.yaml&stackName=PLOnpremSetup). The required template will be pre-loaded into the menu. Accept all default and click Create stack.
 
 ![Create stack](/images/5-Workshop/5.4-S3-onprem/create-stack.png)
 
 ![Button](/images/5-Workshop/5.4-S3-onprem/create-stack-button.png)
 
-> [!TIP]
-> Stack provisioning takes approximately 3-5 minutes. You can proceed directly to configuring the routing table below while CloudFormation runs in the background.
+It may take a few minutes for stack deployment to complete. You can continue with the next step without waiting for the deployemnt to finish.
 
----
+#### Update on-premise private route table
 
-#### 2. Update On-Premises Route Table Target to VPN Gateway
+This workshop uses a strongSwan VPN running on an EC2 instance to simulate connectivty between an on-premises datacenter and the AWS cloud. Most of the required components are provisioned before your start. To finalize the VPN configuration, you will modify the "VPC On-prem" routing table to direct traffic destined for the cloud to the strongSwan VPN instance.
 
-The simulated on-premises network routes traffic destined for AWS through an EC2 instance running StrongSwan IPsec VPN named `infra-vpngw-test`. We must explicitly add a static route directing `10.0.0.0/16` traffic to this instance network interface.
+1. Open the Amazon EC2 console 
 
-1. Open the [Amazon EC2 Management Console](https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#Instances:).
-2. Select the instance named **`infra-vpngw-test`**. In the **Details** pane, copy the **Instance ID** (e.g., `i-0123456789abcdef0`).
+2. Select the instance named infra-vpngw-test. From the Details tab, copy the Instance ID and paste this into your text editor
 
 ![ec2 id](/images/5-Workshop/5.4-S3-onprem/ec2-onprem-id.png)
 
-3. Navigate to the **VPC Console** ➔ Select **Route Tables**.
-4. Select the route table named **`RT Private On-prem`** ➔ Click the **Routes** tab ➔ Click **Edit routes**.
+3. Navigate to the VPC menu by using the Search box at the top of the browser window.
+
+4. Click on Route Tables, select the RT Private On-prem route table, select the Routes tab, and click Edit Routes.
 
 ![rt](/images/5-Workshop/5.4-S3-onprem/rt.png)
 
-5. Click **Add route**:
-   - **Destination:** Enter the Cloud VPC CIDR: `10.0.0.0/16`
-   - **Target:** Choose **Instance** and select the `infra-vpngw-test` instance ID copied earlier.
-6. Click **Save changes**.
+5. Click Add route.
++ Destination: your Cloud VPC cidr range
++ Target: ID of your infra-vpngw-test instance (you saved in your editor at step 1)
 
-The simulated on-premises routing table is now configured to tunnel AWS-bound packets through the VPN gateway.
+![add route](/images/5-Workshop/5.4-S3-onprem/add-route.png)
+
+6. Click Save changes
+
+
