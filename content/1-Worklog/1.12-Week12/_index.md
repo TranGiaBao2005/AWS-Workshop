@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Week 12"
 date: 2026-11-30
 weight: 12
@@ -8,95 +8,72 @@ pre: " <b> 1.12. </b> "
 
 ![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
-### Week 12 Objectives:
+### Objectives for Week 12:
 
-- Master **Modern Data Lake Architectures** on Amazon S3 and implement centralized, fine-grained access control using **AWS Lake Formation** (Workshop 000035).
-- Automate serverless Extract, Transform, and Load (ETL) data pipelines at scale utilizing **AWS Glue** (Glue Crawlers, Data Catalog, and PySpark Visual Jobs), converting raw data into optimized columnar Apache Parquet format.
-- Execute interactive, distributed serverless SQL queries against massive datasets via **Amazon Athena** (Workshop 000106) and explore real-time stream ingestion with **Amazon Kinesis Data Streams**.
-- Author interactive business intelligence dashboards and operational reports with **Amazon QuickSight** (Workshop 000073) accelerated by SPICE in-memory engines.
-- Investigate cloud data warehousing principles at petabyte scale using **Amazon Redshift** (Massively Parallel Processing - MPP architecture).
-- Dedicate Friday to synthesizing technical competencies, finalizing bilingual Worklog documentation, and engineering an end-to-end telemetry and cost analytics pipeline for the internship **Capstone Project Proposal**.
+- Synthesize the end-to-end **12-week internship journey** under the **First Cloud AI Journey (FCAJ)** program (September 14, 2026 – December 04, 2026).
+- Finalize and publish the **Final Capstone Project Report**, bilingual documentation website, and clean GitHub source repositories.
+- Build the presentation slide deck, rehearse live demos, and defend the Capstone Project before the FCAJ Mentor panel.
+- Execute dependency-ordered **Cloud Resource Teardown** across all AWS regions, confirming a $0 ongoing spend baseline.
+- Complete the **Self-Evaluation** (`6-Self-evaluation`), absorb Mentor feedback, and map out the next AWS certification roadmap.
 
 ---
 
-### Tasks to be Carried Out This Week:
+### Tasks to be implemented this week:
 
 | Day | Task | Start Date | Completion Date | Reference Material |
 | :--- | :--- | :---: | :---: | :--- |
-| **Monday** | **Data Lake (Part 1) - Governance with AWS Lake Formation:** <br>- Establishing S3 Data Lake tiered zones (Raw Zone, Processed Zone, Curated Zone). <br>- Registering S3 Data Lake storage locations and establishing unified governance. <br>- Configuring granular row-level and column-level access control policies. <br>- Optimizing lake storage structures with chronological partitioning strategies. | 11/30/2026 | 11/30/2026 | [Data Lake Fundamentals (000035)](https://000035.awsfcaj.com/) |
-| **Tuesday** | **Data Lake (Part 2) - Serverless ETL Automation with AWS Glue:** <br>- Deploying Glue Crawlers to automatically infer schemas into the AWS Glue Data Catalog. <br>- Building visual data pipelines in Glue Studio to clean, cast, and filter records. <br>- Converting uncompressed CSV/JSON files into Snappy-compressed columnar Apache Parquet. <br>- Configuring event-driven ETL triggers executing on new S3 object arrivals. | 12/01/2026 | 12/01/2026 | [Cloud Journey - Data](https://cloudjourney.awsfcaj.com/6-dataandanalytic/) |
-| **Wednesday** | **Interactive SQL Analytics with Athena & Real-Time Streams with Kinesis:** <br>- Configuring Athena Workgroups, output S3 buckets, and query execution guardrails. <br>- Authoring complex analytical aggregation queries optimized for Parquet partitions. <br>- Evaluating real-time ingestion pipelines using Amazon Kinesis Data Streams and Firehose. <br>- Benchmarking query latency and data scan volumes across storage formats. | 12/02/2026 | 12/02/2026 | [Amazon Athena Workshop (000106)](https://000106.awsfcaj.com/) |
-| **Thursday** | **Visual BI Dashboards with Amazon QuickSight & Exploring Redshift:** <br>- Connecting QuickSight datasets to Athena tables leveraging high-speed SPICE engines. <br>- Authoring visual charts, KPIs, geographic distribution maps, and parameterized controls. <br>- Analyzing Amazon Redshift distributed clustering, distribution styles, and sort keys. <br>- Evaluating massive parallel query processing (MPP) patterns for large data warehouses. | 12/03/2026 | 12/03/2026 | [Amazon QuickSight (000073)](https://000073.awsfcaj.com/) |
-| **Friday** | **Week 12 Review, Worklog Completion & Project Work:** <br>- **Knowledge Review:** Consolidate Lake Formation, Glue ETL, Athena, Kinesis, QuickSight, and Redshift. <br>- **Worklog Completion:** Finalize bilingual Week 12 documentation and teardown lab resources. <br>- **Project Work:** Incorporate an analytics dashboard reflecting application telemetry into the Capstone Proposal. | 12/04/2026 | 12/04/2026 | [FCAJ Roadmap](https://cloudjourney.awsfcaj.com/) |
+| **Monday** | **11-Week Synthesis, Final Packaging & GitHub Release:** <br>- Audit Weeks 1–11 for bilingual EN/VI parity, accurate image paths, and unbroken internal links. <br>- Publish IaC templates (CloudFormation/CDK), Python Boto3 scripts, and Dockerfiles with a clear `README.md`. <br>- Verify a zero-error static site build (`hugo --minify`) across both languages. | 30/11/2026 | 30/11/2026 | [Final Report Review](/2-proposal/) |
+| **Tuesday** | **Slide Deck Preparation & Live Demo Rehearsal:** <br>- Design a concise STAR-structured presentation deck (Problem, AWS Architecture, Benchmarks, FinOps). <br>- Rehearse the end-to-end live demo workflow and record a fallback backup video. <br>- Time-box the presentation strictly within the defense slot. | 01/12/2026 | 01/12/2026 | [Presentation Deck](/2-proposal/) |
+| **Wednesday** | **Capstone Project Defense before FCAJ Mentor Panel:** <br>- Present the cloud architecture design and implementation outcomes on AWS. <br>- Perform a live demonstration of running workloads and observability dashboards. <br>- Defend architectural trade-offs across security, high availability, and cost optimization. | 02/12/2026 | 02/12/2026 | [Capstone Defense](https://cloudjourney.awsfcaj.com/) |
+| **Thursday** | **Disciplined Cloud Resource Teardown ($0 Audit):** <br>- Terminate resources in dependency order (Compute/ALB ➔ DB/Cache ➔ NAT/EIP/Endpoints ➔ VPC) to avoid `DependencyViolation`. <br>- Audit all AWS regions (`us-east-1`, `ap-southeast-1`) via AWS CLI and Cost Explorer. <br>- Verify zero lingering hourly or daily charges on the AWS account. | 03/12/2026 | 03/12/2026 | [AWS Resource Cleanup](https://cloudjourney.awsfcaj.com/) |
+| **Friday** | **Self-Evaluation & Internship Completion:** <br>- Finalize Self-Assessment (`6-Self-evaluation`) and Sharing & Feedback (`7-Feedback`). <br>- Capture constructive technical feedback from FCAJ Mentors. <br>- Establish a preparation roadmap for **AWS Certified Solutions Architect - Associate (SAA-C03)**. | 04/12/2026 | 04/12/2026 | [Self-Evaluation](/6-self-evaluation/) |
 
 ---
 
-### Daily In-Depth Learning Outcomes & Key Takeaways:
+### Daily Focus & Deliverables:
 
-#### 📌 Monday (11/30/2026) - Data Lake (Part 1): Governance via AWS Lake Formation
+#### 📌 Monday (30/11/2026) - Final Documentation Packaging & GitHub Release
 
-* **What did we learn today?**
-  * **Multi-Tier S3 Data Lake Topology:**
-    * *Raw Zone (Bronze):* Landing zone capturing immutable source logs and transactional extracts in native format (CSV, JSON).
-    * *Processed Zone (Silver):* Cleaned, deduplicated, and transformed datasets stored in optimized columnar Parquet format.
-    * *Curated Zone (Gold):* Highly aggregated, business-ready models powering executive BI and machine learning features.
-  * **Centralized Governance Plane:** Replaced fragmented S3 bucket policies and IAM grants with centralized table and column permissions managed exclusively via Lake Formation.
-  * **Cell-Level Access Security:**
-    * *Column-Level Filtering:* Redacted sensitive personally identifiable information (e.g., credit card numbers and phone numbers) from general analytics roles.
-    * *Row-Level Filtering:* Enforced geographical row filters ensuring regional branch analysts only access rows where `Region = 'APAC'`.
-* **Encountered Challenges & Solutions:**
-  * *Permission Precedence Conflicts (Direct IAM vs Lake Formation):* Analysts continued reading raw bucket objects despite revoked Lake Formation permissions. Root cause: The legacy `IAMAllowedPrincipals` group remained enabled in Data Catalog settings, bypassing Lake Formation checks. Solution: Removed `IAMAllowedPrincipals` from the catalog and routed all data access exclusively through Lake Formation security grants.
+* **Core Focus:**
+  * **Report-Wide Quality Audit:** Cross-check all 12 Worklog weeks, Proposal, Blogs, Events, and Workshop sections to guarantee valid image rendering and unbroken links across English and Vietnamese builds.
+  * **GitHub Repository Standardization:** Package CloudFormation/CDK templates, Boto3 automation scripts, and Dockerfiles with an actionable `README.md` architecture overview.
+* **Key Safeguard:**
+  * Audit `.gitignore` and commit history before pushing to ensure zero AWS Access Keys, Secret Keys, or hardcoded credentials ever reach GitHub.
 
 ---
 
-#### 📌 Tuesday (12/01/2026) - Data Lake (Part 2): Serverless ETL Pipelines via AWS Glue
+#### 📌 Tuesday (01/12/2026) - Slide Deck Design & Live Demo Rehearsal
 
-* **What did we learn today?**
-  * **Automated Cataloging via Glue Crawlers:** Crawled raw transaction directories on S3, discovering schemas, inferring data types, and publishing the `raw_orders` table definition into the AWS Glue Data Catalog in under 60 seconds.
-  * **Visual Pipeline Authoring with Glue Studio:**
-    * Chained processing nodes: S3 Raw Source ➔ ApplyMapping schema transformations ➔ Filter Null Records ➔ S3 Processed Target.
-    * Transformed raw CSV files into columnar **Apache Parquet** format compressed with **Snappy**.
-    * Measured efficiency: A 500MB raw CSV dataset compressed down to 72MB in Parquet, slashing storage footprints by 85%.
-  * **Automated Partitioning Hierarchies:** Configured chronological target paths (`year=YYYY/month=MM/day=DD`), allowing query engines to prune partitions and avoid full-table scans.
-* **Encountered Challenges & Solutions:**
-  * *Timestamp Parsing Mismatches:* The `order_date` field formatted as `DD/MM/YYYY` was classified by the crawler as a `String`, breaking date-range SQL filters. Solution: Inserted a custom PySpark transform node utilizing `to_date()` to standardize the column to ISO `yyyy-MM-dd` before Parquet serialization.
+* **Core Focus:**
+  * **STAR-Structured Architecture Deck:** Highlight business problem framing, Well-Architected service selection, architectural diagrams, validation metrics, and AWS Pricing Calculator cost estimates.
+  * **Demo Dry-Run & Fail-Safe:** Walk through live demonstration checkpoints under time constraints and capture a clean backup screen recording in case of venue network instability.
 
 ---
 
-#### 📌 Wednesday (12/02/2026) - Interactive SQL with Athena & Streaming with Kinesis
+#### 📌 Wednesday (02/12/2026) - Capstone Project Defense before FCAJ Mentors
 
-* **What did we learn today?**
-  * **Serverless SQL Execution via Amazon Athena:** Configured Athena workgroups and dedicated query results staging at `s3://fcaj-athena-query-results/`. Executed ANSI SQL analytical queries against multi-million row datasets with zero provisioned database servers.
-  * **FinOps Benchmarking on Query Telemetry:**
-    * Benchmark results comparing a monthly revenue aggregation query:
-      * Unpartitioned CSV table: Scanned **500MB** of data, query latency **4.8 seconds**.
-      * Partitioned Parquet table: Scanned **6.2MB** of data, query latency **0.8 seconds**.
-    * Scanned data volume decreased by over **98%**, directly translating to an equivalent 98% reduction in billable query costs ($5.00/TB scanned).
-  * **Real-Time Stream Processing Principles:** Explored Amazon Kinesis Data Streams shard architectures and integrated Kinesis Data Firehose to buffer, compress, and dump streaming telemetry into S3 micro-batches.
-* **Encountered Challenges & Solutions:**
-  * *Athena Missing Newly Added Partitions:* Athena queries failed to return newly appended date partitions created by the Glue ETL job. Solution: Executed `MSCK REPAIR TABLE orders_parquet;` to update partition metadata, or configured **Partition Projection** in the Glue Catalog to infer dynamic date partitions programmatically.
+* **Core Focus:**
+  * **Technical Presentation & Live Demo:** Walk the panel through the architecture blueprint and live AWS telemetry dashboards.
+  * **Q&A Defense:** Articulate concrete architectural trade-offs regarding Zero-Trust security (Least Privilege, Private Subnets, VPC Endpoints), resilience (Multi-AZ, Auto Scaling), and FinOps cost efficiency.
 
 ---
 
-#### 📌 Thursday (12/03/2026) - Visual Analytics via Amazon QuickSight & Redshift
+#### 📌 Thursday (03/12/2026) - Disciplined Cloud Resource Teardown
 
-* **What did we learn today?**
-  * **Business Intelligence with Amazon QuickSight:**
-    * Connected QuickSight directly to Athena data sources.
-    * Cached datasets into the **SPICE (Super-fast, Parallel, In-memory Calculation Engine)** memory tier, enabling instantaneous dashboard interactions and drill-downs without incurring repeated Athena scan charges.
-    * Built a production dashboard: Total Revenue KPIs, weekly order trend line graphs, product category breakdowns, and geographic heat maps.
-  * **Amazon Redshift Data Warehouse Mechanics:**
-    * Evaluated Massively Parallel Processing (MPP) architectures distributing query workloads across compute slices.
-    * Evaluated distribution styles (`AUTO`, `EVEN`, `KEY`, `ALL`) to minimize data movement (shuffling) across nodes during heavy join operations.
-* **Encountered Challenges & Solutions:**
-  * *QuickSight S3 Access Denied Errors:* QuickSight failed to ingest Athena query outputs from S3. Root cause: QuickSight operates under a dedicated service role requiring explicit storage grants. Solution: Navigated to `Manage QuickSight` ➔ `Security & permissions`, granting read access to both the Data Lake and Athena results buckets.
+* **Core Focus:**
+  * **Dependency-Ordered Teardown Checklist:**
+    1. Delete Auto Scaling Groups, ECS/EKS Clusters, and Launch Templates.
+    2. Delete Application Load Balancers, Target Groups, and release all idle Elastic IPs.
+    3. Terminate Amazon RDS, ElastiCache, OpenSearch/SageMaker endpoints, and unused CloudFront/WAF Web ACLs.
+    4. Remove VPC Endpoints, NAT Gateways, Internet Gateways, and finally custom VPCs.
+  * **Multi-Region FinOps Audit:** Sweep all 17 AWS regions via AWS CLI and review AWS Cost Explorer/Budgets to guarantee $0 recurring hourly/daily charges.
+* **Troubleshooting Tip:**
+  * If VPC deletion raises `DependencyViolation`, inspect **EC2 Network Interfaces (ENIs)** to detach orphaned Lambda or VPC Endpoint interfaces before retrying.
 
 ---
 
-#### 📌 Friday (12/04/2026) - Week 12 Review, Worklog Finalization & Capstone Analytics
+#### 📌 Friday (04/12/2026) - Self-Evaluation & 12-Week Internship Completion
 
-* **What did we learn today?**
-  * **End-to-End Data Pipeline Architecture:** Synthesized the complete data lifecycle: Ingestion (Kinesis/S3) ➔ Security Governance (Lake Formation) ➔ Transformation (Glue ETL) ➔ Distributed SQL (Athena) ➔ Executive Visualizations (QuickSight).
-  * **Disciplined FinOps Cleanup:** Pruned temporary Glue Catalog tables, purged staging S3 data, and released unallocated SPICE capacity to avoid recurring monthly charges.
-  * **Graduation Capstone Analytics Pipeline:** Built an automated telemetry pipeline ingesting application web access logs into Athena, publishing an executive QuickSight dashboard tracking error spikes (HTTP 5xx) and user traffic trends.
-
+* **Core Focus:**
+  * **Objective Self-Assessment ([Self-Evaluation](/6-self-evaluation/)):** Reflect on technical progression across 12 weeks—from foundational IAM/VPC/EC2 labs to IaC automation, deep observability, container orchestration, data lakes, and Generative AI on AWS.
+  * **Mentor Feedback & Career Roadmap:** Incorporate Mentor recommendations, complete internship closeout formalities, and transition into preparation for **AWS Certified Solutions Architect - Associate (SAA-C03)**.

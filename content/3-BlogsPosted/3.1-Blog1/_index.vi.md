@@ -6,11 +6,6 @@ chapter: false
 pre: " <b> 3.1. </b> "
 ---
 
-{{% notice info %}}
-* **Link bài post tác giả đã đăng:** [Xem bài viết trên nhóm Facebook AWS Study Group - First Cloud Journey](https://www.facebook.com/groups/awsstudygroupfcj/posts/2319591015472524/)
-* **Nguồn tham khảo bài viết gốc:** [AWS Continuum for code vulnerabilities is now generally available](https://aws.amazon.com/blogs/aws/aws-continuum-for-code-vulnerabilities-is-now-generally-available/) (AWS News Blog — Tác giả: Esra Kayabali, GA: 22/10/2026).
-{{% /notice %}}
-
 ### 1. Bối cảnh và thách thức trong quy trình DevSecOps
 
 Trong kỷ nguyên phát triển phần mềm hiện đại và sự phổ biến của các công cụ sinh mã nguồn bằng AI, tốc độ viết code của các kỹ sư tăng lên nhanh chóng kéo theo số lượng lỗ hổng bảo mật cũng bùng nổ theo cấp số nhân.
@@ -57,3 +52,8 @@ Sự ra đời của AWS Continuum for code vulnerabilities đánh dấu bước
 1. **Chuyển từ phát hiện thụ động sang tự động hóa khắc phục:** Không chỉ dừng lại ở việc báo lỗi, Continuum trực tiếp hỗ trợ kỹ sư viết sẵn bản vá chuẩn mực.
 2. **Loại bỏ xung đột giữa Security Team và Developer:** Security Team có bằng chứng khai thác cụ thể (PoC), còn Developer tiết kiệm thời gian sửa lỗi, giúp tốc độ phát hành phần mềm được duy trì liên tục.
 3. **Ứng dụng Frontier AI an toàn và có kiểm soát:** Continuum tận dụng tốc độ và khả năng suy luận của AI tự chủ (Agentic AI) nhưng vẫn duy trì quyền kiểm soát cao nhất thuộc về con người.
+
+---
+
+* **Link bài đăng:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/posts/2319591015472524/)
+* **Nguồn gốc:** [AWS News Blog](https://aws.amazon.com/blogs/aws/aws-continuum-for-code-vulnerabilities-is-now-generally-available/)

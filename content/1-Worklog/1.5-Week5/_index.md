@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Week 5"
 date: 2026-10-12
 weight: 5
@@ -112,7 +112,10 @@ pre: " <b> 1.5. </b> "
   * Build a serverless automated start/stop solution for non-production EC2 instances outside working hours.
   * Program Python Boto3 Lambda functions and integrate ChatOps notifications via Slack Incoming Webhooks.
   * Automate scheduling using Amazon EventBridge Scheduler cron expressions.
-* **Monitoring with Grafana & CloudWatch (1.6.3):**
+* **AWS Tags and Resource Groups Management (1.6.3):**
+  * Standardize tagging strategies (Cost Allocation Tags, ABAC) across the Console and automate bulk tagging via AWS CLI.
+  * Create AWS Resource Groups (`EnvTest`) to organize and manage environment resources centrally.
+* **Monitoring with Grafana & CloudWatch (1.6.4):**
   * Deploy a centralized monitoring and dashboard solution using Grafana integrated with Amazon CloudWatch metrics (Workshop 000029 - Getting started with Grafana basic).
   * Build real-time dashboards to track compute health, network throughput, and infrastructure performance.
 * **Week 6 Review, Worklog & Project:** Consolidate observability and cost optimization knowledge, polish weekly worklogs, and advance internship project milestones.

@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Week 11"
 date: 2026-11-23
 weight: 11
@@ -8,118 +8,94 @@ pre: " <b> 1.11. </b> "
 
 ![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
-### Week 11 Objectives:
+### Objectives for Week 11:
 
-- Master application containerization best practices using **Docker**, focusing on multi-stage builds, non-root user execution, and secure software supply chain principles.
-- Administer secure enterprise container registries via **Amazon Elastic Container Registry (ECR)** (enforcing automated Lifecycle Policies and CVE Enhanced Scanning).
-- Architect, deploy, and elastically scale serverless microservices using **Amazon Elastic Container Service (Amazon ECS)** powered by **AWS Fargate** (Workshop 000067).
-- Dedicate **two full deep-dive days (Wednesday & Thursday)** to mastering the production enterprise Kubernetes ecosystem via **Amazon Elastic Kubernetes Service (Amazon EKS)** (Workshop 000126): from declarative cluster creation with `eksctl` and IAM Roles for Service Accounts (IRSA) to Helm-managed Ingress Controllers and Horizontal Pod Autoscaling (HPA).
-- Dedicate Friday to synthesizing technical competencies, finalizing bilingual Worklog documentation, and packaging the backend services of the **Capstone Project Proposal** into production-ready container images.
+- Architect a **Modern Data Lake** on Amazon S3 governed centrally by **AWS Lake Formation** (Workshop 000035) and serverless **AWS Glue** ETL pipelines converting raw data into Apache Parquet.
+- Optimize interactive SQL analytics with **Amazon Athena** (Workshop 000106), explore streaming with **Amazon Kinesis**, build BI dashboards in **Amazon QuickSight** (Workshop 000073), and study **Amazon Redshift** MPP warehousing.
+- Master **Generative AI** services on AWS via **Amazon Bedrock** (Foundation Models, Boto3 Runtime API, Prompt Engineering, RAG Knowledge Bases, and Bedrock Agents) alongside MLOps workflows on **Amazon SageMaker**.
+- Dedicate Friday to consolidating weekly learnings, updating bilingual Worklogs, cleaning up expensive AI/Data resources, and integrating analytics/GenAI into the **Capstone Project**.
 
 ---
 
-### Tasks to be Carried Out This Week:
+### Tasks to be implemented this week:
 
 | Day | Task | Start Date | Completion Date | Reference Material |
 | :--- | :--- | :---: | :---: | :--- |
-| **Monday** | **Hardened Docker Packaging & Registry Operations with Amazon ECR:** <br>- Authoring multi-stage Dockerfiles reducing runtime image sizes by over 70%. <br>- Applying container security baselines: Non-root user contexts and minimal base images. <br>- Creating Private ECR repositories, authenticating Docker CLI, and pushing versioned tags. <br>- Enforcing automated ECR Lifecycle Policies and inspecting Scan on Push CVE results. | 11/23/2026 | 11/23/2026 | [Cloud Journey - Containers](https://cloudjourney.awsfcaj.com/5-container/) |
-| **Tuesday** | **Serverless Microservices Orchestration with Amazon ECS Fargate:** <br>- Provisioning networking-only ECS Clusters backed by AWS Fargate. <br>- Authoring Task Definitions (CPU/Memory limits, port mappings, Task Execution Roles). <br>- Deploying ECS Services connected to ALB Target Groups with Service Auto Scaling. <br>- Executing zero-downtime rolling update deployments across active service tasks. | 11/24/2026 | 11/24/2026 | [ECS Workshop (000067)](https://000067.awsfcaj.com/) |
-| **Wednesday** | **Amazon EKS (Part 1) - Kubernetes Cluster Setup & Fleet Management:** <br>- Deploying Amazon EKS v1.29 control planes and Managed Node Groups via `eksctl`. <br>- Configuring `kubeconfig` contexts and verifying node states with `kubectl get nodes`. <br>- Setting up IAM OIDC Providers and fine-grained IAM Roles for Service Accounts (IRSA). <br>- Deploying baseline Kubernetes objects: Namespaces, ConfigMaps, Secrets, and Pods. | 11/25/2026 | 11/25/2026 | [Amazon EKS Workshop (000126)](https://000126.awsfcaj.com/) |
-| **Thursday** | **Amazon EKS (Part 2) - Production Ingress Routing & Dynamic HPA Scaling:** <br>- Authoring production Kubernetes Deployment and ClusterIP Service manifests. <br>- Installing the AWS Load Balancer Controller via Helm to automate ALB provisioning via Ingress. <br>- Deploying the Kubernetes Metrics Server to stream real-time pod compute telemetry. <br>- Configuring Horizontal Pod Autoscalers (HPA) to scale pods dynamically when CPU exceeds 70%. | 11/26/2026 | 11/26/2026 | [Amazon EKS Workshop (000126)](https://000126.awsfcaj.com/) |
-| **Friday** | **Week 11 Review, Worklog Completion & Project Work:** <br>- **Knowledge Review:** Consolidate Docker, ECR, ECS Fargate, and Amazon EKS architectures. <br>- **Worklog Completion:** Finalize bilingual Week 11 documentation and teardown lab resources. <br>- **Project Work:** Build and publish the Capstone Project backend Docker image to Amazon ECR. | 11/27/2026 | 11/27/2026 | [FCAJ Roadmap](https://cloudjourney.awsfcaj.com/) |
+| **Monday** | **Data Lake Governance (AWS Lake Formation) & Serverless ETL (AWS Glue):** <br>- Structure S3 Data Lake zones (Raw, Processed, Curated) and enforce row/column-level access in Lake Formation. <br>- Run Glue Crawlers to infer table schemas into the Glue Data Catalog. <br>- Build Glue Studio ETL jobs converting CSV/JSON into Snappy-compressed Apache Parquet partitioned by `year/month/day`. | 23/11/2026 | 23/11/2026 | [Data Lake (000035)](https://000035.awsfcaj.com/) & [Data Analytics](https://cloudjourney.awsfcaj.com/6-dataandanalytic/) |
+| **Tuesday** | **Amazon Athena Analytics, Kinesis Streams, QuickSight BI & Amazon Redshift:** <br>- Configure Athena Workgroups and benchmark Data Scanned reductions between raw CSV and partitioned Parquet. <br>- Study real-time ingestion architectures with Amazon Kinesis Data Streams and Data Firehose. <br>- Connect Amazon QuickSight (SPICE) for KPI dashboards and examine Redshift MPP distribution styles. | 24/11/2026 | 24/11/2026 | [Athena (000106)](https://000106.awsfcaj.com/) & [QuickSight (000073)](https://000073.awsfcaj.com/) |
+| **Wednesday** | **Amazon Bedrock Foundation Models, Prompt Engineering & RAG Architecture:** <br>- Evaluate Foundation Models (Claude, Amazon Titan, Llama) and invoke APIs via Python Boto3 `bedrock-runtime`. <br>- Apply System Prompts, Few-shot prompting, Chain-of-Thought, and JSON Schema enforcement. <br>- Architect RAG with Bedrock Knowledge Bases, Titan Embeddings, and OpenSearch Serverless vector search. | 25/11/2026 | 25/11/2026 | [AWS Generative AI](https://cloudjourney.awsfcaj.com/) |
+| **Thursday** | **Autonomous Bedrock Agents & MLOps with Amazon SageMaker:** <br>- Define OpenAPI 3.0 schemas and Lambda Action Groups powering Bedrock Agents (ReAct + Guardrails). <br>- Explore Amazon SageMaker Studio, JumpStart, and Real-time Inference Endpoints with Auto Scaling. <br>- Enforce strict FinOps teardown procedures for GPU/CPU endpoints and vector collections. | 26/11/2026 | 26/11/2026 | [Amazon Bedrock & SageMaker](https://cloudjourney.awsfcaj.com/) |
+| **Friday** | **Week 11 Review, Worklog & Project:** <br>- **Knowledge Synthesis:** Connect Data Analytics pipelines and Generative AI architectures end-to-end. <br>- **Worklog & Cleanup:** Finalize bilingual Week 11 documentation and delete OpenSearch/SageMaker test resources. <br>- **Capstone Project:** Integrate observability analytics and GenAI assistant capabilities into the project design. | 27/11/2026 | 27/11/2026 | [FCAJ Roadmap](https://cloudjourney.awsfcaj.com/) |
 
 ---
 
-### Daily In-Depth Learning Outcomes & Key Takeaways:
+### Daily Learning Details & Results:
 
-#### 📌 Monday (11/23/2026) - Hardened Docker Packaging & Registry Operations via ECR
+#### 📌 Monday (23/11/2026) - Data Lake Governance (AWS Lake Formation) & AWS Glue ETL
 
-* **What did we learn today?**
-  * **Optimization via Multi-Stage Docker Builds:** Separated compilation dependencies from production runtimes into two distinct stages: a `builder stage` incorporating SDKs and build tooling, and a minimal `runner stage` based on `alpine:3.19`. Reduced final container footprint from 850MB down to 75MB, accelerating network transfer and container cold-start speeds fivefold.
-  * **Container Attack Surface Reduction:** Configured `USER appuser` directives within the Dockerfile, preventing runtime execution under root privileges and mitigating host compromise risks in the event of an application vulnerability.
-  * **Enterprise Registry Hygiene with Amazon ECR:**
-    * Provisioned private repository `fcaj/backend-api`.
-    * Authenticated the local Docker client using STS credentials:
-      ```bash
-      aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 887086382708.dkr.ecr.us-east-1.amazonaws.com
-      docker build -t fcaj/backend-api:v1.0 .
-      docker tag fcaj/backend-api:v1.0 887086382708.dkr.ecr.us-east-1.amazonaws.com/fcaj/backend-api:v1.0
-      docker push 887086382708.dkr.ecr.us-east-1.amazonaws.com/fcaj/backend-api:v1.0
-      ```
-    * Enforced Lifecycle Policies automatically pruning untagged images older than 14 days while retaining only the 10 most recent tagged releases.
-    * Evaluated automated `Scan on Push` findings, verifying 0 CRITICAL CVEs and 1 low-priority dependency alert.
-* **Encountered Challenges & Solutions:**
-  * *Docker Authentication Token Expiry:* Running `docker push` resulted in `denied: Your authorization token has expired`. Root cause: ECR authorization tokens have an immutable 12-hour validity window. Solution: Re-invoked the `aws ecr get-login-password` retrieval piped directly into `docker login`.
+* **What did I learn today?**
+  * **Multi-Tier S3 Data Lake & Cell-Level Security:** Partitioned S3 into *Raw*, *Processed*, and *Curated* zones, using AWS Lake Formation to centralize permissions and apply column masking (hiding PII) plus row-level filters by region.
+  * **Serverless ETL with AWS Glue:** Automated schema discovery via Glue Crawlers and authored Glue Studio ETL jobs converting CSV datasets into Snappy-compressed **Apache Parquet** organized by `year=YYYY/month=MM/day=DD`, drastically shrinking storage footprint.
+* **Challenges & Resolutions:**
+  * *`IAMAllowedPrincipals` bypass & date schema mismatches:* Revoked default `IAMAllowedPrincipals` on the Glue Catalog so Lake Formation governs access exclusively, and applied PySpark `to_date()` transformations to normalize `yyyy-MM-dd` timestamps before Parquet output.
 
 ---
 
-#### 📌 Tuesday (11/24/2026) - Serverless Microservices Orchestration with ECS Fargate
+#### 📌 Tuesday (24/11/2026) - Amazon Athena, Kinesis, QuickSight BI & Amazon Redshift
 
-* **What did we learn today?**
-  * **Serverless Containerization Principles:** Evaluated differences between ECS EC2 Launch Types (requiring underlying host management) versus AWS Fargate (fully managed compute where users declare CPU/RAM envelopes and pay purely for actual resource runtime seconds).
-  * **Production Task Definition Structure:**
-    * Enforced resource envelopes: `0.5 vCPU` and `1GB RAM`.
-    * Defined container port mapping on TCP port `8080`.
-    * Enforced least-privilege IAM separation: `Task Execution Role` authorizes the ECS agent to pull ECR images and ship logs to CloudWatch (`/ecs/backend-api`), while the `Task Role` authorizes internal application code to interact with DynamoDB and S3.
-  * **Service Orchestration Behind Application Load Balancer:** Registered tasks with an ALB Target Group configured with `/healthz` health checking.
-  * **Zero-Downtime Deployments:** Configured rolling update parameters with `Minimum healthy percent = 100%` and `Maximum percent = 200%`. When deploying v1.1, ECS provisions new tasks, verifies ALB health passes, and drains older containers seamlessly without dropped client connections.
-* **Encountered Challenges & Solutions:**
-  * *Task Startup Failure (`CannotPullContainerError`):* Tasks placed in a private subnet failed immediately on launch. Root cause: The private subnet had no route to an internet gateway/NAT gateway and lacked VPC Interface Endpoints for ECR (`ecr.api`, `ecr.dkr`, `s3`). Solution: Configured private VPC Endpoints allowing tasks to pull container images privately across AWS internal backbones.
+* **What did I learn today?**
+  * **FinOps Query Optimization on Amazon Athena:** Transitioning from unpartitioned CSV to partitioned Parquet cut Data Scanned by >90%, directly reducing per-TB query charges ($5/TB) and cutting query latency sharply.
+  * **Streaming, BI & MPP Warehousing:** Studied **Kinesis Data Streams/Firehose** for real-time telemetry ingestion; connected **Amazon QuickSight** with **SPICE** in-memory caching for responsive dashboards without repeated Athena scans; reviewed **Amazon Redshift** MPP architecture and Distribution Styles (`AUTO`, `KEY`, `EVEN`, `ALL`).
+* **Challenges & Resolutions:**
+  * *Missing new partitions in Athena & QuickSight S3 `Access Denied`:* Executed `MSCK REPAIR TABLE` (or enabled Partition Projection) to register partitions, and granted explicit S3 bucket read access under `Manage QuickSight -> Security & permissions`.
 
 ---
 
-#### 📌 Wednesday (11/25/2026) - Amazon EKS (Part 1): Kubernetes Cluster Setup & Fleet Management
+#### 📌 Wednesday (25/11/2026) - Amazon Bedrock Foundation Models & RAG Architecture
 
-* **What did we learn today?**
-  * **Enterprise Kubernetes Architecture on AWS:** Analyzed the managed control plane architecture of Amazon EKS, which automatically scales across 3 Availability Zones to deliver an enterprise-grade 99.95% SLA.
-  * **Declarative Cluster Provisioning via `eksctl`:** Authored a cluster specification file `cluster-config.yaml` and deployed:
-    ```yaml
-    apiVersion: eksctl.io/v1alpha5
-    kind: ClusterConfig
-    metadata:
-      name: fcaj-eks-cluster
-      region: us-east-1
-      version: "1.29"
-    managedNodeGroups:
-      - name: standard-workers
-        instanceType: t3.medium
-        desiredCapacity: 2
-        minSize: 1
-        maxSize: 4
-        privateNetworking: true
+* **What did I learn today?**
+  * **Unified Model Access via Bedrock Runtime API:** Tuned inference parameters (`temperature`, `top_p`, `max_tokens`) and invoked foundation models cleanly via Python Boto3 without provisioning GPU servers:
+    ```python
+    import json, boto3
+    bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
+    payload = {
+        "anthropic_version": "bedrock-2023-05-31",
+        "max_tokens": 512,
+        "temperature": 0.2,
+        "messages": [{"role": "user", "content": "Analyze 3 security benefits of AWS KMS."}]
+    }
+    resp = bedrock.invoke_model(
+        modelId="anthropic.claude-3-5-sonnet-20240620-v1:0",
+        body=json.dumps(payload)
+    )
     ```
-    ```bash
-    eksctl create cluster -f cluster-config.yaml
-    kubectl get nodes -o wide
-    ```
-  * **IAM Roles for Service Accounts (IRSA):** Replaced broad Node Group IAM roles with fine-grained pod-level access. By configuring an IAM OpenID Connect (OIDC) identity provider for the cluster, individual Kubernetes ServiceAccounts are directly mapped to specific IAM Roles via annotations.
-* **Encountered Challenges & Solutions:**
-  * *`kubectl` Unauthorized Error on Secondary Workstations:* Teammates experienced `error: You must be logged in to the server (Unauthorized)`. Root cause: By default, only the IAM entity that initially created the EKS cluster possesses administrative RBAC bindings. Solution: Configured EKS Access Entries granting team IAM Roles administrative permissions within the cluster.
+  * **Prompt Engineering & RAG Knowledge Bases:** Combined structured prompting (System Prompts, Few-shot, Chain-of-Thought) with Bedrock Knowledge Bases (S3 documents ➔ Titan Text Embeddings v2 ➔ OpenSearch Serverless) to deliver grounded, citation-backed responses with minimal hallucination.
+* **Challenges & Resolutions:**
+  * *`Model access not granted` & OpenSearch Data Access Policy failures:* Requested model activation under Bedrock `Model access` and added the Knowledge Base IAM Role to the OpenSearch Serverless Data Access Policy.
 
 ---
 
-#### 📌 Thursday (11/26/2026) - Amazon EKS (Part 2): Production Ingress Routing & Dynamic HPA Scaling
+#### 📌 Thursday (26/11/2026) - Amazon Bedrock Agents & MLOps with Amazon SageMaker
 
-* **What did we learn today?**
-  * **Production Deployment Manifests:** Authored a production manifest declaring 2 replicas, standardizing Liveness and Readiness probes against port `8080/healthz`, and setting strict compute resource bounds (`resources: requests/limits`).
-  * **Automated Ingress Routing with AWS Load Balancer Controller:** Bypassed legacy service-type LoadBalancers by deploying the official **AWS Load Balancer Controller** via Helm. The controller dynamically reconciles Kubernetes Ingress resources to provision an Application Load Balancer with path-based routing.
-  * **Elastic Scaling with Horizontal Pod Autoscaler (HPA):**
-    * Deployed the Kubernetes Metrics Server to ingest real-time CPU and memory metrics.
-    * Established an HPA resource dynamically scaling pod replicas:
-      ```bash
-      kubectl autoscale deployment web-backend --cpu-percent=70 --min=2 --max=10
-      kubectl get hpa
-      ```
-    * Executed synthetic load testing using `hey`, observing the autoscaler automatically spin up pods from 2 to 6 when CPU hit 85%, scaling back down after load stabilized.
-* **Encountered Challenges & Solutions:**
-  * *Ingress Failing to Provision ALB (`ADDRESS` Empty):* The Ingress resource remained without an assigned DNS hostname. Root cause: Inspected controller logs (`kubectl logs -n kube-system deployment.apps/aws-load-balancer-controller`), finding VPC subnets lacked required discovery tags. Solution: Added `kubernetes.io/role/elb = 1` to public subnets and `kubernetes.io/role/internal-elb = 1` to private subnets.
+* **What did I learn today?**
+  * **Autonomous Execution with Bedrock Agents:** Applied ReAct reasoning loops paired with OpenAPI 3.0 schemas and AWS Lambda **Action Groups** to fetch live operational state safely, reinforced with **Bedrock Guardrails** against prompt injection (aligning directly with the AgentCore Deep-Dive Workshop).
+  * **End-to-End MLOps with Amazon SageMaker:** Explored Data Wrangler, SageMaker Studio, JumpStart one-click pre-trained deployments, and Real-time Inference Endpoints with `InvocationsPerInstance` Target Tracking Auto Scaling.
+* **Challenges & Resolutions:**
+  * *Agent Lambda invocation errors & zero default GPU quotas:* Added resource-based permission for `bedrock.amazonaws.com` via `aws lambda add-permission`; used CPU `ml.m5.large` for functional validation or requested Service Quotas increases when GPU instances are needed.
 
 ---
 
-#### 📌 Friday (11/27/2026) - Week 11 Review, Worklog Finalization & Capstone Packaging
+#### 📌 Friday (27/11/2026) - Week 11 Review, Worklog & Project Integration
 
-* **What did we learn today?**
-  * **Container Platform Decision Matrix:** Synthesized trade-offs between ECS Fargate (low operational burden, ideal for straightforward microservices) and Amazon EKS (rich ecosystem, open standard, cloud-agnostic portability, higher operational investment).
-  * **Disciplined Cluster Teardown:** Deleted Ingress resources to trigger automatic ALB release, followed by `eksctl delete cluster -f cluster-config.yaml` to tear down all node groups and CloudFormation stacks, eliminating the $0.10/hour EKS control plane fee.
-  * **Capstone Project Packaging:** Completed a multi-stage production Dockerfile for the graduation project backend, published the image to ECR, and drafted container task definitions ready for the final capstone demonstration.
+* **What did I learn today?**
+  * **End-to-End Data & AI Value Chain:** Unified S3 Data Lakes (Lake Formation, Glue, Athena, QuickSight) with production-ready Generative AI capabilities (Bedrock RAG, Agents, SageMaker).
+  * **Strict AI FinOps Cleanup:** Deleted OpenSearch Serverless collections and SageMaker endpoints immediately after validation to prevent costly OCU and hourly compute accruals.
+  * **Preparing for Week 12 (Final Week):** Finalized core architecture deliverables and demo scope ahead of the Capstone Project defense.
 
+---
+
+### Next Week's Objectives (Week 12 - Final Internship Week):
+
+- **Final Packaging & GitHub Release:** Audit all 11 prior weeks, Proposal, Blogs, Events, and infrastructure repositories.
+- **Presentation & Capstone Defense:** Build the final slide deck, rehearse live demos, and defend the project before the FCAJ Mentor panel.
+- **Disciplined Cloud Teardown ($0 Audit) & Completion:** Execute dependency-ordered resource cleanup, complete Self-Evaluation (`6-Self-evaluation`), and gather Mentor feedback.

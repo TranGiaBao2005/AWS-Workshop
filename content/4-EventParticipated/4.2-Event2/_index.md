@@ -1,147 +1,149 @@
 ---
 title: "Event 2"
-date: 2026-10-02
+date: 2026-10-24
 weight: 2
 chapter: false
 pre: " <b> 4.2. </b> "
 ---
 
-{{% notice info %}}
-This event report documents the executive fireside chat held directly with **Dr. Werner Vogels** (Vice President & Chief Technology Officer at Amazon.com) and the **AWS Community & Builders** in Vietnam on **October 02, 2026**. It captures foundational architectural lessons on distributed systems at planetary scale, the historical genesis of Amazon DynamoDB, the operational resilience of GameDays, the philosophy of "The Renaissance Developer," and the evolving role of software engineers in the Generative AI era.
-{{% /notice %}}
-
-# Executive Summary: "The Renaissance Developer & Building for People" – In Conversation with Dr. Werner Vogels (CTO of Amazon)
-
----
+# Harvest Report: "First Cloud AI Journey" Meetup (October 24, 2026)
 
 ### 📌 Event Overview
 
-* **Event Title:** Fireside Chat with Dr. Werner Vogels: The Renaissance Developer & Building at Scale.
-* **Date & Time:** 09:00 - 10:30, October 02, 2026.
-* **Location:** 26th Floor, Bitexco Financial Tower, 02 Hai Trieu Street, Ben Nghe Ward, District 1, Ho Chi Minh City.
-* **Keynote Speaker:** **Dr. Werner Vogels** – Vice President & Chief Technology Officer (CTO) at Amazon.com.
-* **Moderator / Host:** AWS Community Representatives, AWS Heroes & Community Builders Vietnam.
-* **Audience:** AWS Community Builders, AWS Heroes, cloud architects, industry practitioners, and cloud intern engineers.
-* **Participant Role:** Attendee / Intern Cloud Builder.
+* **Event Name:** First Cloud AI Journey Meetup: Trends & Real-world Practices in Cloud & AI Agent Deployment
+* **Date & Time:** 09:00 – 12:00, Saturday Morning, October 24, 2026
+* **Location:** AWS Vietnam Office, 26th Floor, Bitexco Financial Tower, 02 Hai Trieu Street, Ben Nghe Ward, District 1, Ho Chi Minh City
+* **Organizers:** First Cloud Journey (FCJ) in collaboration with AWS Community Builders and AWS Student Builder Groups
+* **Role:** Attendee & First Cloud Journey Intern
+* **Audience:** Over 100 technology engineers, including Tech Leads, Cloud Solutions Architects, DevOps/Security Engineers from enterprises, AWS Community Builders, alongside passionate students and interns eager to master Cloud Computing and Generative AI Agents.
 
 ---
 
-### 🎯 Key Event Objectives
+### 🎯 Objectives & Expectations
 
-1. **Direct Insights from the Chief Architect of Amazon & AWS:** Uncovering firsthand, authentic engineering retrospectives detailing Amazon’s architectural transition from monolithic systems to decoupled, globally distributed infrastructure.
-2. **Internalizing Amazon's Product Philosophy:** Deep-diving into the **Working Backwards** framework, rigorous tail-latency management at the **99.9th percentile (P99.9)**, and chaos engineering drills (**GameDays**).
-3. **Defining "The Renaissance Developer":** Identifying the indispensable competencies that keep software engineers relevant, resilient, and empowered alongside rapid advancements in Generative AI.
-4. **Bridging Global Cloud Leadership with Local Builder Culture:** Celebrating the vibrant Vietnamese builder ecosystem (*"A nation of builders, and a nation of coffee"*), cultural connection through traditional drip coffee, and fostering professional pride among aspiring engineers.
-
----
-
-### 💡 Core Takeaways Extracted from the Fireside Chat
-
-#### 1. The Genesis of Amazon DynamoDB: Lessons from a Catastrophic Holiday Outage
-
-* **The Historical Bottleneck:** In the early 2000s, Amazon ran a promotional initiative offering free shipping on purchases exceeding $25 with delivery within two weeks. December 12 was the annual Christmas order cutoff date—the highest traffic shopping day of the entire year.
-* **Catastrophic Database Outage:** A shared-disk commercial relational database cluster (RDBMS) storing core customer records encountered a severe concurrency bug under peak load, collapsing completely and remaining unavailable for an entire day. Amazon suffered millions of dollars in lost revenue.
-* **The Candid Retrospective:** When vendor leadership convened with Werner, their initial response was: *"You should have tested better!"* While humbling, the vendor was right: Amazon was deploying commercial relational software far beyond its designed architectural boundaries.
-* **Groundbreaking Access-Pattern Research:** Werner tasked **Swami Sivasubramanian** (then an Amazon intern, currently Vice President of AI at AWS) with auditing Amazon's actual relational database usage patterns:
-  * **70% of access patterns:** Were purely simple **Key-Value** operations (e.g., shopping cart retrieval requiring only a `CustomerID`; nobody was querying complex relational joins like *"list all shopping carts containing a Harry Potter book"*).
-  * **20% of workloads:** Were single-table lookups requiring no relational joins.
-  * **Only 10% of queries:** Truly exercised relational schema capabilities.
-* **The Paradigm Shift:** Using an expensive, monolithic relational engine for predominantly key-value workloads was an anti-pattern. Amazon committed to engineering its own purpose-built distributed storage engine, publishing the foundational **Dynamo paper (2007)**, which paved the way for the fully managed **Amazon DynamoDB** service.
+1. **Explore Production-grade AI Agent Architectures:** Gain deep insights into how industry practitioners combine core AWS cloud infrastructure with modern Generative AI to deploy autonomous agents in production environments.
+2. **Learn Enterprise-level Technical Solutions:** Grasp real-world challenges and concrete technical remedies: optimizing latency for Vietnamese Voice AI, centralized multi-account networking with AWS RAM, automated shift-left security testing with AI Pentesting agents, and context window/memory management.
+3. **Expand Professional Community Networking:** Directly connect and engage with Tech Leads, AWS Community Builders, and senior enterprise engineers to glean career advice and cultivate a mature engineering mindset.
 
 ---
 
-#### 2. Operational Excellence & The Reality of Tail Latency (P99.9)
+### 🎤 In-Depth Technical Sessions Breakdown
 
-* **The Median Latency Fallacy:**
-  * Werner highlighted a common engineering blind spot: Measuring website responsiveness via median latency (e.g., 1.5 seconds) is fundamentally misleading. **A median of 1.5 seconds means that 50% of your customers are experiencing worse performance!**
-  * True operational excellence requires optimizing for the **99.9th Percentile (P99.9)**. Modern cloud architectures must be engineered to compress the entire tail latency distribution, guaranteeing that even the most impacted 0.1% of users experience responsive systems.
-* **GameDays and Chaos Engineering:**
-  * Systems must be architected to withstand losing one or even two data centers (Availability Zones) simultaneously with zero customer disruption.
-  * Amazon instituted regular **GameDays**: Intentionally severing network connectivity or abruptly shutting down an entire data center without prior warning to test real-world failover automation.
-* **The Overlooked Challenge of Recovery & Reconciliation:**
-  * While automated failover to remaining healthy data centers was quickly mastered, the team initially overlooked how to safely **reconcile and bring the recovered data center back online** with consistent state.
-  * *Lesson:* Architecting for failure requires not just surviving outages, but engineering complete, automated data reconciliation pipelines when disrupted infrastructure recovers.
+The meetup delivered condensed, highly actionable technical insights through five curated sessions:
 
----
+#### 1. Session 1: Hear, Think, Speak - Building a Vietnamese Voice-AI Contact Center on AWS
+![Three Voice Agent Architectures](/images/4-EventParticipated/4.2-Event2/event3-to-chuc-5.jpg)
+*Mr. Kiet Tran (Founder & AI Engineer at Revve AI) detailing the architectural nuances between Cascade, Speech-to-Speech (S2S), and Full-duplex S2S voice systems.*
 
-#### 3. Transforming Enterprise Cloud Economics
+* **Speaker:** **Mr. Kiet Tran** – Founder & AI Engineer at Revve AI.
+* **Core Technical Insights:**
+  * **Three Architectural Paradigms for Voice Agents:**
+    1. *Cascade Pipeline:* Serial chaining of ASR (Speech-to-Text) ➔ LLM (Text-to-Text) ➔ TTS (Text-to-Speech). Key advantage: an explicit text checkpoint in the middle enabling strict guardrail enforcement and auditability.
+    2. *Speech-to-Speech (S2S):* A unified speech model (e.g., Amazon Nova 2 Sonic) ingesting raw audio and outputting direct speech. Operates in half-duplex mode: user barge-in immediately interrupts and halts bot audio playback.
+    3. *Full-duplex S2S:* Continuous bidirectional audio streaming (e.g., OpenAI Realtime, Gemini Live), empowering the bot to respond naturally with backchannel interjections ("yes", "uh-huh") and seamless vocal overlap just like human conversation.
+  * **Four Practical Lessons Paid in Production:**
+    * *Vietnamese Tone & Turn Detection Accuracy (79% vs 94%):* Vietnamese acoustic intonation and tone diacritics cause high false cut-off rates under English-centric algorithms ➔ Mandatory requirement to benchmark directly on native Vietnamese audio datasets.
+    * *Raw Number Pronunciation Quirks ("500K" read as abbreviation instead of "five hundred thousand"):* Untreated text fed to TTS engines leads to mispronunciations ➔ Requires a dedicated Text Normalization layer prior to speech synthesis.
+    * *Sentence-level Guardrails (Guard per Sentence):* Streaming output without fine-grained checkpoints risks playing inappropriate opening words to callers (5 out of 6 leak cases). Enforcing an intermediate Small Judge Model to evaluate each sentence before TTS reduced violations to 0 out of 6.
+    * *Latency Budget Management:* Strict constraint to cap total round-trip latency under ~1.8s for smooth conversational flow, mandating a median LLM latency budget between 0.24s and 1.15s (e.g., self-hosted Gemma models).
+* **Live Demo:** Live automated phone call interview screening a candidate for a Cloud Engineer position in natural Vietnamese, demonstrating fluid turn-taking, prompt understanding, and context-aware responses.
 
-* **Disrupting Long-Term Vendor Lock-in:** Werner recalled that in his early years as CTO, vendor negotiations were fraught with predatory 5-to-10-year contracts requiring millions of dollars in upfront capital expenditure (CapEx) before technology was even deployed.
-* **The "Zero-Deposit Restaurant" Analogy:**
-  * Werner analogized traditional IT procurement: Nobody walks into a restaurant in Vietnam and places 500,000 VND on the table before even knowing what food is served.
-  * AWS revolutionized IT by introducing true utility pricing: **Pay-as-you-go**—paying only for actual resource consumption with zero contractual obligations. Customers hold complete freedom to migrate away at any time, forcing cloud providers to continuously deliver operational value daily.
-* **S3's Original Mission:** When Amazon S3 launched in 2006, its tagline was simply *"Storage for the Internet"*—democratizing limitless scale for young web startups rather than catering solely to legacy corporate data centers.
+#### 2. Session 2: AWS Resource Access Manager (RAM) - Create Once, Share Everywhere
+![The Multi-Account Challenge and AWS RAM Solution](/images/4-EventParticipated/4.2-Event2/event3-to-chuc-3.jpg)
+*Mr. Long Huynh (Solutions Engineer at Styl Solution) addressing multi-account infrastructure fragmentation and demonstrating how AWS RAM enables centralized, cost-effective resource sharing.*
 
----
+* **Speaker:** **Mr. Long Huynh** – Solutions Engineer at Styl Solution.
+* **Core Technical Insights:**
+  * **The Multi-Account Challenge:**
+    * In enterprise environments spanning multiple AWS accounts (for different departments, business units, or SDLC stages like Dev, Staging, and Production), duplicating shared network infrastructure (Transit Gateways, VPC Subnets, Route 53 Resolver Rules, License Manager) incurs 3x cost inflation, configuration drift, and decentralized governance.
+  * **The AWS RAM Paradigm:**
+    * Implements the core principle: *"Create once, share securely across the entire organization (AWS Organizations)"*.
+    * Infrastructure is provisioned once within an authoritative Owner Account and shared seamlessly via Resource Shares to Member Accounts.
+    * Consumer Accounts consume these shared assets natively within their own AWS Console interfaces without administrative overhead.
+  * **Dual-layer Governance (IAM Policies combined with SCPs):**
+    * Combines granular IAM Resource-based Policies with organization-wide Service Control Policies (SCPs) to establish immutable permission guardrails, preventing member accounts from altering or bypassing shared network topologies.
 
-#### 4. The Profile of "The Renaissance Developer"
+#### 3. Session 3: AWS Pentest with AWS Continuum / Security Agent
+![Interactive Security Q&A Session](/images/4-EventParticipated/4.2-Event2/event3-to-chuc-4.jpg)
+*Mr. Nguyen Tuan Thinh (Security Engineer at Styl Solution) engaging with audience inquiries regarding autonomous security agents and automated CI/CD pentesting on SIT/UAT.*
 
-Drawing from his landmark AWS re:Invent keynote, Werner elaborated on five vital qualities defining resilient engineering professionals:
+* **Speaker:** **Mr. Nguyen Tuan Thinh** – Security Engineer at Styl Solution.
+* **Core Technical Insights:**
+  * **The Shift-Left Security Philosophy:**
+    * Embedding security verification into the earliest phases of the software development lifecycle (SDLC) rather than treating it as an afterthought before release.
+  * **Automated Infrastructure-as-Code (IaC) Auditing:**
+    * Integrating automated security bots into GitHub and GitLab Pull Request (PR) pipelines.
+    * Performing Static Code Analysis on Terraform scripts to detect vulnerabilities such as unrestricted `0.0.0.0/0` ingress rules, unencrypted EBS volumes/S3 buckets, or overprivileged wildcard IAM policies (`*`) before code is merged.
+  * **Frontier Security Agent:**
+    * Powered by Amazon Bedrock foundation models with autonomous reasoning capabilities to plan and execute comprehensive security evaluations without human intervention.
+    * Acts as an active simulated adversary (Attacker) performing penetration testing against SIT and UAT staging environments to uncover business logic flaws and configuration oversights before production deployment.
 
-1. **Curiosity & Lifelong Learning:**
-   * Tracing his own evolution from Pascal, COBOL, and Assembly to C, C++, Java, Python, and **Rust**, Werner stated that engineers must remain professional students throughout their careers.
-   * Quoting Rear Admiral Grace Hopper: *"The most dangerous phrase in the language is, 'We've always done it this way.'"* Avoid locking your engineering identity into being just a "Java shop" or "Python shop."
-2. **System Thinking:**
-   * Cultivate the ability to see the holistic architectural picture, understanding how discrete distributed services interact rather than narrowing focus to a single microservice or function.
-3. **Communication – The Most Underrated Skill:**
-   * Dispel the cinema stereotype of the isolated programmer coding in a dark basement.
-   * Engineers must excel at bridging customer problems and business objectives. When stakeholders demand *"We need to use AI for this,"* skilled engineers drill down to uncover the underlying challenge, evaluating whether complex models are truly required or if straightforward tools (like Amazon Rekognition) suffice.
-4. **Uncompromising Ownership:**
-   * Core tenet: *"You own what you build."*
-   * Even when utilizing AI tools (Copilot, Claude, Cursor) to generate boilerplate code, any resulting bugs, performance regressions, or security vulnerabilities remain **100% your responsibility**. Engineers cannot abdicate accountability to an AI tool.
-5. **Polymath / T-Shaped Breadth:**
-   * Cultivate deep specialization in a primary domain (e.g., distributed databases) while maintaining sufficient breadth across UI, networking, and business logic to collaborate seamlessly across cross-functional teams.
+#### 4. Session 4: Amazon Bedrock AgentCore - Production Architecture & Dual Memory System
+![MicroVM Architecture and Ephemeral Context](/images/4-EventParticipated/4.2-Event2/event3-to-chuc-1.jpg)
+*Mr. Xuan An (Leader of AWS Student Builder Group HCMUTE) explaining single-session ephemeral MicroVMs on EC2 Spot instances for cost-optimized agent runtimes.*
 
----
+* **Speaker:** **Mr. Xuan An** – Leader of AWS Student Builder Group HCMUTE.
+* **Core Technical Insights:**
+  * **Agent Ecosystem Architecture:** A modular framework harmonizing Application Layer ➔ Agent Runtime (framework, instructions, local tools, context) ➔ Foundation Models.
+  * **Cost-effective Agent Runtime on EC2 Spot Instances:**
+    * Instead of maintaining expensive, long-running servers, the runtime orchestrates lightweight MicroVMs dynamically provisioned on **Amazon EC2 Spot Instances**.
+    * Ephemeral Context Principle: *"Micro lives to serve a single session only"* – Each MicroVM encapsulates session data (Disk and Memory) exclusively for the duration of one user dialogue. Upon session completion, the instance is promptly recycled, slashing operational compute expenses by 70% to 90%.
+  * **Dual-tier Memory System:**
+    * *Short-term Memory:* Synchronous in-session state retention to maintain immediate conversational context.
+    * *Long-term Memory:* Asynchronous post-session extraction of user preferences, core facts, and critical historical decisions into Vector Databases (OpenSearch / Amazon Bedrock Knowledge Bases) to ensure persistent personalization across subsequent interactions.
 
-#### 5. Artificial Intelligence: An Amplifier for Human Ingenuity
+#### 5. Session 5: Kiro Crew - All-In-One AI Companion for Engineers
+![Live Demo of Storage Management & Memory Inspection](/images/4-EventParticipated/4.2-Event2/event3-to-chuc-6.jpg)
+*Mr. Danh Hoang Hieu Nghi (AWS Community Builder) and Mr. Kieu Nguyen Dang Khoa (Tech Lead ACB) demonstrating live developer storage inspection and token breakdown.*
 
-* **AI in Perspective:** Artificial Intelligence is not a novel phenomenon of the last two years; the discipline originated in 1956 with John McCarthy and Marvin Minsky. As McCarthy famously remarked: *"As soon as it works, we don't call it AI anymore"*—it becomes standard search, computer vision, or forecasting algorithms.
-* **AI as a Next-Generation Compiler:**
-  * Traditional compilers take precise, structured programming language code and emit machine code that humans do not need to inspect.
-  * Generative AI operates inversely: It receives imprecise natural language prompts and generates structured source code. Because natural language is inherently ambiguous, AI cannot say *"I don't know"* and will hallucinate. Therefore, **human code reviews and rigorous automated verification are non-negotiable**.
-* **Amazon's "Working Backwards" Framework:**
-  * Long before writing implementation code, teams author a mock **Press Release** and **Customer FAQs (PR/FAQ)**.
-  * Generative AI accelerates early-stage prototyping, compressing weeks of proof-of-concept development into hours.
-* **Human-Centric Technology Philosophy:**
-  > *"We build technology for people, not for technology's sake."*
-  * Technology is ultimately a tool. Enduring engineering value stems from uniquely human traits: **Sound Judgment, Empathy, Intuitive Insight, and Professional Pride**.
-
----
-
-### 🎁 Cultural Highlight: Connecting with the Vietnam Builder Community
-
-* Representatives from the AWS Vietnam Community presented Dr. Werner Vogels with a traditional Vietnamese **Phin Coffee Filter set** paired with premium local coffee beans.
-* Werner enthusiastically shared his appreciation for **"Cà phê sữa đá"** (Vietnamese iced milk coffee) and praised the energy, humility, and technical ambition of Vietnam's growing builder community.
-* Closing message: Take pride in community contributions and empower peers so that the entire tech ecosystem scales collectively.
-
----
-
-### 🚀 Direct Application to Cloud Internship & Engineering Practice
-
-1. **Incorporating P99.9 Tail Latency Benchmarks:** Evaluate deployed architectures beyond simple functional checks by simulating heavy load, tracking percentile metrics via CloudWatch, and calibrating Auto Scaling policies.
-2. **Practicing Multi-AZ Resilience & Disaster Recovery:** Rigorously configure Multi-AZ failover for Amazon RDS and Amazon ElastiCache, while designing explicit data reconciliation procedures for post-incident recovery.
-3. **Rigorous Accountability with AI-Generated Code:** Leverage generative developer tools to amplify productivity while rigorously auditing every generated line of infrastructure-as-code and application logic.
-4. **Honing Technical Communication:** Craft architectural documentation, worklogs, and presentation narratives that are articulate and actionable for both technical and business stakeholders.
-
----
-
-### 📸 Event Photo Highlights & Attendance Proof
-
-Below are on-site photographs captured during the Fireside Chat with Dr. Werner Vogels on the 26th Floor of the Bitexco Financial Tower:
-
-#### 1. Dr. Werner Vogels on the Fireside Chat Stage
-![Fireside chat with Dr. Werner Vogels](/images/4-EventParticipated/4.2-Event2/event2-proof-1.jpg)
-*Figure 1: Dr. Werner Vogels (VP & CTO of Amazon.com) in conversation with Nguyen Gia Hung (Solutions Architect Manager) and My Nguyen (Sr Prototyping Architect, AWS Vietnam) at the 26th Floor, Bitexco.*
-
-#### 2. Community Group Photo with Dr. Werner Vogels
-![Group photo with Dr. Werner Vogels and the AWS Builder Community](/images/4-EventParticipated/4.2-Event2/event2-proof-2.png)
-*Figure 2: Memorable group photo bringing together AWS Heroes, AWS Community Builders, and First Cloud Journey intern engineers alongside Dr. Werner Vogels.*
-
-#### 3. Intern Engineering Cohort at the Event
-![Intern cohort checking in at the AWS Vietnam office](/images/4-EventParticipated/4.2-Event2/event2-proof-3.jpg)
-*Figure 3: First Cloud Journey intern team checking in at the AWS office (26th floor Bitexco) in front of the Amazon Leadership Principle wall "Invent and Simplify".*
+* **Speakers:** **Mr. Kieu Nguyen Dang Khoa** (Technical Lead – Digital Transformation at ACB Bank) & **Mr. Danh Hoang Hieu Nghi** (AWS Community Builder).
+* **Core Technical Insights & Live Demonstrations:**
+  * **24/7 Engineer Companion:** Platform architecture designed to continuously assist software engineers with code reviews, architectural compliance checks, and infrastructure health monitoring.
+  * **Automated Visual UI Artifacts Generation:**
+    * Demonstrating an end-to-end workflow where the agent autonomously crawls real-world tech job market listings, synthesizes key data points, and renders interactive UI chart artifacts directly inside the chat interface.
+  * **Context Window Management Strategies:**
+    * *Auto Compact Mechanism:* Automatically triggered when conversation context reaches 70% – 90% of model token limits, intelligently summarizing earlier dialogue turns to liberate token capacity without dropping conversational coherence.
+    * *Context Breakdown Inspector:* Enables engineers to dissect token consumption across System Prompts, Tool/Function Schemas, Memory, and User Messages, facilitating cost and performance tuning.
+  * **Developer Storage Management & Security Guardrails:**
+    * Selective memory cleanup algorithms targeting stale or unneeded storage keys to avoid database bloat.
+    * Robust Guardrails: Enforcing strict execution policies that prohibit destructive commands (such as terminating core instances or dropping database schemas) and sanitize model responses to prevent secret/credential leakage (`AWS_SECRET_ACCESS_KEY`, API tokens).
 
 ---
 
-> **Retrospective:** Interacting with Dr. Werner Vogels provided invaluable architectural wisdom and deep inspiration, reinforcing the mindset of continuous learning, rigorous engineering ownership, and human-centric cloud innovation.
+### 💡 Key Takeaways & Lessons Learned
+
+1. **FinOps & Latency Budget Trade-offs:**
+   * In Voice AI and real-time agent workflows, every millisecond counts. Model selection (Cascade vs S2S, Cloud APIs vs Self-hosted Open Source) must be strictly governed by latency thresholds and cost-efficiency rather than chasing parameter size blindly.
+2. **Centralized Multi-Account Governance with AWS RAM:**
+   * Enterprise architectures demand centralized resource ownership combined with seamless distributed consumption. Combining AWS RAM with SCPs provides a battle-tested blueprint for scalable multi-account organizations.
+3. **Empowering Security via Autonomous Shift-Left Agents:**
+   * Security testing is evolving from manual periodic audits into automated, agentic CI/CD verifications, identifying infrastructure vulnerabilities before code reaches production environments.
+4. **Mastering Agent Context and Memory Hygiene:**
+   * Implementing dynamic context compaction (Auto Compact) alongside dual-tier memory structures (Short-term vs Long-term) is crucial for delivering highly capable, cost-efficient, and reliable AI systems.
+
+---
+
+### 🚀 Practical Application to FCJ Internship & Cloud Projects
+
+* **Implement Safety Guardrails in Automated Scripts:** Always incorporate pre-flight validation checks and safety boundaries into automated infrastructure scripts to prevent unintended modifications or deletions.
+* **Architect Scalable and Secure Cloud Networking:** Apply learnings regarding VPC Subnet grouping, Route Table isolation, and AWS RAM multi-account sharing to future multi-tier architecture labs in Weeks 6 through 12.
+* **Embrace the Renaissance Developer Mindset:** Actively participate in AWS Community meetups to broaden technical perspectives, bridge the gap between cloud infrastructure and emerging AI agent paradigms, and foster continuous learning.
+
+---
+
+### 📸 Event Photo Gallery & Proof of Attendance
+
+#### 1. Proof of Attendance & Check-in at AWS Vietnam
+![Check-in at First Cloud AI Journey Meetup](/images/4-EventParticipated/4.2-Event2/event3-minh-chung.jpg)
+*Figure 1: Author and fellow First Cloud Journey interns checking in with event badges at the AWS Vietnam Office, 26th Floor, Bitexco Financial Tower.*
+
+#### 2. Group Photos & Event Atmosphere
+![Grand Community Group Photo](/images/4-EventParticipated/4.2-Event2/event3-to-chuc-2.jpg)
+*Figure 2: Memorable group photo capturing over 100 participants, including speakers, organizers, AWS Community Builders, and enthusiastic interns.*
+
+![Closing Waving Ceremony](/images/4-EventParticipated/4.2-Event2/event3-to-chuc-7.jpg)
+*Figure 3: All attendees waving to commemorate an inspiring, high-energy Saturday morning meetup.*
+
+---
+
+> **Conclusion:** The *"First Cloud AI Journey"* Meetup was an extraordinarily enriching experience. Bridging foundational cloud infrastructure with the forefront of generative AI agent development, the event instilled valuable practical knowledge and immense inspiration for aspiring cloud engineers. It reinforced the determination to remain proactive, continuously learn, and confidently progress on the journey to mastering the cloud.

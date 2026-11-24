@@ -6,6 +6,76 @@ File này đóng vai trò là nhật ký ghi nhớ chi tiết (Persistent Memory
 
 ## 🕒 Lịch sử cập nhật bộ nhớ (Memory Update Logs)
 
+### [2026-11-24] Hoàn thiện toàn diện 2-Proposal, 6-Self-Evaluation, 7-Feedback & Tối ưu cấu hình Website
+
+- **Bối cảnh & Yêu cầu:** Người dùng yêu cầu thực hiện toàn bộ các hạng mục cải thiện còn lại trên website báo cáo thực tập.
+- **Thực thi chi tiết:**
+  - **`6-Self-evaluation` (`_index.vi.md` & `_index.md`):** Xóa hộp `notice warning` mẫu; điền đầy đủ thông tin Trần Gia Bảo (Đại học FPT, Công ty TNHH Amazon Web Services Việt Nam, chương trình Workforce Bootcamp - First Cloud AI Journey, 14/09/2026 – 04/12/2026); viết phần đánh giá và bài học rút ra chân thực (bao gồm bài học thực tế về kiểm soát FinOps/Teardown đối với Idle Elastic IP và WAF Web ACL).
+  - **`7-Feedback` (`_index.vi.md` & `_index.md`):** Xóa hộp `notice warning` mẫu; viết mới toàn bộ 6 mục đánh giá chung và trả lời chi tiết các câu hỏi phản hồi, đề xuất checklist FinOps 5 phút cuối ngày và Architecture Clinic.
+  - **`2-Proposal` (`_index.vi.md` & `_index.md`):** Xóa hộp `notice warning` và dòng nhắc mẫu; chuẩn hóa bảng biểu ngân sách, ma trận rủi ro và văn phong kỹ thuật song ngữ, giữ nguyên 2 sơ đồ kiến trúc `edge_architecture.jpeg` và `platform_architecture.jpeg`.
+  - **Đồng bộ trang chủ & cấu hình:** Đồng bộ thời gian thực tập 12 tuần (`14/09/2026 – 04/12/2026`) trên `content/_index.vi.md` và `content/_index.md`; bổ sung `description` trong `config.toml`; dọn dẹp 9 file ảnh thừa `event3-person-1..9.jpg` không sử dụng trong `static/images/4-EventParticipated/4.2-Event2/`.
+
+### [2026-11-24] Chuẩn hóa 3 Event hay nhất (Xóa Event 1 mẫu) & Sửa lỗi trang chủ
+
+- **Bối cảnh & Yêu cầu:** Người dùng đồng ý loại bỏ Event 1 mẫu template, giữ lại 3 sự kiện thực tế xuất sắc nhất đánh số lại `4.1` – `4.3` và rà soát toàn diện các mục còn có thể cải thiện.
+- **Thực thi chi tiết:**
+  - Xóa `content/4-EventParticipated/4.1-Event1` (bài mẫu template 0 ảnh).
+  - Đổi tên & đánh số lại thư mục nội dung + thư mục ảnh `static/images/4-EventParticipated/`:
+    - `4.1-Event1`: Fireside Chat with Dr. Werner Vogels (02/10/2026, 3 ảnh).
+    - `4.2-Event2`: First Cloud AI Journey Meetup (24/10/2026, 8 ảnh).
+    - `4.3-Event3`: FCAJ AgentCore Deep-Dive Workshop (07/11/2026, 11 ảnh).
+  - Cập nhật `content/4-EventParticipated/_index.vi.md` & `_index.md` đồng bộ đúng 3 sự kiện.
+  - Sửa lỗi dính dòng trùng mục lục 6–7–8 tại `content/_index.vi.md`.
+
+### [2026-11-23] Tái cấu trúc & Chia đều Worklog chuẩn 12 Tuần (14/09/2026 – 04/12/2026)
+
+- **Bối cảnh & Yêu cầu:** Người dùng yêu cầu thu gọn Worklog về đúng **12 tuần** và chia đều nội dung bài học trên toàn bộ 12 tuần, không còn dư thừa Tuần 13 & Tuần 14.
+- **Thực thi chi tiết:**
+  - **Bảo toàn 100% Tuần 1–7 (kèm toàn bộ 14 bài lab con và hơn 270 ảnh chụp thực tế):**
+    - Sửa lỗi sai lệch chéo ở Tuần 5 (đánh số mục tiêu Tuần 6: `1.6.3` Tags & Resource Groups, `1.6.4` Grafana), Tuần 6 (tên sự kiện First Cloud AI Journey Meetup & Blog 1 AWS Continuum), Tuần 7 (số ảnh lab 1.7.1: 24 ➔ 20 ảnh, tên Blog 1 AWS Continuum, tên sự kiện Meetup).
+  - **Phân bổ đều toàn bộ nội dung Tuần 8–14 trước đây vào 5 tuần (Tuần 8 – Tuần 12) cả bản `.vi.md` & `.md`:**
+    - **Tuần 8 (02/11 – 06/11):** Hạ tầng dưới dạng mã & Vận hành (CloudFormation 000037, AWS CDK, AWS SSM 000024, AWS Backup 000038).
+    - **Tuần 9 (09/11 – 13/11):** Di trú & Mạng mở rộng lai (7Rs/VM Import 000027/AWS MGN, AWS DMS 000031 & SCT, Transit Gateway, DataSync & Storage Gateway).
+    - **Tuần 10 (16/11 – 20/11):** Serverless hướng sự kiện & Điều phối Container (API Gateway & SQS 000078, SNS/EventBridge & Step Functions, Docker/ECR & ECS Fargate 000067, Amazon EKS 000126).
+    - **Tuần 11 (23/11 – 27/11):** Hồ dữ liệu lớn & Trí tuệ nhân tạo (Lake Formation 000035 & Glue ETL, Athena 000106/Kinesis/QuickSight 000073/Redshift, Bedrock & RAG Knowledge Bases, Bedrock Agents & SageMaker).
+    - **Tuần 12 (30/11 – 04/12):** Hoàn thiện Capstone Project, Slide & Demo, Bảo vệ trước Hội đồng Mentor FCAJ, Cloud Teardown ($0) & Tự đánh giá.
+  - **Dọn dẹp thư mục thừa:** Xóa `content/1-Worklog/1.13-Week13`, `1.14-Week14` và thư mục ảnh rỗng tương ứng; cập nhật trang tổng quan `content/1-Worklog/_index.vi.md` và `_index.md` về đúng 12 tuần.
+
+### [2026-11-17] Tối ưu hóa vị trí và định dạng liên kết tham khảo trong Blog 1 (AWS Continuum)
+
+- **Bối cảnh & Yêu cầu:** Người dùng yêu cầu điều chỉnh các link tham khảo bài viết gốc của AWS và link bài đăng cộng đồng Facebook trong Blog 1: loại bỏ hộp cảnh báo ở đầu bài viết, chuyển toàn bộ xuống cuối trang và trình bày tinh gọn, rõ ràng, trực quan hơn.
+- **Thực thi chi tiết:**
+  - `content/3-BlogsPosted/3.1-Blog1/_index.md`: Bỏ hộp notice đầu trang; thêm mục `### 🔗 References & Community Post` ở cuối trang kèm các bullet point rõ ràng cho link bài đăng tác giả và bài viết gốc từ AWS.
+  - `content/3-BlogsPosted/3.1-Blog1/_index.vi.md`: Bỏ hộp notice đầu trang; thêm mục `### 🔗 Nguồn tham khảo & Bài đăng cộng đồng` ở cuối trang.
+  - **Kiểm định chất lượng:** `hugo --minify` chạy thành công 100% với 0 lỗi trong 1.7 giây.
+
+### [2026-11-17] Thêm Sự kiện 4: FCAJ AgentCore Deep-Dive Workshop (Kiến trúc & Bảo mật AI Agent Cấp Doanh nghiệp trên AWS)
+
+- **Bối cảnh & Yêu cầu:** Người dùng yêu cầu kiểm tra thư mục `D:\tool\AWS\template_AWS\event 4` và bổ sung thành **Event 4** vào chuyên mục `4-EventParticipated/4.4-Event4/`.
+- **Tài nguyên đầu vào & Phân tích chuyên sâu:**
+  - File ghi âm âm thanh `18e4e2c2...Thoại 009.m4a` và ảnh chụp check-in thẻ đeo khách mời tại Bitexco Lầu 26.
+  - 10 slide trình chiếu kỹ thuật chuyên sâu về AgentCore Architecture:
+    1. *The Agenda:* The Gap, The Four Pillars (Security, Scalability, Reliability, Cost), The AWS Answer, The Road Ahead.
+    2. *The Role of Cloud:* Giải quyết 4 trụ cột với AWS Managed Services.
+    3. *The Four Pillars of Agent Security:* Identity & Access Management (IAM), Data Protection (KMS / Encryption at Rest & in Transit), Guardrails (Amazon Bedrock Guardrails), Continuous Observability.
+    4. *AWS Reference Architecture:* Users ➔ Amazon Cognito ➔ ALB ➔ ECS Fargate (Strands Agent Service trong Private Subnet) ➔ Amazon Bedrock (Foundation Models), Amazon DynamoDB, Amazon CloudWatch.
+    5. *AgentCore Memory Architecture:* Phân tầng Short-term session memory vs Long-term memory (Semantic, Episodic, Summarization, User Preferences) với Async Memory Extraction Pipeline.
+    6. *AgentCore Context-Aware Decision:* Quản trị ngữ cảnh, Enterprise Security và Deep Customization.
+    7. *Two-Door Auth Pattern:* "Two different doors. Two different locks" (Inbound Auth vs Outbound Auth).
+    8. *Bedrock AgentCore Gateway:* Cơ chế ủy quyền ứng dụng OAuth2, Token Vault và Workload Access Token (WAT).
+    9. *Universal Skeleton Flow - Step 3:* Agent runs holding WAT.
+    10. *Universal Skeleton Flow - Step 4:* Outbound Auth & Token Exchange - Bedrock AgentCore Gateway đổi WAT lấy Token Outbound gọi sang dịch vụ bên thứ ba.
+- **Thực thi chi tiết:**
+  - **Tổ chức hình ảnh:** Sao chép và chuẩn hóa tên 11 ảnh vào `static/images/4-EventParticipated/4.4-Event4/`:
+    `event4-checkin-group.jpg`, `event4-agenda.jpg`, `event4-the-role-of-cloud.jpg`, `event4-security-pillars.jpg`, `event4-aws-architecture.jpg`, `event4-agentcore-memory-architecture.jpg`, `event4-agentcore-context-aware.jpg`, `event4-inbound-vs-outbound.jpg`, `event4-bedrock-agentcore-gateway.jpg`, `event4-universal-skeleton-step3.jpg`, `event4-universal-skeleton-step4.jpg`.
+  - **Soạn thảo bài viết thu hoạch:**
+    - `content/4-EventParticipated/4.4-Event4/_index.vi.md`: Tiếng Việt kỹ thuật chuyên sâu, bố cục rõ ràng, sơ đồ Mermaid Sequence và Architecture flow, phân tích chi tiết 4 trụ cột, cơ chế 2 cửa xác thực, và bài học rút ra cho Đồ án.
+    - `content/4-EventParticipated/4.4-Event4/_index.md`: Bản dịch kỹ thuật tiếng Anh chuẩn hóa, phân tích chi tiết Bedrock AgentCore Gateway, WAT, và Async Memory Extraction.
+  - **Cập nhật trang tổng quan:**
+    - `content/4-EventParticipated/_index.vi.md` và `content/4-EventParticipated/_index.md`: Cập nhật thành 4 sự kiện, bổ sung thông tin tóm tắt Event 4.
+  - **Tuân thủ quy chuẩn giao diện:** Tiêu đề frontmatter `title: "Event 4"` ngắn gọn để thanh menu sidebar chỉ hiển thị `4.4. Event 4`, không làm tràn dòng.
+  - **Kiểm định chất lượng Hugo:** Build thành công 100% không lỗi (`hugo --minify`), 96 trang EN, 95 trang VI, 544 static files.
+
 ### [2026-11-17] Mở rộng chi tiết & Phân bổ 2 ngày cho chủ đề lớn trong 14 Tuần Worklog
 
 - **Bối cảnh & Yêu cầu:** Người dùng yêu cầu mở rộng nội dung dài ra, sâu hơn về mặt kỹ thuật; đối với các phần bài học lớn/nặng thì phân bổ 2 ngày (chia đều, không nhồi nhét), các phần ngắn giữ 1 ngày, và **mỗi ngày phải ghi rõ chi tiết "Ta học được những gì hôm nay?"** (Khái niệm cốt lõi, Các bước thực thi, Câu lệnh CLI/Mã nguồn SDK, và Khó khăn thực tế & Cách xử lý).

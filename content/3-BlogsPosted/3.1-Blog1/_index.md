@@ -6,11 +6,6 @@ chapter: false
 pre: " <b> 3.1. </b> "
 ---
 
-{{% notice info %}}
-* **Link to Author's Published Community Post:** [View post on Facebook AWS Study Group - First Cloud Journey](https://www.facebook.com/groups/awsstudygroupfcj/posts/2319591015472524/)
-* **Original Article Reference:** [AWS Continuum for code vulnerabilities is now generally available](https://aws.amazon.com/blogs/aws/aws-continuum-for-code-vulnerabilities-is-now-generally-available/) (AWS News Blog — Author: Esra Kayabali, GA: October 22, 2026).
-{{% /notice %}}
-
 ### 1. Background & The DevSecOps Triage Bottleneck
 
 In modern cloud-native development, AI-assisted coding tools have dramatically accelerated development velocity. However, this velocity also causes the volume of reported security vulnerabilities to scale exponentially.
@@ -57,3 +52,8 @@ The release of AWS Continuum for code vulnerabilities represents a pivotal trans
 1. **From Passive Detection to Autonomous Remediation:** Rather than merely routing defect tickets to developers, Continuum actively participates in the development lifecycle by authoring validated, production-ready code patches.
 2. **Eliminating Dev-Sec Friction:** Security teams receive verifiable proof of exploitability, while developers save hours of manual triage, sustaining feature velocity without compromising posture.
 3. **Controlled Frontier AI Adoption:** Continuum demonstrates how agentic AI can automate complex security engineering tasks while maintaining strict human approval boundaries.
+
+---
+
+* **Community Post:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/posts/2319591015472524/)
+* **Original Source:** [AWS News Blog](https://aws.amazon.com/blogs/aws/aws-continuum-for-code-vulnerabilities-is-now-generally-available/)

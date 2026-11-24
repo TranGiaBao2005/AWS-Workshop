@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Tuần 5"
 date: 2026-10-12
 weight: 5
@@ -112,7 +112,10 @@ pre: " <b> 1.5. </b> "
   * Xây dựng giải pháp tự động tắt/bật máy chủ phát triển ngoài giờ làm việc bằng serverless.
   * Lập trình Python Boto3 trên AWS Lambda, tích hợp ChatOps gửi thông báo về kênh Slack qua Incoming Webhooks.
   * Lên lịch kích hoạt định kỳ tự động bằng Amazon EventBridge Scheduler.
-* **Giám sát với Grafana & CloudWatch (1.6.3):**
+* **Quản trị Thẻ định danh & Nhóm tài nguyên với AWS Tags & Resource Groups (1.6.3):**
+  * Chuẩn hóa chiến lược gắn nhãn tài nguyên (Cost Allocation Tags, ABAC) trên Console và tự động hóa bằng AWS CLI.
+  * Khởi tạo AWS Resource Groups (`EnvTest`) để gom nhóm và quản trị tài nguyên tập trung theo thẻ môi trường.
+* **Giám sát với Grafana & CloudWatch (1.6.4):**
   * Triển khai giải pháp giám sát trực quan hóa với Grafana kết nối nguồn dữ liệu Amazon CloudWatch (Workshop 000029 - Getting started with Grafana basic).
   * Xây dựng Dashboard theo dõi các chỉ số hiệu năng và trạng thái hạ tầng hệ thống theo thời gian thực.
 * **Tổng kết Tuần 6, Viết Worklog & Làm Project:** Hệ thống hóa kiến thức giám sát và tối ưu chi phí, hoàn thiện tài liệu và phát triển đồ án thực tập.

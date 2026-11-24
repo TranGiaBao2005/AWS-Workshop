@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Week 6"
 date: 2026-10-19
 weight: 6
@@ -110,7 +110,7 @@ pre: " <b> 1.6. </b> "
   * Master advanced telemetry queries, Metric Math, dynamic search expressions, and dimension properties.
   * Construct multi-channel alerting workflows and analyze complex infrastructure workloads.
 * **Technology Community Event & Deep-Dive Technical Blog:**
-  * Attend the AWS Cloud Practitioner / Solution Day (24/10/2026).
-  * Research and publish Deep-Dive Technical Blog 1 detailing cloud migration and operational optimization.
+  * Attend the **First Cloud AI Journey Meetup** (24/10/2026) at the AWS Vietnam Office (Bitexco Level 26).
+  * Research and publish Deep-Dive Technical **Blog 1** covering **AWS Continuum for Code Vulnerabilities** on the AWS Study Group - First Cloud Journey community.
 * **Week 7 Review, Worklog & Project:** Consolidate advanced observability workflows, polish worklogs, and advance internship project deliverables.
 

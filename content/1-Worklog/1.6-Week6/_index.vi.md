@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Tuần 6"
 date: 2026-10-19
 weight: 6
@@ -110,7 +110,7 @@ pre: " <b> 1.6. </b> "
   * Thực hành các kỹ thuật giám sát nâng cao, cấu hình Metric Math, Search Expressions và thuộc tính động (PROP DimName).
   * Xây dựng hệ thống cảnh báo đa kênh và phân tích tải hệ thống phức tạp.
 * **Tham gia Sự kiện Công nghệ & Đóng góp Bài viết Chuyên môn:**
-  * Tham gia sự kiện công nghệ AWS Cloud Practitioner / Solution Day (24/10/2026).
-  * Nghiên cứu và biên soạn bài viết chuyên sâu Blog 1 về hành trình chuyển dịch đám mây và tối ưu vận hành.
+  * Tham gia sự kiện cộng đồng **First Cloud AI Journey Meetup** (24/10/2026) tại Văn phòng AWS Việt Nam (Bitexco Lầu 26).
+  * Nghiên cứu và xuất bản bài viết chuyên sâu **Blog 1** về **AWS Continuum for Code Vulnerabilities** trên nhóm Facebook AWS Study Group - First Cloud Journey.
 * **Tổng kết Tuần 7, Viết Worklog & Làm Project:** Hệ thống hóa toàn bộ kiến thức, hoàn thiện bài viết và tiếp tục đẩy mạnh đề xuất đồ án.
 

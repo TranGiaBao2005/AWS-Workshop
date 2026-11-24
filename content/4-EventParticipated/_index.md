@@ -6,20 +6,9 @@ chapter: false
 pre: " <b> 4. </b> "
 ---
 
-During my internship, I participated in three events. Each one was a memorable experience that provided new, interesting, and useful knowledge, along with gifts and wonderful moments.
+During my internship, I attended three major technical events in person at the AWS Vietnam Office (Bitexco Financial Tower). Each session delivered practical architectural insights, deep technical lessons across Cloud Computing & AI Agents, and meaningful networking with the AWS Builders community.
 
 ### [Event 1](4.1-Event1/)  
-&emsp;**Event Name:** GenAI-powered App-DB Modernization workshop  
-
-&emsp;**Date & Time:** 09:00, August 13, 2025  
-
-&emsp;**Location:** 26th Floor, Bitexco Tower, 02 Hai Trieu Street, Saigon Ward, Ho Chi Minh City  
-
-&emsp;**Role:** Attendee  
-
----
-
-### [Event 2](4.2-Event2/)  
 &emsp;**Event Name:** Fireside Chat with Dr. Werner Vogels: The Renaissance Developer & Building at Scale  
 
 &emsp;**Date & Time:** 09:00, October 02, 2026  
@@ -32,7 +21,7 @@ During my internship, I participated in three events. Each one was a memorable e
 
 ---
 
-### [Event 3](4.3-Event3/)  
+### [Event 2](4.2-Event2/)  
 &emsp;**Event Name:** First Cloud AI Journey Meetup: Trends & Real-world Practices in Cloud & AI Agent Deployment  
 
 &emsp;**Date & Time:** 09:00, October 24, 2026  
@@ -43,3 +32,15 @@ During my internship, I participated in three events. Each one was a memorable e
 
 &emsp;**Role:** Attendee  
 
+---
+
+### [Event 3](4.3-Event3/)  
+&emsp;**Event Name:** FCAJ Deep-Dive Workshop: Enterprise AI Agent Architecture, Memory & Security on AWS  
+
+&emsp;**Date & Time:** 09:00, November 07, 2026  
+
+&emsp;**Location:** 26th Floor, Bitexco Financial Tower, 02 Hai Trieu Street, Ben Nghe Ward, District 1, Ho Chi Minh City  
+
+&emsp;**Focus Topics:** AgentCore Tiered Memory Architecture (Short-term/Long-term), Inbound vs Outbound Two-Door Auth Pattern, and Bedrock AgentCore Gateway  
+
+&emsp;**Role:** Attendee & Intern Builder

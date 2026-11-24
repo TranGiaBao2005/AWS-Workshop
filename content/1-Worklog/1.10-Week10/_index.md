@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Week 10"
 date: 2026-11-16
 weight: 10
@@ -8,96 +8,96 @@ pre: " <b> 1.10. </b> "
 
 ![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
-### Week 10 Objectives:
+### Objectives for Week 10:
 
-- Master the **Event-Driven Architecture (EDA)** paradigm and modern asynchronous distributed design patterns on AWS.
-- Architect, manage, and harden production-grade API endpoints using **Amazon API Gateway** (RESTful APIs, HTTP APIs, custom Lambda Authorizers, traffic shaping with Throttling & Usage Plans).
-- Implement service decoupling and load-leveling buffers using resilient queues via **Amazon Simple Queue Service (Amazon SQS)** (Workshop 000078), performing deep-dive architectural comparisons between Standard and FIFO queues while isolating malformed payloads via Dead-Letter Queues (DLQ).
-- Establish pub/sub broadcasting and intelligent cross-domain event routing via **Amazon SNS** and **Amazon EventBridge**.
-- Orchestrate resilient, distributed business state machines with automated error catching and retries using **AWS Step Functions**.
-- Dedicate Friday to synthesizing technical competencies, finalizing bilingual Worklog documentation, and embedding asynchronous messaging pipelines into the **Capstone Project Proposal**.
+- Master **Serverless & Event-Driven Architecture (EDA)** with **Amazon API Gateway**, **Amazon SQS** (Workshop 000078), **Amazon SNS**, **Amazon EventBridge**, and **AWS Step Functions**.
+- Standardize container packaging using **Docker Multi-Stage Builds**, secure private registries in **Amazon ECR**, and run serverless microservices on **Amazon ECS Fargate** (Workshop 000067).
+- Provision and autoscale enterprise Kubernetes workloads on **Amazon EKS** (Workshop 000126) with `eksctl`, IRSA, AWS Load Balancer Controller, and Horizontal Pod Autoscaler (HPA).
+- Dedicate Friday to consolidating weekly learnings, updating bilingual Worklogs, tearing down test clusters, and integrating decoupled messaging and containerization into the Capstone Project.
 
 ---
 
-### Tasks to be Carried Out This Week:
+### Tasks to be implemented this week:
 
 | Day | Task | Start Date | Completion Date | Reference Material |
 | :--- | :--- | :---: | :---: | :--- |
-| **Monday** | **Enterprise API Management & Hardening with API Gateway:** <br>- Comparing REST APIs vs HTTP APIs (features, latency profiles, unit economics). <br>- Configuring resources, HTTP methods, CORS policies, and direct Lambda integrations. <br>- Authoring custom Lambda Authorizers to validate JSON Web Tokens (JWT). <br>- Implementing Usage Plans, API Keys, and Token Bucket rate limiting. | 11/16/2026 | 11/16/2026 | [Cloud Journey - Modernize](https://cloudjourney.awsfcaj.com/4-modernize/) |
-| **Tuesday** | **System Decoupling & Asynchronous Queuing with Amazon SQS:** <br>- Evaluating high-throughput Standard Queues vs strictly ordered FIFO Queues. <br>- Optimizing poll efficiency and reducing costs via Long Polling (`ReceiveMessageWaitTimeSeconds = 20s`). <br>- Tuning Visibility Timeout parameters to prevent concurrent duplicate message processing. <br>- Establishing Dead-Letter Queues (DLQ) with redrive policies for fault isolation. | 11/17/2026 | 11/17/2026 | [Serverless Workshop (000078)](https://000078.awsfcaj.com/) |
-| **Wednesday** | **Pub/Sub Messaging & Event Orchestration with SNS & EventBridge:** <br>- Constructing the Fanout pattern: Subscribing multiple independent SQS queues to one SNS topic. <br>- Deploying default and custom event buses within Amazon EventBridge. <br>- Crafting declarative JSON event patterns to filter and route events based on payload attributes. | 11/18/2026 | 11/18/2026 | [Cloud Journey - Modernize](https://cloudjourney.awsfcaj.com/4-modernize/) |
-| **Thursday** | **Distributed Workflow Orchestration with AWS Step Functions:** <br>- Visualizing state machines in Workflow Studio using Amazon States Language (ASL). <br>- Combining Task, Choice (branching logic), Parallel, and Wait states. <br>- Configuring automated fault resilience with exponential backoff retries and catch blocks. | 11/19/2026 | 11/19/2026 | [Cloud Journey - Modernize](https://cloudjourney.awsfcaj.com/4-modernize/) |
-| **Friday** | **Week 10 Review, Worklog Completion & Project Work:** <br>- **Knowledge Review:** Consolidate API Gateway, SQS queues, SNS topics, EventBridge, and Step Functions. <br>- **Worklog Completion:** Finalize bilingual Week 10 documentation and teardown lab resources. <br>- **Project Work:** Integrate asynchronous SQS buffering and Step Functions orchestration into the Capstone Proposal. | 11/20/2026 | 11/20/2026 | [FCAJ Roadmap](https://cloudjourney.awsfcaj.com/) |
+| **Monday** | **Amazon API Gateway & Workload Decoupling with Amazon SQS:** <br>- Compare REST API vs HTTP API; configure CORS, Lambda JWT Authorizers, and Token Bucket Throttling. <br>- Deploy Standard vs FIFO SQS queues and reduce polling costs using Long Polling (`20s`). <br>- Configure Visibility Timeout and Dead-Letter Queues (DLQ) with Redrive Policies. | 16/11/2026 | 16/11/2026 | [Serverless Workshop (000078)](https://000078.awsfcaj.com/) |
+| **Tuesday** | **Pub/Sub Routing (SNS/EventBridge) & AWS Step Functions:** <br>- Build a Fanout architecture fanning one SNS Topic to multiple independent SQS Queues. <br>- Configure Amazon EventBridge Event Buses with JSON Event Pattern Filtering rules. <br>- Design State Machines in Workflow Studio combining Task, Choice, Parallel, and Retry/Catch logic. | 17/11/2026 | 17/11/2026 | [Cloud Journey - Modernize](https://cloudjourney.awsfcaj.com/4-modernize/) |
+| **Wednesday** | **Docker Multi-Stage, Amazon ECR & Amazon ECS Fargate:** <br>- Author optimized Multi-Stage Dockerfiles running under a non-root user. <br>- Push images to private Amazon ECR with Lifecycle Policies and CVE Scan on Push. <br>- Deploy ECS Fargate Services behind an ALB and verify Zero-Downtime Rolling Updates. | 18/11/2026 | 18/11/2026 | [ECS Workshop (000067)](https://000067.awsfcaj.com/) |
+| **Thursday** | **Enterprise Kubernetes Orchestration with Amazon EKS:** <br>- Provision an Amazon EKS cluster and Managed Node Groups via `eksctl` and configure `kubeconfig`. <br>- Enable IAM OIDC Provider for pod-level least-privilege permissions (IRSA). <br>- Install AWS Load Balancer Controller (ALB Ingress), Metrics Server, and configure HPA pod scaling. | 19/11/2026 | 19/11/2026 | [Amazon EKS Workshop (000126)](https://000126.awsfcaj.com/) |
+| **Friday** | **Week 10 Review, Worklog & Project:** <br>- **Knowledge Synthesis:** Consolidate Serverless EDA and Container Orchestration (ECS/EKS) patterns. <br>- **Worklog & Cleanup:** Finalize bilingual Week 10 entries and delete EKS/ECS test clusters. <br>- **Capstone Project:** Integrate async SQS decoupling and containerize backend services in ECR. | 20/11/2026 | 20/11/2026 | [FCAJ Roadmap](https://cloudjourney.awsfcaj.com/) |
 
 ---
 
-### Daily In-Depth Learning Outcomes & Key Takeaways:
+### Daily Learning Details & Results:
 
-#### 📌 Monday (11/16/2026) - Enterprise API Hardening via Amazon API Gateway
+#### 📌 Monday (16/11/2026) - Hardening Amazon API Gateway & Decoupling with Amazon SQS
 
-* **What did we learn today?**
-  * **Architectural Trade-Offs: REST API vs HTTP API:**
-    * *HTTP API:* Optimized for sub-millisecond overhead (up to 60% latency reduction), streamlined configuration, and over 70% cost savings compared to REST APIs, with native OIDC/OAuth2 authorization support.
-    * *REST API:* Feature-complete enterprise gateway supporting Usage Plans, API Keys, request/response data mapping templates, AWS WAF integration, and private VPC interface endpoints.
-  * **Token Authentication with Lambda Custom Authorizers:** Developed a serverless authorizer inspecting incoming `Authorization: Bearer <JWT>` headers. The function validates cryptographic signatures, generating an IAM policy document (`Effect: Allow`) granting resource execution only upon successful token validation.
-  * **Traffic Shaping & Throttling Guards:** Implemented the token bucket algorithm enforcing a steady-state rate limit of 100 requests/sec with a burst buffer of 200 requests. When requests exceed limits, the gateway returns HTTP `429 Too Many Requests`, safeguarding downstream database connections.
-* **Encountered Challenges & Solutions:**
-  * *Browser CORS Restrictions:* Frontend single-page applications were blocked by browser cross-origin security. Root cause: Missing `OPTIONS` pre-flight handlers and CORS headers. Solution: Enabled CORS on the API Gateway console, ensuring standard headers (`Access-Control-Allow-Origin: '*'`, `Access-Control-Allow-Headers: 'Content-Type,Authorization'`) were injected into all response schemas.
+* **What did I learn today?**
+  * **Amazon API Gateway (REST vs HTTP API):** HTTP API delivers lower latency and >70% cost savings for lightweight microservices, while REST API provides Usage Plans, API Keys, WAF integration, and Private Endpoints. Implemented a Lambda Custom Authorizer for JWT validation and configured Rate/Burst Throttling.
+  * **Asynchronous Decoupling with Amazon SQS:** Contrasted Standard Queues (*at-least-once*, near-unlimited throughput) with FIFO Queues (*exactly-once*, ordered per `MessageGroupId`). Configured Long Polling (`ReceiveMessageWaitTimeSeconds = 20`), `VisibilityTimeout = 30s`, and a DLQ Redrive Policy (`maxReceiveCount = 3`).
+* **Challenges & Resolutions:**
+  * *Browser CORS rejections & duplicate worker processing:* Enabled `OPTIONS` preflight methods with explicit `Access-Control-Allow-*` headers on API Gateway, and called `change_message_visibility` dynamically for long-running jobs exceeding 30s.
 
 ---
 
-#### 📌 Tuesday (11/17/2026) - Decoupling & Reliable Queuing with Amazon SQS
+#### 📌 Tuesday (17/11/2026) - Amazon SNS Fanout, EventBridge & AWS Step Functions
 
-* **What did we learn today?**
-  * **Comparing Core Message Queue Modalities:**
-    * *Standard Queue:* Provides virtually limitless transactional throughput and at-least-once delivery semantics, suitable for decoupled workloads tolerant of occasional out-of-order execution.
-    * *FIFO Queue:* Strictly enforces first-in, first-out ordering and exactly-once processing using `MessageDeduplicationId` hashes and logical serialization via `MessageGroupId`.
-  * **FinOps Optimization with Long Polling:** Replaced Short Polling with Long Polling (`ReceiveMessageWaitTimeSeconds = 20`), keeping connections open until messages arrive, eliminating millions of empty empty-receive API calls and slashing SQS billable requests by over 80%.
-  * **Visibility Timeout Management:** Tuned `VisibilityTimeout = 30s`. When Worker A leases a message, it is hidden from other concurrent workers. If Worker A succeeds, it issues `delete_message`. If the worker crashes, the message reappears after 30 seconds for Worker B, ensuring zero message loss.
-  * **Fault Isolation with Dead-Letter Queues (DLQ):** Attached `orders-dlq` to the main queue with `maxReceiveCount = 3`. Malformed payloads causing processing exceptions are automatically moved to the DLQ after 3 failed attempts, keeping the main processing line unblocked.
-* **Encountered Challenges & Solutions:**
-  * *Duplicate Processing from Premature Visibility Expiry:* Heavy worker tasks taking 45 seconds caused SQS to assume worker failure at the 30-second mark, redelivering the message to a second worker and generating duplicate database writes. Solution: Implemented heartbeat calls inside the worker logic invoking `change_message_visibility` to extend the processing lease dynamically.
-
----
-
-#### 📌 Wednesday (11/18/2026) - Event Distribution with Amazon SNS & EventBridge
-
-* **What did we learn today?**
-  * **The Fanout Distribution Topology:** Created an Amazon SNS Topic `order-created-topic` with three independent SQS queue subscribers (`billing-queue`, `inventory-queue`, and `shipping-queue`). A single published order event fans out concurrently, allowing all three domains to process payloads in parallel without knowing about each other.
-  * **Enterprise Event Bus via Amazon EventBridge:** Explored the structural advantages of EventBridge for content-based message filtering directly on incoming JSON payload keys.
-  * **Declarative Filtering Rules:** Authored an Event Pattern rule to route high-value transactions ($1,000+) directly into an accelerated audit workflow:
+* **What did I learn today?**
+  * **SNS Fanout & EventBridge Content Filtering:** Subscribed multiple SQS queues to a single SNS Topic for parallel downstream processing, and configured JSON content-based EventBridge routing rules:
     ```json
     {
-      "source": ["ecommerce.orders"],
-      "detail-type": ["OrderCreated"],
-      "detail": {
-        "amount": [{ "numeric": [">=", 1000] }]
-      }
+      "source": ["app.events"],
+      "detail-type": ["JobSubmitted"],
+      "detail": { "priority": ["HIGH"] }
     }
     ```
-* **Encountered Challenges & Solutions:**
-  * *SQS Subscribers Not Receiving SNS Messages:* Subscriptions were active but subscriber queues remained empty. Root cause: SQS queue Access Policies lacked explicit permissions allowing the SNS Topic ARN to perform `sqs:SendMessage`. Solution: Updated the SQS resource-based access policy to authorize the SNS topic principal.
+  * **Workflow Orchestration with AWS Step Functions:** Built Amazon States Language (ASL) workflows combining `Task`, `Choice`, and `Parallel` states with exponential backoff `Retry` (`BackoffRate = 2.0`) and `Catch` compensating branches.
+* **Challenges & Resolutions:**
+  * *Empty SQS queues after SNS publish & state payload mismatches:* Granted `sqs:SendMessage` to the SNS Topic ARN in the SQS Access Policy, and applied `InputPath`, `ResultPath`, and `OutputPath` JSONPath filters between Step Functions states.
 
 ---
 
-#### 📌 Thursday (11/19/2026) - Visual Workflow Orchestration with AWS Step Functions
+#### 📌 Wednesday (18/11/2026) - Docker Multi-Stage, Amazon ECR & Amazon ECS Fargate
 
-* **What did we learn today?**
-  * **Declarative State Machines via Workflow Studio:** Decoupled business orchestration logic from application runtimes, modeling workflows using the Amazon States Language (ASL).
-  * **State Flow Coordination:**
-    * *Task State:* Invokes AWS Lambda functions or publishes messages to Amazon SQS.
-    * *Choice State:* Evaluates branching logic based on runtime JSON values (e.g., verifying customer account balances).
-    * *Parallel State:* Concurrently executes independent sub-workflows (e.g., triggering billing and dispatching email notifications simultaneously).
-  * **Resilience & Fault Recovery:** Integrated automated `Retry` blocks configured with exponential backoff (`BackoffRate = 2.0`), coupled with `Catch` handlers to initiate compensating transaction rollbacks when encountering unrecoverable errors.
-* **Encountered Challenges & Solutions:**
-  * *State Input/Output JSON Path Mismatches:* State executions failed because previous Lambda responses returned deeply nested structures, causing subsequent Choice states to evaluate empty paths. Solution: Standardized state contracts using JSONPath filters: `InputPath`, `ResultPath`, and `OutputPath` to shape payloads cleanly across state transitions.
+* **What did I learn today?**
+  * **Lean Container Builds & Amazon ECR:** Separated compile-time dependencies (`builder` stage) from minimal runtime images (`alpine`/`distroless`) with `USER appuser` (non-root), shrinking image size and attack surface while enabling ECR Lifecycle Policies and `Scan on Push`.
+    ```bash
+    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 887086382708.dkr.ecr.us-east-1.amazonaws.com
+    docker build -t fcaj/backend-api:v1.0 .
+    docker tag fcaj/backend-api:v1.0 887086382708.dkr.ecr.us-east-1.amazonaws.com/fcaj/backend-api:v1.0
+    docker push 887086382708.dkr.ecr.us-east-1.amazonaws.com/fcaj/backend-api:v1.0
+    ```
+  * **Serverless Containers on Amazon ECS Fargate:** Strictly separated the `Task Execution Role` (ECR pulls & CloudWatch log delivery) from the `Task Role` (application AWS permissions), deploying behind an ALB with `Minimum healthy percent = 100%` and `Maximum percent = 200%` for zero-downtime rolling updates.
+* **Challenges & Resolutions:**
+  * *`CannotPullContainerError` inside Private Subnets:* Verified NAT Gateway routes or provisioned VPC Interface/Gateway Endpoints (`ecr.api`, `ecr.dkr`, `s3`) so Fargate tasks pull private images reliably.
 
 ---
 
-#### 📌 Friday (11/20/2026) - Week 10 Review, Worklog Finalization & Capstone Architecture Integration
+#### 📌 Thursday (19/11/2026) - Enterprise Kubernetes Orchestration with Amazon EKS
 
-* **What did we learn today?**
-  * **Serverless Architectural Synthesis:** Connected the end-to-end event-driven chain: client ingestion (API Gateway) ➔ load leveling (SQS) ➔ event fanout (SNS/EventBridge) ➔ resilient business orchestration (Step Functions).
-  * **Clean Teardown Practices:** Terminated temporary Step Functions state machines, deleted experimental SQS queues, and detached test API Gateway endpoints to avoid ongoing account charges.
-  * **Graduation Capstone Integration:** Architected asynchronous order ingestion and transaction processing state machines for the Capstone Project, eliminating synchronous inter-service blocking and single points of failure.
+* **What did I learn today?**
+  * **EKS Provisioning & IRSA Least Privilege:** Provisioned an EKS cluster with Managed Node Groups via `eksctl` and enabled IAM OIDC Provider to bind scoped IAM Roles directly to Kubernetes `ServiceAccount` objects (IRSA) instead of over-privileged node roles.
+    ```bash
+    eksctl create cluster --name fcaj-eks-cluster --region us-east-1 --nodegroup-name standard-workers --node-type t3.medium --nodes 2
+    kubectl autoscale deployment web-backend --cpu-percent=70 --min=2 --max=10
+    ```
+  * **ALB Ingress & Horizontal Pod Autoscaler (HPA):** Installed the **AWS Load Balancer Controller** via Helm to reconcile Kubernetes Ingress resources into ALBs, paired with Metrics Server and HPA to scale pods dynamically based on CPU thresholds.
+* **Challenges & Resolutions:**
+  * *Ingress remained without an external ALB `ADDRESS`:* Added mandatory discovery tags `kubernetes.io/role/elb = 1` on public subnets and `kubernetes.io/role/internal-elb = 1` on private subnets.
 
+---
+
+#### 📌 Friday (20/11/2026) - Week 10 Review, Worklog & Capstone Containerization
+
+* **What did I learn today?**
+  * **Modern Distributed Architecture Synthesis:** Bridged asynchronous event-driven patterns (API Gateway, SQS, SNS, EventBridge, Step Functions) with portable container platforms (ECR, ECS Fargate, EKS).
+  * **High-Cost Cluster Teardown:** Executed `eksctl delete cluster` immediately after lab verification to avoid ongoing EKS Control Plane charges ($0.10/hour) and removed test ALBs/ECS services.
+  * **Capstone Project Progress:** Designed asynchronous queue decoupling and packaged backend application images for Amazon ECR.
+
+---
+
+### Next Week's Objectives (Week 11):
+
+- **Big Data Analytics & Data Lakes:** AWS Lake Formation (000035), AWS Glue ETL (Parquet), Amazon Athena (000106), Kinesis, QuickSight (000073), and Redshift.
+- **Generative AI & MLOps on AWS:** Amazon Bedrock Foundation Models, RAG Knowledge Bases, Bedrock Agents, and Amazon SageMaker.
