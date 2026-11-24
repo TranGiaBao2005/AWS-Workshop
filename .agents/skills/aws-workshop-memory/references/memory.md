@@ -6,6 +6,13 @@ File này đóng vai trò là nhật ký ghi nhớ chi tiết (Persistent Memory
 
 ## 🕒 Lịch sử cập nhật bộ nhớ (Memory Update Logs)
 
+### [2026-11-24] Gộp toàn bộ các trang lab con (1.3.1 – 1.7.1) trực tiếp vào từng Tuần Worklog & Xóa mũi tên menu con
+
+- **Bối cảnh & Yêu cầu:** Người dùng yêu cầu gộp toàn bộ các tiêu đề/trang con trong Worklog (`1.3.1`, `1.4.1–1.4.4`, `1.5.1–1.5.4`, `1.6.1–1.6.4`, `1.7.1`) vào thẳng trang tuần tương ứng (`Tuần 3` – `Tuần 7`) và bỏ mũi tên xổ tiêu đề con ở thanh menu bên trái.
+- **Thực thi chi tiết:**
+  - Hợp nhất 100% nội dung chi tiết, bảng thông số, mã nguồn và hơn 270 hình ảnh minh chứng của 28 file lab con (`.vi.md` & `.md`) trực tiếp vào đúng từng ngày tương ứng trong `1.3-Week3/_index.*` đến `1.7-Week7/_index.*`.
+  - Xóa 28 file trang con rời rạc và các thư mục build cũ trong `public/`, giúp mỗi tuần từ `1.1-Week1` đến `1.12-Week12` chỉ có duy nhất cặp `_index.vi.md` & `_index.md` (`$numberOfPages = 0`), tự động loại bỏ hoàn toàn mũi tên `submenu-toggle-arrow` và danh sách con trên sidebar của Worklog.
+
 ### [2026-11-24] Hoàn thiện toàn diện 2-Proposal, 6-Self-Evaluation, 7-Feedback & Tối ưu cấu hình Website
 
 - **Bối cảnh & Yêu cầu:** Người dùng yêu cầu thực hiện toàn bộ các hạng mục cải thiện còn lại trên website báo cáo thực tập.
