@@ -58,11 +58,11 @@
                       {{ $selected := false }}
                       {{ if eq $pageLang .Lang}}
                         <option id="{{ $translation.Language }}" value="{{ $translation.Permalink }}" selected>
-                          {{ or .LanguageName .Label (cond (eq .Lang "vi") "Tiếng Việt" "English") }}
+                          {{ if eq .Lang "vi" }}Tiếng Việt{{ else }}English{{ end }}
                         </option>
                       {{ else }}
                         <option id="{{ $translation.Language }}" value="{{ $translation.Permalink }}">
-                          {{ or .LanguageName .Label (cond (eq .Lang "vi") "Tiếng Việt" "English") }}
+                          {{ if eq .Lang "vi" }}Tiếng Việt{{ else }}English{{ end }}
                         </option>
                       {{ end }}
                     {{ end }}
