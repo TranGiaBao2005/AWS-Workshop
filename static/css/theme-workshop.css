@@ -295,6 +295,15 @@ div.notices.info p {
   box-sizing: border-box !important;
 }
 
+#sidebar #prefooter ul li a,
+#sidebar #shortcuts ul li a {
+  gap: 8px !important;
+}
+
+#sidebar #prefooter .select-style {
+  margin-left: 2px !important;
+}
+
 #sidebar ul.topics li a .menu-item-text,
 #sidebar ul li a .menu-item-text {
   flex: 1 1 auto !important;
