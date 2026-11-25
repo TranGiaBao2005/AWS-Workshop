@@ -30,10 +30,10 @@ languageName = "English"
 label = "English"
 
 [[Languages.en.menu.shortcuts]]
-name = "<i class='fab fa-aws'></i> First Cloud Journey - Portal"
-identifier = "AWS Study Group"
-url = "https://cloudjourney.awsfcaj.com"
-weight = 20
+name = "<i class='fab fa-aws'></i> AWS"
+identifier = "AWS Official"
+url = "https://aws.amazon.com/"
+weight = 10
 
 [[Languages.en.menu.shortcuts]]
 name = "<i class='fab fa-facebook'></i> AWS Study Group - FB Group"
@@ -48,10 +48,10 @@ languageName = "Tiếng Việt"
 label = "Tiếng Việt"
 
 [[Languages.vi.menu.shortcuts]]
-name = "<i class='fab fa-aws'></i> First Cloud Journey - Lộ trình"
-identifier = "AWS Study Group"
-url = "https://cloudjourney.awsfcaj.com"
-weight = 20
+name = "<i class='fab fa-aws'></i> AWS"
+identifier = "AWS Official"
+url = "https://aws.amazon.com/"
+weight = 10
 
 [[Languages.vi.menu.shortcuts]]
 name = "<i class='fab fa-facebook'></i> AWS Study Group - Nhóm FB"
