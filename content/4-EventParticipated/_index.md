@@ -19,6 +19,8 @@ During my internship, I attended three major technical events in person at the A
 
 &emsp;**Role:** Attendee  
 
+&emsp;**Event Link:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/posts/2293508058080820/)  
+
 ---
 
 ### [Event 2](4.2-Event2/)  
@@ -32,15 +34,19 @@ During my internship, I attended three major technical events in person at the A
 
 &emsp;**Role:** Attendee  
 
+&emsp;**Event Link:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2315876889177270/)  
+
 ---
 
 ### [Event 3](4.3-Event3/)  
 &emsp;**Event Name:** FCAJ Deep-Dive Workshop: Enterprise AI Agent Architecture, Memory & Security on AWS  
 
-&emsp;**Date & Time:** 09:00, November 07, 2026  
+&emsp;**Date & Time:** 09:00, November 14, 2026  
 
 &emsp;**Location:** 26th Floor, Bitexco Financial Tower, 02 Hai Trieu Street, Ben Nghe Ward, District 1, Ho Chi Minh City  
 
 &emsp;**Focus Topics:** AgentCore Tiered Memory Architecture (Short-term/Long-term), Inbound vs Outbound Two-Door Auth Pattern, and Bedrock AgentCore Gateway  
 
-&emsp;**Role:** Attendee & Intern Builder
+&emsp;**Role:** Attendee & Intern Builder  
+
+&emsp;**Event Link:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2340764136688545/)

@@ -1,4 +1,4 @@
----
+﻿---
 title: "Tuần 8"
 date: 2026-11-02
 weight: 8
@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.8. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Mục tiêu tuần 8:
 
@@ -102,3 +101,4 @@ pre: " <b> 1.8. </b> "
 
 * **Di trú hạ tầng & CSDL (Cloud Migration):** Áp dụng khung 7Rs, thực hành VM Import/Export (000027), AWS MGN, AWS DMS (000031) & SCT.
 * **Mạng mở rộng lai & Lưu trữ khối lớn:** Triển khai AWS Transit Gateway (Hub-and-Spoke), AWS DataSync và AWS Storage Gateway.
+

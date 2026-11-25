@@ -145,3 +145,7 @@ Below are on-site photographs captured during the Fireside Chat with Dr. Werner 
 ---
 
 > **Retrospective:** Interacting with Dr. Werner Vogels provided invaluable architectural wisdom and deep inspiration, reinforcing the mindset of continuous learning, rigorous engineering ownership, and human-centric cloud innovation.
+
+---
+
+* **Event Community Post:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/posts/2293508058080820/)

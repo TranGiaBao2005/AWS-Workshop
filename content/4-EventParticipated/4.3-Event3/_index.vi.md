@@ -1,6 +1,6 @@
 ---
 title: "Event 3"
-date: 2026-11-07
+date: 2026-11-14
 weight: 3
 chapter: false
 pre: " <b> 4.3. </b> "
@@ -11,7 +11,7 @@ pre: " <b> 4.3. </b> "
 ### 📌 Thông Tin Tổng Quan Sự Kiện
 
 * **Tên sự kiện:** FCAJ Deep-Dive Workshop: Enterprise AI Agent Architecture, Memory & Security on AWS.
-* **Thời gian tổ chức:** 09:00 – 12:00, Ngày 07/11/2026.
+* **Thời gian tổ chức:** 09:00 – 12:00, Ngày 14/11/2026.
 * **Địa điểm:** Văn phòng AWS Việt Nam, Lầu 26, Tòa nhà Bitexco Financial Tower, số 02 Hải Triều, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh.
 * **Đơn vị tổ chức:** First Cloud Journey (FCJ) phối hợp cùng AWS Community Builders.
 * **Thành phần tham dự:** Các chuyên gia giải pháp đám mây, Tech Lead doanh nghiệp, các Mentor AWS cùng toàn thể thực tập sinh Cloud & AI Agent thuộc chương trình First Cloud AI Journey.
@@ -129,3 +129,7 @@ Một trong những hạn chế lớn nhất của Agent hiện nay là "hay qu�
 
 ![Check-in sự kiện AgentCore tại văn phòng AWS Bitexco](/images/4-EventParticipated/4.3-Event3/event4-checkin-group.jpg)
 *Hình 1: Tác giả cùng các bạn thực tập sinh First Cloud Journey tại hội trường văn phòng AWS Việt Nam, Lầu 26 Tòa nhà Bitexco Financial Tower.*
+
+---
+
+* **Link bài đăng sự kiện:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2340764136688545/)

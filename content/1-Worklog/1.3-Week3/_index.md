@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.3. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Week 3 Objectives:
 
@@ -361,5 +360,6 @@ Through the **Deploying Relational Databases with Amazon RDS** lab, the intern h
   * **Foundational Milestone Synthesis:** Completed a holistic review of the 3-week foundation: Core infrastructure (IAM, VPC, EC2, S3) ➔ Well-Architected governance (Lambda, KMS, WAF, Fargate, Savings Plans) ➔ Application modernization, containers, analytics, and relational database engineering with Amazon RDS Multi-AZ.
   * **Bilingual Worklog Consolidation:** Finalized the standalone hands-on report **1.3.1. Hands-On Amazon RDS Deployment**, validating 10 architectural diagrams, configuration tables, and terminal execution evidence.
   * **Official Submission of the Capstone Project Proposal:** Completed final architectural verifications, risk mitigation plans, and monthly budget estimates, formally submitting the graduation Capstone Project Proposal for mentor review.
+
 
 

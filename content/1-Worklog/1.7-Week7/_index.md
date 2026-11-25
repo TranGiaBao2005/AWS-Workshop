@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.7. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Objectives for Week 7:
 
@@ -311,4 +310,5 @@ Below are 5 practical operational takeaways and troubleshooting strategies from 
 - **Centralized Fleet Operations with AWS Systems Manager (000024) & AWS Backup (000038):**
   - Zero-inbound-port access via Session Manager, fleet automation with Run Command, encrypted secrets in Parameter Store, and ransomware-resistant Backup Vault Lock (WORM).
 - **Week 8 Review, Worklog & Project:** Consolidate IaC patterns and package automated infrastructure templates for the Capstone Project.
+
 

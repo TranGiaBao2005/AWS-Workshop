@@ -1,4 +1,4 @@
----
+﻿---
 title: "Tuần 11"
 date: 2026-11-23
 weight: 11
@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.11. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Mục tiêu tuần 11:
 
@@ -91,3 +90,4 @@ pre: " <b> 1.11. </b> "
   * **Liên kết chuỗi giá trị Data & AI trên AWS:** Nắm vững luồng dữ liệu hoàn chỉnh từ Data Lake (Lake Formation/Glue/Athena/QuickSight) tới tầng ứng dụng trí tuệ nhân tạo (Bedrock RAG, Bedrock Agents, SageMaker).
   * **Kiểm soát chi phí FinOps cho tài nguyên AI:** Xóa sạch các OpenSearch Serverless Collections và SageMaker Endpoints ngay sau khi thử nghiệm xong để tránh phí duy trì OCU/giờ rất cao.
   * **Chuẩn bị cho Tuần 12:** Hoàn tất tích hợp các thành phần kiến trúc trọng tâm, chốt phạm vi demo và chuẩn bị bước vào tuần cuối kỳ.
+

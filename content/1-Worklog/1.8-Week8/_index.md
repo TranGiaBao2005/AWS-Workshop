@@ -1,4 +1,4 @@
----
+﻿---
 title: "Week 8"
 date: 2026-11-02
 weight: 8
@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.8. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Objectives for Week 8:
 
@@ -102,3 +101,4 @@ pre: " <b> 1.8. </b> "
 
 - **Cloud Migration & Database Replication:** Apply the 7Rs framework, execute VM Import/Export (000027), AWS MGN, AWS DMS (000031), and AWS SCT.
 - **Extended Hybrid Networking & Bulk Data Transfer:** Deploy AWS Transit Gateway (Hub-and-Spoke), AWS DataSync, and AWS Storage Gateway.
+

@@ -146,3 +146,7 @@ Dưới đây là một số hình ảnh thực tế tại sự kiện Fireside 
 ---
 
 > **Đúc kết:** Buổi gặp gỡ và đối thoại cùng Dr. Werner Vogels không đơn thuần là một buổi nghe thuyết trình kỹ thuật, mà là một trải nghiệm truyền cảm hứng sâu sắc, giúp sinh viên thực tập củng cố tư duy kỹ sư trưởng thành, thấu hiểu giá trị của sự học hỏi không ngừng và nuôi dưỡng lòng tự hào nghề nghiệp trên con đường chinh phục Điện toán đám mây.
+
+---
+
+* **Link bài đăng sự kiện:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/posts/2293508058080820/)

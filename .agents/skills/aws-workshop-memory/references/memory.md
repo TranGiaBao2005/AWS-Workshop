@@ -6,6 +6,20 @@ File này đóng vai trò là nhật ký ghi nhớ chi tiết (Persistent Memory
 
 ## 🕒 Lịch sử cập nhật bộ nhớ (Memory Update Logs)
 
+### [2026-11-25] Bỏ ảnh banner đầu mỗi tuần (Week 1–12), Bổ sung Thứ 2 Tuần 12, Tối ưu Self-Assessment & Sửa lỗi hiển thị Language Switcher
+
+- **Bối cảnh & Yêu cầu:**
+  1. Xóa hình đầu tiên (`Cloud-Journey-1.png`) ở tất cả các tuần từ Week 1 đến Week 12.
+  2. Thêm nội dung Thứ 2 của Week 12 là hạn chót nộp báo cáo (30/11/2026) và tổng kết 11 tuần học tập AWS.
+  3. Đảm bảo phần Workshop/Proposal ở bản gốc chưa chỉnh sửa.
+  4. Chỉnh lại mục Tự đánh giá (`6-Self-evaluation`) cho tốt hơn: 11/12 tiêu chí đạt **Tốt (Good)**, chỉ để duy nhất 1 tiêu chí **Khá (Fair)** ở mục *Khả năng học hỏi* (do một số kiến trúc phức tạp cần thêm thời gian đọc tài liệu để hiểu sâu), loại bỏ hoàn toàn mức Trung bình.
+  5. Sửa lỗi dropdown chuyển ngôn ngữ (Language Switcher) không hiện chữ trên GitHub Pages (do Hugo 0.134.3 trên GitHub Actions yêu cầu `languageName` trong `config.toml` thay vì chỉ có `label`).
+- **Thực thi chi tiết:**
+  - Xóa dòng `![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)` ở toàn bộ 24 file `_index.vi.md` & `_index.md` từ `1.1-Week1` đến `1.12-Week12`.
+  - Cập nhật `1.12-Week12/_index.vi.md` & `_index.md` với nội dung Thứ 2 (30/11/2026) - Hạn chót nộp báo cáo & Tổng kết hành trình 11 tuần AWS.
+  - Cập nhật `6-Self-evaluation/_index.vi.md` & `_index.md` với 11 tiêu chí Tốt, 1 tiêu chí Khá.
+  - Bổ sung `languageName = "English"` và `languageName = "Tiếng Việt"` vào `config.toml` kết hợp fallback trong `layouts/partials/menu.html`.
+
 ### [2026-11-24] Khôi phục Mục 5 (Workshop), Mục 6 (Tự đánh giá), Mục 7 (Feedback) về bản mẫu gốc & Để trống Tuần 12
 
 - **Bối cảnh & Yêu cầu:** Người dùng yêu cầu khôi phục các mục `5-Workshop`, `6-Self-evaluation`, `7-Feedback` về lại bản mẫu (template gốc) ban đầu, và để trống nội dung `1.12-Week12` vì chưa tới Tuần 12.

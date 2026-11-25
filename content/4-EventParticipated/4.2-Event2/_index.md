@@ -147,3 +147,7 @@ The meetup delivered condensed, highly actionable technical insights through fiv
 ---
 
 > **Conclusion:** The *"First Cloud AI Journey"* Meetup was an extraordinarily enriching experience. Bridging foundational cloud infrastructure with the forefront of generative AI agent development, the event instilled valuable practical knowledge and immense inspiration for aspiring cloud engineers. It reinforced the determination to remain proactive, continuously learn, and confidently progress on the journey to mastering the cloud.
+
+---
+
+* **Event Community Post:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2315876889177270/)

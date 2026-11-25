@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.6. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Mục tiêu tuần 6:
 
@@ -1197,5 +1196,6 @@ Dưới đây là 5 tình huống sự cố thực tế thường gặp trong qu
   * Tham gia sự kiện cộng đồng **First Cloud AI Journey Meetup** (24/10/2026) tại Văn phòng AWS Việt Nam (Bitexco Lầu 26).
   * Nghiên cứu và xuất bản bài viết chuyên sâu **Blog 1** về **AWS Continuum for Code Vulnerabilities** trên nhóm Facebook AWS Study Group - First Cloud Journey.
 * **Tổng kết Tuần 7, Viết Worklog & Làm Project:** Hệ thống hóa toàn bộ kiến thức, hoàn thiện bài viết và tiếp tục đẩy mạnh đề xuất đồ án.
+
 
 

@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.4. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Mục tiêu tuần 4:
 
@@ -1316,5 +1315,6 @@ Bài thực hành **Giám sát với Amazon CloudWatch** (Monitoring with Amazon
   - Thiết lập bảo mật doanh nghiệp với Mã hóa đường truyền (TLS Transit Encryption) kết hợp phân quyền RBAC Users & User Groups.
   - Viết mã nguồn Python trên EC2 Client tương tác với Redis: kiểm tra TLS RBAC, Strings kèm TTL 60s, Hash kèm xử lý ngoại lệ WRONGTYPE, và Pub/Sub thời gian thực.
 - **Tổng kết Tuần 5, Viết Worklog & Làm Project:** Hệ thống hóa toàn bộ kiến thức, hoàn thiện bài viết và tiếp tục hoàn thiện đề xuất đồ án.
+
 
 

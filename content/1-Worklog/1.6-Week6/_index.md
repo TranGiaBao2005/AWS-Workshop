@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.6. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Objectives for Week 6:
 
@@ -1181,5 +1180,6 @@ Below are 5 practical troubleshooting scenarios encountered during Grafana and C
   * Attend the **First Cloud AI Journey Meetup** (24/10/2026) at the AWS Vietnam Office (Bitexco Level 26).
   * Research and publish Deep-Dive Technical **Blog 1** covering **AWS Continuum for Code Vulnerabilities** on the AWS Study Group - First Cloud Journey community.
 * **Week 7 Review, Worklog & Project:** Consolidate advanced observability workflows, polish worklogs, and advance internship project deliverables.
+
 
 

@@ -1,4 +1,4 @@
----
+﻿---
 title: "Tuần 9"
 date: 2026-11-09
 weight: 9
@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.9. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Mục tiêu tuần 9:
 
@@ -94,3 +93,4 @@ pre: " <b> 1.9. </b> "
 
 * **Kiến trúc phi máy chủ hướng sự kiện (Serverless EDA):** Amazon API Gateway, Amazon SQS (000078), Amazon SNS, EventBridge và AWS Step Functions.
 * **Điều phối Container doanh nghiệp:** Docker Multi-Stage, Amazon ECR, Amazon ECS Fargate (000067) và Kubernetes Amazon EKS (000126).
+

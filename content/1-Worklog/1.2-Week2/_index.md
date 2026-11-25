@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.2. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Week 2 Objectives:
 
@@ -126,4 +125,5 @@ pre: " <b> 1.2. </b> "
     * **Cost Optimization:** Strategic commitment models and serverless billing audits with Athena.
   * **Resource Hygiene:** Decommissioned test ECS services, halted crawler jobs, and detached staging Web ACLs to preserve financial guardrails.
   * **Capstone Proposal Development:** Finalized full system architecture blueprints and drafted detailed monthly operational cost projections utilizing the official **AWS Pricing Calculator**.
+
 

@@ -1,39 +1,34 @@
 ---
 title: "Self-Assessment"
-date: 2024-01-01
+date: 2026-11-30
 weight: 6
 chapter: false
 pre: " <b> 6. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy it verbatim** into your report, including this warning.
-{{% /notice %}}
+During my internship at **Amazon Web Services Vietnam Company Limited** (**Workforce Bootcamp - First Cloud AI Journey**) from **September 14, 2026** to **November 30, 2026**, I had the opportunity to learn, practice, and apply the foundational knowledge acquired at **FPT University** to a real-world cloud computing environment.  
+I completed an intensive **11-week hands-on AWS curriculum** (spanning VPC networking, EC2 Auto Scaling, RDS Multi-AZ, DynamoDB, ElastiCache Redis, Route 53 Hybrid DNS, Service Quotas governance, serverless cost optimization with AWS Lambda & Slack, and observability with Grafana & CloudWatch Advanced, as well as IaC, Migration, Containers, Data Lakes, and Amazon Bedrock), published a technical community article on **AWS Continuum**, and attended in-person technical workshops at the AWS Vietnam Office—significantly strengthening my skills in **cloud architecture design, AWS CLI/Boto3 automation, FinOps cost control, troubleshooting, and bilingual technical reporting**.  
 
-During my internship at **[Company/Organization Name]** from **[start date]** to **[end date]**, I had the opportunity to learn, practice, and apply the knowledge acquired in school to a real-world working environment.  
-I participated in **[briefly describe the main project or task]**, through which I improved my skills in **[list skills: programming, analysis, reporting, communication, etc.]**.  
+In terms of work ethic, I consistently completed weekly tasks on schedule, complied with account security guidelines, and actively engaged with Mentors and fellow interns to improve learning efficiency.
 
-In terms of work ethic, I always strived to complete tasks well, complied with workplace regulations, and actively engaged with colleagues to improve work efficiency.
-
-To objectively reflect on my internship period, I would like to evaluate myself based on the following criteria:
+To objectively reflect on my internship period, I evaluate my performance across the following criteria:
 
 | No. | Criteria                            | Description                                                                                      | Good | Fair | Average |
 | --- | ----------------------------------- | ------------------------------------------------------------------------------------------------ | ---- | ---- | ------- |
 | 1   | **Professional knowledge & skills** | Understanding of the field, applying knowledge in practice, proficiency with tools, work quality | ✅    | ☐    | ☐       |
-| 2   | **Ability to learn**                | Ability to absorb new knowledge and learn quickly                                                | ☐    | ✅    | ☐       |
-| 3   | **Proactiveness**                   | Taking initiative, seeking out tasks without waiting for instructions                            | ✅    | ☐    | ☐       |
-| 4   | **Sense of responsibility**         | Completing tasks on time and ensuring quality                                                    | ✅    | ☐    | ☐       |
-| 5   | **Discipline**                      | Adhering to schedules, rules, and work processes                                                 | ☐    | ☐    | ✅       |
-| 6   | **Progressive mindset**             | Willingness to receive feedback and improve oneself                                              | ☐    | ✅    | ☐       |
-| 7   | **Communication**                   | Presenting ideas and reporting work clearly                                                      | ☐    | ✅    | ☐       |
-| 8   | **Teamwork**                        | Working effectively with colleagues and participating in teams                                   | ✅    | ☐    | ☐       |
-| 9   | **Professional conduct**            | Respecting colleagues, partners, and the work environment                                        | ✅    | ☐    | ☐       |
-| 10  | **Problem-solving skills**          | Identifying problems, proposing solutions, and showing creativity                                | ☐    | ✅    | ☐       |
-| 11  | **Contribution to project/team**    | Work effectiveness, innovative ideas, recognition from the team                                  | ✅    | ☐    | ☐       |
-| 12  | **Overall**                         | General evaluation of the entire internship period                                               | ✅    | ☐    | ☐       |
+| 2   | **Ability to learn**                | Absorbing new concepts; complex multi-service architectures initially took extra time to grasp deeply | ☐    | ✅    | ☐       |
+| 3   | **Proactiveness**                   | Taking initiative, building test labs independently, and investigating logs before asking for help | ✅    | ☐    | ☐       |
+| 4   | **Sense of responsibility**         | Completing weekly worklogs and deliverables on time while ensuring verifiable quality            | ✅    | ☐    | ☐       |
+| 5   | **Discipline**                      | Adhering to schedules, program guidelines, and post-lab resource cleanup workflows               | ✅    | ☐    | ☐       |
+| 6   | **Progressive mindset**             | Willingness to receive Mentor feedback and continuously refine technical documentation           | ✅    | ☐    | ☐       |
+| 7   | **Communication**                   | Presenting ideas and authoring bilingual technical reports clearly and concisely                 | ✅    | ☐    | ☐       |
+| 8   | **Teamwork**                        | Collaborating effectively with fellow interns during architecture discussions and events         | ✅    | ☐    | ☐       |
+| 9   | **Professional conduct**            | Respecting Mentors, guest speakers, peers, and the professional environment                      | ✅    | ☐    | ☐       |
+| 10  | **Problem-solving skills**          | Isolating root causes across service layers and proposing practical technical fixes              | ✅    | ☐    | ☐       |
+| 11  | **Contribution to project/team**    | Delivering reproducible lab reports, sharing technical blogs, and contributing to the FCAJ group | ✅    | ☐    | ☐       |
+| 12  | **Overall**                         | General evaluation of the entire learning and hands-on internship journey                        | ✅    | ☐    | ☐       |
 
 ### Needs Improvement
 
-* Strengthen discipline and strictly comply with the rules and regulations of the company or any organization  
-* Improve problem-solving thinking  
-* Enhance communication skills in both daily interactions and professional contexts, including handling situations effectively
+* **Shortening Ramp-Up Time on Complex Architectures:** When approaching advanced multi-service topologies for the first time (such as multi-VPC Hybrid DNS forwarding, cross-service IAM/Lake Formation permissions, or two-door AI Agent authentication), it initially took me extra time reading documentation and running trial tests to fully understand the underlying mechanics. Moving forward, I aim to sketch end-to-end data and permission flows before configuring resources so I can grasp new services faster.
+* **Maintaining Strict Post-Lab Teardown & Cost Audits:** Continue enforcing a multi-region check after every lab session to ensure hidden resources (such as unassociated Elastic IPs, WAF Web ACLs, or snapshots) are cleaned up immediately.

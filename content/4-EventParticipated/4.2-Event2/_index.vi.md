@@ -146,3 +146,7 @@ Buổi Meetup mang lại lượng kiến thức kỹ thuật rất cô đọng v
 ---
 
 > **Đúc kết:** Buổi Meetup *"First Cloud AI Journey"* thực sự là một ngày thứ Bảy bùng nổ kiến thức và cảm hứng. Những câu chuyện triển khai thực tế từ các diễn giả không chỉ giúp người học củng cố nền tảng điện toán đám mây vững chắc, mà còn mở ra tầm nhìn rộng lớn về làn sóng ứng dụng AI Agent trong tương lai. Sự kiện tiếp thêm động lực mạnh mẽ để mỗi bạn sinh viên, thực tập sinh không ngừng chủ động trau dồi, dám thử nghiệm và tự tin tiến bước trên hành trình trở thành những Cloud Engineer thực thụ.
+
+---
+
+* **Link bài đăng sự kiện:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2315876889177270/)

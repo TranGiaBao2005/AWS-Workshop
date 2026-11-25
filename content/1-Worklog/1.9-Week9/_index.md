@@ -1,4 +1,4 @@
----
+﻿---
 title: "Week 9"
 date: 2026-11-09
 weight: 9
@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.9. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Objectives for Week 9:
 
@@ -94,3 +93,4 @@ pre: " <b> 1.9. </b> "
 
 - **Serverless & Event-Driven Architecture:** Amazon API Gateway, Amazon SQS (000078), Amazon SNS, EventBridge, and AWS Step Functions.
 - **Enterprise Container Orchestration:** Docker Multi-Stage builds, Amazon ECR, Amazon ECS Fargate (000067), and Amazon EKS Kubernetes (000126).
+

@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.7. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Mục tiêu tuần 7:
 
@@ -314,4 +313,5 @@ Dưới đây là 5 bài học thực chiến quan trọng trong quá trình tri
 * **Vận hành tập trung với AWS Systems Manager (000024) & Bảo vệ dữ liệu với AWS Backup (000038):**
   * Kết nối máy chủ không cổng SSH qua Session Manager, chạy lệnh hàng loạt bằng Run Command, mã hóa bí mật với Parameter Store và khóa sao lưu chống ransomware với Backup Vault Lock (WORM).
 * **Tổng kết Tuần 8, Viết Worklog & Làm Project:** Hệ thống hóa kiến thức IaC và đóng gói hạ tầng Capstone Project bằng mẫu template tự động.
+
 

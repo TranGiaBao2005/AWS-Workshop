@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.5. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Mục tiêu tuần 5:
 
@@ -1887,5 +1886,6 @@ Bài thực hành **Amazon ElastiCache - Redis** được thực hiện vào **T
   * Triển khai giải pháp giám sát trực quan hóa với Grafana kết nối nguồn dữ liệu Amazon CloudWatch (Workshop 000029 - Getting started with Grafana basic).
   * Xây dựng Dashboard theo dõi các chỉ số hiệu năng và trạng thái hạ tầng hệ thống theo thời gian thực.
 * **Tổng kết Tuần 6, Viết Worklog & Làm Project:** Hệ thống hóa kiến thức giám sát và tối ưu chi phí, hoàn thiện tài liệu và phát triển đồ án thực tập.
+
 
 

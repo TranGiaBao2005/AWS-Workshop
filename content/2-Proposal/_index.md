@@ -1,111 +1,114 @@
 ---
 title: "Proposal"
-date: 2026-10-02
+date: 2024-01-01
 weight: 2
 chapter: false
 pre: " <b> 2. </b> "
 ---
+{{% notice warning %}}
+⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
+{{% /notice %}}
+
+In this section, you need to summarize the contents of the workshop that you **plan** to conduct.
 
 # IoT Weather Platform for Lab Research
 ## A Unified AWS Serverless Solution for Real-Time Weather Monitoring
 
 ### 1. Executive Summary
-The **IoT Weather Platform** automates real-time weather telemetry collection, storage, and analysis for laboratory research. Supporting 5 initial weather stations and scaling seamlessly to 10–15 stations, the system pairs Raspberry Pi edge nodes and ESP32 sensor arrays transmitting over MQTT with a fully **AWS Serverless** cloud backend. This design minimizes operational overhead, keeps recurring cloud spend under $1/month, and enforces authenticated access for 5 research members via **Amazon Cognito**.
-
----
+The IoT Weather Platform is designed for the ITea Lab team in Ho Chi Minh City to enhance weather data collection and analysis. It supports up to 5 weather stations, with potential scalability to 10-15, utilizing Raspberry Pi edge devices with ESP32 sensors to transmit data via MQTT. The platform leverages AWS Serverless services to deliver real-time monitoring, predictive analytics, and cost efficiency, with access restricted to 5 lab members via Amazon Cognito.
 
 ### 2. Problem Statement
+### What’s the Problem?
+Current weather stations require manual data collection, becoming unmanageable with multiple units. There is no centralized system for real-time data or analytics, and third-party platforms are costly and overly complex.
 
-#### Current Challenges
-Existing standalone weather stations rely on manual data extraction, which becomes error-prone as station counts grow. Without centralized ingestion and storage, researchers cannot monitor live anomalies or query clean historical datasets for modeling, while commercial third-party IoT platforms carry high subscription costs and unnecessary complexity for a small research team.
+### The Solution
+The platform uses AWS IoT Core to ingest MQTT data, AWS Lambda and API Gateway for processing, Amazon S3 for storage (including a data lake), and AWS Glue Crawlers and ETL jobs to extract, transform, and load data from the S3 data lake to another S3 bucket for analysis. AWS Amplify with Next.js provides the web interface, and Amazon Cognito ensures secure access. Similar to Thingsboard and CoreIoT, users can register new devices and manage connections, though this platform operates on a smaller scale and is designed for private use. Key features include real-time dashboards, trend analysis, and low operational costs.
 
-#### Proposed Solution
-An end-to-end serverless telemetry pipeline built natively on AWS:
-- **Ingestion:** **AWS IoT Core** receives X.509-authenticated MQTT payloads from Raspberry Pi edge gateways.
-- **Processing & Storage:** **AWS Lambda** and **Amazon API Gateway** process incoming events, while **Amazon S3** separates raw payloads (Raw Data Lake) from curated datasets (Processed Bucket).
-- **Cataloging & ETL:** **AWS Glue Crawlers** maintain schema metadata and **AWS Glue ETL Jobs** clean and transform records for downstream analysis.
-- **Dashboard & Authentication:** **AWS Amplify** hosts a **Next.js** web dashboard protected by **Amazon Cognito**.
-
-#### Benefits & Return on Investment (ROI)
-The platform eliminates manual station polling and produces a clean, queryable historical dataset for AI/ML weather research. Estimated monthly AWS expenditure is **$0.70 USD/month** (**$8.40 USD/year** via the AWS Pricing Calculator). Because edge sensors and Raspberry Pi units are already available in the lab, the project achieves break-even within 6–12 months through saved engineering hours.
-
----
+### Benefits and Return on Investment
+The solution establishes a foundational resource for lab members to develop a larger IoT platform, serving as a study resource, and provides a data foundation for AI enthusiasts for model training or analysis. It reduces manual reporting for each station via a centralized platform, simplifying management and maintenance, and improves data reliability. Monthly costs are $0.66 USD per the AWS Pricing Calculator, with a 12-month total of $7.92 USD. All IoT equipment costs are covered by the existing weather station setup, eliminating additional development expenses. The break-even period of 6-12 months is achieved through significant time savings from reduced manual work.
 
 ### 3. Solution Architecture
-
-The architecture decouples edge telemetry collection from serverless cloud ingestion, ETL processing, and dashboard visualization:
+The platform employs a serverless AWS architecture to manage data from 5 Raspberry Pi-based stations, scalable to 15. Data is ingested via AWS IoT Core, stored in an S3 data lake, and processed by AWS Glue Crawlers and ETL jobs to transform and load it into another S3 bucket for analysis. Lambda and API Gateway handle additional processing, while Amplify with Next.js hosts the dashboard, secured by Cognito. The architecture is detailed below:
 
 ![IoT Weather Station Architecture](/images/2-Proposal/edge_architecture.jpeg)
 
 ![IoT Weather Platform Architecture](/images/2-Proposal/platform_architecture.jpeg)
 
-#### AWS Services Used
-- **AWS IoT Core:** Ingests MQTT sensor streams from 5 stations (scalable to 15).
-- **AWS Lambda:** Validates incoming telemetry and triggers scheduled ETL workflows (2 functions).
-- **Amazon API Gateway:** Exposes secure HTTP endpoints for the web dashboard.
-- **Amazon S3:** Provides durable object storage across two buckets (Raw Data Lake & Processed Analytics Bucket).
-- **AWS Glue:** Runs Crawlers for Data Catalog indexing and serverless ETL jobs for data normalization.
-- **AWS Amplify:** Hosts and continuously deploys the Next.js frontend application.
-- **Amazon Cognito:** Manages user authentication and restricts dashboard access to 5 authorized lab accounts.
+### AWS Services Used
+- **AWS IoT Core**: Ingests MQTT data from 5 stations, scalable to 15.
+- **AWS Lambda**: Processes data and triggers Glue jobs (two functions).
+- **Amazon API Gateway**: Facilitates web app communication.
+- **Amazon S3**: Stores raw data in a data lake and processed outputs (two buckets).
+- **AWS Glue**: Crawlers catalog data, and ETL jobs transform and load it.
+- **AWS Amplify**: Hosts the Next.js web interface.
+- **Amazon Cognito**: Secures access for lab users.
 
-#### Component Design
-- **Edge Layer:** Temperature, humidity, rainfall, and wind-speed sensors wired to ESP32 microcontrollers; Raspberry Pi edge gateways run Docker containers to filter noisy readings and publish ~1 MB/day/station over Wi-Fi MQTT.
-- **Ingestion Layer:** AWS IoT Core Message Broker and IoT Rules route incoming payloads directly to S3 and Lambda.
-- **Storage & ETL Layer:** Raw JSON/CSV records land in the S3 Raw Bucket; AWS Glue Crawlers and ETL jobs transform and store analytics-ready data in the S3 Processed Bucket.
-- **Presentation & Auth Layer:** Next.js on AWS Amplify renders real-time charts and historical trends, gated by Amazon Cognito User Pools.
-
----
+### Component Design
+- **Edge Devices**: Raspberry Pi collects and filters sensor data, sending it to IoT Core.
+- **Data Ingestion**: AWS IoT Core receives MQTT messages from the edge devices.
+- **Data Storage**: Raw data is stored in an S3 data lake; processed data is stored in another S3 bucket.
+- **Data Processing**: AWS Glue Crawlers catalog the data, and ETL jobs transform it for analysis.
+- **Web Interface**: AWS Amplify hosts a Next.js app for real-time dashboards and analytics.
+- **User Management**: Amazon Cognito manages user access, allowing up to 5 active accounts.
 
 ### 4. Technical Implementation
+**Implementation Phases**
+This project has two parts—setting up weather edge stations and building the weather platform—each following 4 phases:
+- Build Theory and Draw Architecture: Research Raspberry Pi setup with ESP32 sensors and design the AWS serverless architecture (1 month pre-internship)
+- Calculate Price and Check Practicality: Use AWS Pricing Calculator to estimate costs and adjust if needed (Month 1).
+- Fix Architecture for Cost or Solution Fit: Tweak the design (e.g., optimize Lambda with Next.js) to stay cost-effective and usable (Month 2).
+- Develop, Test, and Deploy: Code the Raspberry Pi setup, AWS services with CDK/SDK, and Next.js app, then test and release to production (Months 2-3).
 
-#### Implementation Phases
-1. **Phase 1 – Edge Validation & Architecture Design:** Verify ESP32–Raspberry Pi sensor acquisition, containerize the local MQTT publisher with Docker, and finalize the AWS Serverless blueprint.
-2. **Phase 2 – Cost Modeling & Feasibility Audit:** Benchmark monthly resource consumption in the AWS Pricing Calculator and configure AWS Budgets alerts.
-3. **Phase 3 – Architectural Optimization:** Offload full-stack rendering tasks to Next.js on AWS Amplify to minimize redundant Lambda invocations and batch Glue ETL schedules.
-4. **Phase 4 – Cloud Deployment & End-to-End Testing:** Provision AWS resources using AWS CDK/SDK, connect all 5 edge stations to AWS IoT Core, verify Glue ETL outputs, and validate the live dashboard.
-
----
+**Technical Requirements**
+- Weather Edge Station: Sensors (temperature, humidity, rainfall, wind speed), a microcontroller (ESP32), and a Raspberry Pi as the edge device. Raspberry Pi runs Raspbian, handles Docker for filtering, and sends 1 MB/day per station via MQTT over Wi-Fi.
+- Weather Platform: Practical knowledge of AWS Amplify (hosting Next.js), Lambda (minimal use due to Next.js), AWS Glue (ETL), S3 (two buckets), IoT Core (gateway and rules), and Cognito (5 users). Use AWS CDK/SDK to code interactions (e.g., IoT Core rules to S3). Next.js reduces Lambda workload for the fullstack web app.
 
 ### 5. Timeline & Milestones
-
-- **Pre-Internship Preparation:** Audit existing weather station hardware and define research telemetry schemas.
-- **Month 1 (Weeks 1 – 4):** Establish core AWS networking, IAM security baselines, S3 storage buckets, CloudWatch monitoring, and edge container setups.
-- **Month 2 (Weeks 5 – 8):** Configure database/caching patterns, CLI/Lambda/IaC automation, and the AWS IoT Core ➔ S3 ingestion pipeline.
-- **Month 3 (Weeks 9 – 12):** Integrate AWS Glue ETL jobs, deploy the Next.js dashboard on AWS Amplify with Cognito authentication, run end-to-end validation, and defend the project.
-
----
+**Project Timeline**
+- Pre-Internship (Month 0): 1 month for planning and old station review.
+- Internship (Months 1-3): 3 months.
+    - Month 1: Study AWS and upgrade hardware.
+    - Month 2: Design and adjust architecture.
+    - Month 3: Implement, test, and launch.
+- Post-Launch: Up to 1 year for research.
 
 ### 6. Budget Estimation
+You can find the detailed budget estimation directly on the [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=621f38b12a1ef026842ba2ddfe46ff936ed4ab01).  
 
-Detailed cost breakdown on the **[AWS Pricing Calculator](https://calculator.aws/#/estimate?id=621f38b12a1ef026842ba2ddfe46ff936ed4ab01)**:
+### Infrastructure Costs
+- AWS Services:
+    - AWS Lambda: $0.00/month (1,000 requests, 512 MB storage).
+    - S3 Standard: $0.15/month (6 GB, 2,100 requests, 1 GB scanned).
+    - Data Transfer: $0.02/month (1 GB inbound, 1 GB outbound).
+    - AWS Amplify: $0.35/month (256 MB, 500 ms requests).
+    - Amazon API Gateway: $0.01/month (2,000 requests).
+    - AWS Glue ETL Jobs: $0.02/month (2 DPUs).
+    - AWS Glue Crawlers: $0.07/month (1 crawler).
+    - MQTT (IoT Core): $0.08/month (5 devices, 45,000 messages).
 
-| AWS Service | Estimated Monthly Usage | Monthly Cost (USD) |
-| :--- | :--- | :---: |
-| **AWS Lambda** | ~1,000 requests/month, 512 MB ephemeral storage (covered by Free Tier) | $0.00 |
-| **Amazon S3 Standard** | ~6 GB storage, 2,100 PUT/GET requests, 1 GB scanned | $0.15 |
-| **Data Transfer** | 1 GB Inbound, 1 GB Outbound | $0.02 |
-| **AWS Amplify** | Next.js web hosting (256 MB memory, ~500 ms request duration) | $0.35 |
-| **Amazon API Gateway** | ~2,000 HTTP API requests/month | $0.01 |
-| **AWS Glue ETL Jobs** | 2 DPUs on scheduled batch runs | $0.02 |
-| **AWS Glue Crawlers** | 1 Crawler updating Data Catalog partitions | $0.07 |
-| **AWS IoT Core (MQTT)** | 5 edge devices, ~45,000 MQTT messages/month | $0.08 |
-| **Total Cloud Spend** | **Monthly / Annual (12-Month) Projection** | **$0.70 / month ($8.40 / year)** |
+Total: $0.7/month, $8.40/12 months
 
-*(One-time hardware value for Raspberry Pi 5 and sensor kits is approximately $265, utilizing existing laboratory equipment).*
+- Hardware: $265 one-time (Raspberry Pi 5 and sensors).
 
----
+### 7. Risk Assessment
+#### Risk Matrix
+- Network Outages: Medium impact, medium probability.
+- Sensor Failures: High impact, low probability.
+- Cost Overruns: Medium impact, low probability.
 
-### 7. Risk Assessment & Mitigation
+#### Mitigation Strategies
+- Network: Local storage on Raspberry Pi with Docker.
+- Sensors: Regular checks and spares.
+- Cost: AWS budget alerts and optimization.
 
-| Risk Scenario | Impact | Likelihood | Mitigation & Contingency Plan |
-| :--- | :---: | :---: | :--- |
-| **Wi-Fi / Network Outage at Edge Stations** | Medium | Medium | Docker containers buffer sensor readings locally on the Raspberry Pi SD card and replay queued MQTT messages upon reconnection. |
-| **Sensor Drift or Hardware Failure** | High | Low | Apply range sanity checks inside edge/Lambda ingestion logic and maintain spare ESP32/sensor modules in the lab. |
-| **Unexpected AWS Cost Spikes** | Medium | Low | Enforce AWS Budgets alerts at 80% and 100% thresholds, throttle Glue job schedules, and manage stack lifecycles via CloudFormation/CDK. |
-
----
+#### Contingency Plans
+- Revert to manual methods if AWS fails.
+- Use CloudFormation for cost-related rollbacks.
 
 ### 8. Expected Outcomes
-
-- **Technical Improvements:** 100% automated real-time weather ingestion, ETL normalization, and web visualization across 5 stations—ready to scale to 10–15 stations without architectural rework.
-- **Long-Term Research Value:** A clean, multi-month historical weather dataset on Amazon S3 supporting future machine learning and environmental forecasting projects.
+#### Technical Improvements: 
+Real-time data and analytics replace manual processes.  
+Scalable to 10-15 stations.
+#### Long-term Value
+1-year data foundation for AI research.  
+Reusable for future projects.

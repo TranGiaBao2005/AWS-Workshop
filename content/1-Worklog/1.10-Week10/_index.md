@@ -1,4 +1,4 @@
----
+﻿---
 title: "Week 10"
 date: 2026-11-16
 weight: 10
@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.10. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Objectives for Week 10:
 
@@ -101,3 +100,4 @@ pre: " <b> 1.10. </b> "
 
 - **Big Data Analytics & Data Lakes:** AWS Lake Formation (000035), AWS Glue ETL (Parquet), Amazon Athena (000106), Kinesis, QuickSight (000073), and Redshift.
 - **Generative AI & MLOps on AWS:** Amazon Bedrock Foundation Models, RAG Knowledge Bases, Bedrock Agents, and Amazon SageMaker.
+

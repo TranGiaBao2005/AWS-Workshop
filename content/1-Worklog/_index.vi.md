@@ -29,7 +29,7 @@ Lộ trình được phân bổ đều và bám sát cấu trúc chính thức c
 | **Tuần 9** | 09/11 – 13/11/2026 | **Di trú hệ thống & Mạng mở rộng lai:** Chiến lược 7Rs, VM Import/Export & AWS MGN, di trú CSDL AWS DMS & SCT, kết nối trung tâm AWS Transit Gateway, AWS DataSync & Storage Gateway. | [Cloud Migration](https://cloudjourney.awsfcaj.com/2-migration/) | [Xem Tuần 9](1.9-week9/) |
 | **Tuần 10** | 16/11 – 20/11/2026 | **Serverless hướng sự kiện & Điều phối Container:** Amazon API Gateway & SQS (Standard/FIFO/DLQ), SNS/EventBridge & Step Functions, Docker/ECR & ECS Fargate, Kubernetes Amazon EKS. | [Serverless & Containers](https://cloudjourney.awsfcaj.com/5-container/) | [Xem Tuần 10](1.10-week10/) |
 | **Tuần 11** | 23/11 – 27/11/2026 | **Hồ dữ liệu lớn (Data Lake) & Trí tuệ nhân tạo (GenAI):** AWS Lake Formation & Glue ETL (Parquet), Athena/Kinesis/QuickSight/Redshift, Amazon Bedrock & RAG Knowledge Bases, Bedrock Agents & SageMaker. | [Data & Generative AI](https://cloudjourney.awsfcaj.com/6-dataandanalytic/) | [Xem Tuần 11](1.11-week11/) |
-| **Tuần 12** | 30/11 – 04/12/2026 | — | — | [Xem Tuần 12](1.12-week12/) |
+| **Tuần 12** | 30/11/2026 | **Hạn chót nộp báo cáo & Tổng kết 11 tuần AWS:** Hệ thống hóa toàn bộ kiến thức và bài thực hành xuyên suốt 11 tuần trên AWS, kiểm toán tài khoản ($0 phát sinh) và hoàn tất nộp báo cáo đúng hạn chót Thứ 2 (30/11/2026). | [Completion & Submission](https://cloudjourney.awsfcaj.com/) | [Xem Tuần 12](1.12-week12/) |
 
 ---
 

@@ -19,6 +19,8 @@ Trong quá trình thực tập, em đã trực tiếp tham gia 3 sự kiện cô
 
 &emsp;**Vai trò trong sự kiện:** Người tham dự
 
+&emsp;**Link sự kiện:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/posts/2293508058080820/)
+
 ---
 
 ### [Event 2](4.2-Event2/)
@@ -32,15 +34,19 @@ Trong quá trình thực tập, em đã trực tiếp tham gia 3 sự kiện cô
 
 &emsp;**Vai trò trong sự kiện:** Người tham dự
 
+&emsp;**Link sự kiện:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2315876889177270/)
+
 ---
 
 ### [Event 3](4.3-Event3/)
 &emsp;**Tên sự kiện:** FCAJ Deep-Dive Workshop: Enterprise AI Agent Architecture, Memory & Security on AWS
 
-&emsp;**Thời gian:** 09:00 ngày 07/11/2026
+&emsp;**Thời gian:** 09:00 ngày 14/11/2026
 
 &emsp;**Địa điểm:** Lầu 26, Tòa nhà Bitexco Financial Tower, số 02 Hải Triều, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh
 
 &emsp;**Chủ đề trọng tâm:** Kiến trúc phân tầng bộ nhớ AgentCore (Short/Long-term), Cơ chế xác thực hai cửa Inbound/Outbound và Bedrock AgentCore Gateway
 
 &emsp;**Vai trò trong sự kiện:** Người tham dự & Kỹ sư thực tập (Intern Builder)
+
+&emsp;**Link sự kiện:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2340764136688545/)

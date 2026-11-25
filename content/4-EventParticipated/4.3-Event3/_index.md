@@ -1,6 +1,6 @@
 ---
 title: "Event 3"
-date: 2026-11-07
+date: 2026-11-14
 weight: 3
 chapter: false
 pre: " <b> 4.3. </b> "
@@ -11,7 +11,7 @@ pre: " <b> 4.3. </b> "
 ### 📌 Event Overview
 
 * **Event Title:** FCAJ Deep-Dive Workshop: Enterprise AI Agent Architecture, Memory & Security on AWS.
-* **Date & Time:** 09:00 – 12:00, November 07, 2026.
+* **Date & Time:** 09:00 – 12:00, November 14, 2026.
 * **Location:** AWS Vietnam Office, 26th Floor, Bitexco Financial Tower, 02 Hai Trieu Street, Ben Nghe Ward, District 1, Ho Chi Minh City.
 * **Organizers:** First Cloud Journey (FCJ) in collaboration with AWS Community Builders.
 * **Attendees:** Cloud Solutions Architects, Enterprise Tech Leads, AWS Mentors, and Cloud & AI Intern Builders of the First Cloud AI Journey program.
@@ -129,3 +129,7 @@ The session's standout security architectural principle established: **"Two diff
 
 ![Event Check-in at AWS Vietnam Bitexco Office](/images/4-EventParticipated/4.3-Event3/event4-checkin-group.jpg)
 *Figure 1: Author and fellow First Cloud Journey intern builders at the AWS Vietnam Office, 26th Floor, Bitexco Financial Tower.*
+
+---
+
+* **Event Community Post:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2340764136688545/)

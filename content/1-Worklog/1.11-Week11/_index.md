@@ -1,4 +1,4 @@
----
+﻿---
 title: "Week 11"
 date: 2026-11-23
 weight: 11
@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.11. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Objectives for Week 11:
 
@@ -91,3 +90,4 @@ pre: " <b> 1.11. </b> "
   * **End-to-End Data & AI Value Chain:** Unified S3 Data Lakes (Lake Formation, Glue, Athena, QuickSight) with production-ready Generative AI capabilities (Bedrock RAG, Agents, SageMaker).
   * **Strict AI FinOps Cleanup:** Deleted OpenSearch Serverless collections and SageMaker endpoints immediately after validation to prevent costly OCU and hourly compute accruals.
   * **Preparing for Week 12:** Finalized core architecture deliverables and demo scope ahead of the final internship week.
+

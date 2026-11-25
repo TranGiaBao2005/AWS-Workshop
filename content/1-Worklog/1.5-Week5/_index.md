@@ -6,7 +6,6 @@ chapter: false
 pre: " <b> 1.5. </b> "
 ---
 
-![Cloud Journey Roadmap](/images/1-Worklog/Cloud-Journey-1.png)
 
 ### Week 5 Objectives:
 
@@ -1872,5 +1871,6 @@ The **Amazon ElastiCache - Redis** workshop was conducted on **Wednesday (10/14/
   * Deploy a centralized monitoring and dashboard solution using Grafana integrated with Amazon CloudWatch metrics (Workshop 000029 - Getting started with Grafana basic).
   * Build real-time dashboards to track compute health, network throughput, and infrastructure performance.
 * **Week 6 Review, Worklog & Project:** Consolidate observability and cost optimization knowledge, polish weekly worklogs, and advance internship project milestones.
+
 
 
