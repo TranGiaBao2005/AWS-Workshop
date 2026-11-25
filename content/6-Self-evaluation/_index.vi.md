@@ -6,7 +6,7 @@ chapter: false
 pre: " <b> 6. </b> "
 ---
 
-Trong suốt thời gian thực tập tại **Công ty TNHH Amazon Web Services Việt Nam** (chương trình **Workforce Bootcamp - First Cloud AI Journey**) từ ngày **14/09/2026** đến ngày **30/11/2026**, tôi đã có cơ hội học hỏi, rèn luyện và áp dụng kiến thức đã được trang bị tại **Đại học FPT** vào môi trường thực hành hạ tầng đám mây thực tế.  
+Trong suốt thời gian tham gia thực tập tại **AWS – Chương trình First Cloud AI Journey** với vai trò **Sinh viên thực tập (Theo chương trình giới thiệu của Đại học FPT)** từ ngày **14/09/2026** đến ngày **30/11/2026**, tôi đã có cơ hội học hỏi, rèn luyện và áp dụng kiến thức chuyên ngành **Kỹ thuật phần mềm** đã được trang bị tại **Đại học FPT** vào môi trường thực hành hạ tầng đám mây thực tế.  
 Tôi đã hoàn thành lộ trình **11 tuần thực hành chuyên sâu trên AWS** (từ mạng VPC, máy chủ EC2 Auto Scaling, cơ sở dữ liệu RDS Multi-AZ, DynamoDB, ElastiCache Redis, Route 53 Hybrid DNS, quản trị Service Quotas, tự động hóa tiết kiệm chi phí với AWS Lambda & Slack, giám sát hệ thống với Grafana & CloudWatch Advanced cho đến IaC, Migration, Containers, Data Lake và Amazon Bedrock), viết bài phân tích kỹ thuật về **AWS Continuum** và tham gia các buổi hội thảo chuyên đề tại văn phòng AWS, qua đó cải thiện rõ rệt kỹ năng **thiết kế hạ tầng đám mây, tự động hóa bằng AWS CLI/Boto3, kiểm soát chi phí, xử lý sự cố (troubleshooting) và viết báo cáo kỹ thuật song ngữ**.  
 
 Về tác phong, tôi luôn cố gắng hoàn thành đầy đủ nhiệm vụ theo tiến độ hằng tuần, tuân thủ quy định bảo mật tài khoản và tích cực trao đổi với Mentor cùng các thành viên trong cộng đồng để nâng cao hiệu quả học tập.

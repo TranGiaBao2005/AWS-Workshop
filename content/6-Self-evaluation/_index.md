@@ -6,7 +6,7 @@ chapter: false
 pre: " <b> 6. </b> "
 ---
 
-During my internship at **Amazon Web Services Vietnam Company Limited** (**Workforce Bootcamp - First Cloud AI Journey**) from **September 14, 2026** to **November 30, 2026**, I had the opportunity to learn, practice, and apply the foundational knowledge acquired at **FPT University** to a real-world cloud computing environment.  
+During my internship at the **AWS – First Cloud AI Journey Program** as a **Student Intern (Referred by FPT University)** from **September 14, 2026** to **November 30, 2026**, I had the opportunity to learn, practice, and apply the **Software Engineering** knowledge acquired at **FPT University** to a real-world cloud computing environment.  
 I completed an intensive **11-week hands-on AWS curriculum** (spanning VPC networking, EC2 Auto Scaling, RDS Multi-AZ, DynamoDB, ElastiCache Redis, Route 53 Hybrid DNS, Service Quotas governance, serverless cost optimization with AWS Lambda & Slack, and observability with Grafana & CloudWatch Advanced, as well as IaC, Migration, Containers, Data Lakes, and Amazon Bedrock), published a technical community article on **AWS Continuum**, and attended in-person technical workshops at the AWS Vietnam Office—significantly strengthening my skills in **cloud architecture design, AWS CLI/Boto3 automation, FinOps cost control, troubleshooting, and bilingual technical reporting**.  
 
 In terms of work ethic, I consistently completed weekly tasks on schedule, complied with account security guidelines, and actively engaged with Mentors and fellow interns to improve learning efficiency.

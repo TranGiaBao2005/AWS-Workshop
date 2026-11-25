@@ -17,11 +17,11 @@ chapter: false
 
 &emsp; **University:** FPT University
 
-&emsp; **Major:** Information Technology
+&emsp; **Major:** Software Engineering
 
-&emsp; **Internship Company:** Amazon Web Services Viet Nam Company Limited
+&emsp; **Host Organization:** AWS – First Cloud AI Journey Program
 
-&emsp; **Internship Position:** Workforce Bootcamp - First Cloud AI Journey
+&emsp; **Position / Role:** Student Intern (Referred by FPT University)
 
 &emsp; **Internship Duration:** From 14/09/2026 to 04/12/2026
 

@@ -17,11 +17,11 @@ chapter: false
 
 &emsp; **Trường:** Đại học FPT (FPT University)
 
-&emsp; **Ngành:** Công nghệ thông tin
+&emsp; **Ngành:** Kỹ thuật phần mềm (Software Engineering)
 
-&emsp; **Công ty thực tập:** Công ty TNHH Amazon Web Services Viet Nam
+&emsp; **Đơn vị tiếp nhận:** AWS – Chương trình First Cloud AI Journey
 
-&emsp; **Vị trí thực tập:** Workforce Bootcamp - First Cloud AI Journey
+&emsp; **Vị trí / Vai trò:** Sinh viên thực tập (Theo chương trình giới thiệu của Đại học FPT)
 
 &emsp; **Thời gian thực tập:** Từ ngày 14/09/2026 đến ngày 04/12/2026
 
