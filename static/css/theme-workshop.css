@@ -304,6 +304,18 @@ div.notices.info p {
   margin-left: 2px !important;
 }
 
+#sidebar #prefooter .select-style svg {
+  display: none !important;
+}
+
+#sidebar #prefooter .select-style select {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-image: none !important;
+  cursor: pointer !important;
+}
+
 #sidebar ul.topics li a .menu-item-text,
 #sidebar ul li a .menu-item-text {
   flex: 1 1 auto !important;
