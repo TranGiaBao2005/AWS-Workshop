@@ -16,6 +16,7 @@ pre: " <b> 4.3. </b> "
 * **Organizers:** First Cloud Journey (FCJ) in collaboration with AWS Community Builders.
 * **Attendees:** Cloud Solutions Architects, Enterprise Tech Leads, AWS Mentors, and Cloud & AI Intern Builders of the First Cloud AI Journey program.
 * **Role:** Attendee & Cloud Intern Builder.
+* **Event Community Post:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2340764136688545/)
 
 ---
 
@@ -129,7 +130,3 @@ The session's standout security architectural principle established: **"Two diff
 
 ![Event Check-in at AWS Vietnam Bitexco Office](/images/4-EventParticipated/4.3-Event3/event4-checkin-group.jpg)
 *Figure 1: Author and fellow First Cloud Journey intern builders at the AWS Vietnam Office, 26th Floor, Bitexco Financial Tower.*
-
----
-
-* **Event Community Post:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2340764136688545/)

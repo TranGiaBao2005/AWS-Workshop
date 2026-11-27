@@ -1,10 +1,9 @@
-êu---
+---
 title: "Event 1"
 date: 2026-10-02
 weight: 1
 chapter: false
 pre: " <b> 4.1. </b> "
-
 ---
 
 {{% notice info %}}
@@ -15,7 +14,7 @@ Bài thu hoạch ghi lại nội dung buổi gặp gỡ, tọa đàm chuyên sâ
 
 ---
 
-### 📌 Thông Tin Chung Về Sự Kiện
+### 📌 Thông Tin Tổng Quan Sự Kiện
 
 - **Tên sự kiện:** Fireside Chat with Dr. Werner Vogels: The Renaissance Developer & Building at Scale.
 - **Thời gian tổ chức:** 09:00 - 10:30, Ngày 02/10/2026.
@@ -24,6 +23,7 @@ Bài thu hoạch ghi lại nội dung buổi gặp gỡ, tọa đàm chuyên sâ
 - **Người điều phối (Host):** Đại diện AWS Community & AWS Heroes / Community Builders tại Việt Nam.
 - **Thành phần tham dự:** Các chuyên gia AWS Community Builders, AWS Heroes, các kỹ sư đám mây và sinh viên thực tập Cloud.
 - **Vai trò tham dự:** Người tham dự (Attendee) / Kỹ sư thực tập (Intern Builder).
+- **Link bài đăng sự kiện:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/posts/2293508058080820/)
 
 ---
 

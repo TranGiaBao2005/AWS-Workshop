@@ -16,6 +16,7 @@ pre: " <b> 4.2. </b> "
 * **Đơn vị tổ chức:** First Cloud Journey (FCJ) phối hợp cùng AWS Community Builders và AWS Student Builder Groups
 * **Vai trò tham dự:** Thành viên tham dự (Attendee) & Thực tập sinh First Cloud Journey
 * **Thành phần tham dự:** Hơn 100 kỹ sư công nghệ, bao gồm các Tech Lead, Cloud Solutions Architect, DevOps/Security Engineer từ các doanh nghiệp, các AWS Community Builders cùng đông đảo sinh viên và thực tập sinh đam mê Điện toán đám mây và Trí tuệ nhân tạo (AI Agent).
+* **Link bài đăng sự kiện:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2315876889177270/)
 
 ---
 
@@ -146,7 +147,3 @@ Buổi Meetup mang lại lượng kiến thức kỹ thuật rất cô đọng v
 ---
 
 > **Đúc kết:** Buổi Meetup *"First Cloud AI Journey"* thực sự là một ngày thứ Bảy bùng nổ kiến thức và cảm hứng. Những câu chuyện triển khai thực tế từ các diễn giả không chỉ giúp người học củng cố nền tảng điện toán đám mây vững chắc, mà còn mở ra tầm nhìn rộng lớn về làn sóng ứng dụng AI Agent trong tương lai. Sự kiện tiếp thêm động lực mạnh mẽ để mỗi bạn sinh viên, thực tập sinh không ngừng chủ động trau dồi, dám thử nghiệm và tự tin tiến bước trên hành trình trở thành những Cloud Engineer thực thụ.
-
----
-
-* **Link bài đăng sự kiện:** [Facebook AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2315876889177270/)
