@@ -6,27 +6,22 @@ chapter : false
 pre : " <b> 5.6.2. </b> "
 ---
 
-#### Bước 1: Khởi tạo CloudWatch Log Group /exammaker/dev/app Lưu trữ 7 Ngày (Hình 14)
+#### Bước 1: Tạo CloudWatch Log Group `/exammaker/dev/app` lưu giữ 7 ngày
 
-1. Mở **Amazon CloudWatch Console** (p-southeast-1) → menu trái chọn **Logs** → **Log Management** → bấm **Create log group**.
-2. Tại mục **Log group details**:
-   - **Log group name:** Điền **/exammaker/dev/app**.
-   - **Retention setting:** Chọn **1 week (7 days)** (xoay vòng log tự động sau 7 ngày để không vượt 5 GB Free Tier).
-   - **Log class:** Chọn **Standard**.
-3. Bấm **Create**.
+1. Mở **Amazon CloudWatch → Logs → Log groups → Create log group**.
+2. Cấu hình:
+  * *Log group name:* `/exammaker/dev/app`
+  * *Retention setting:* `1 week (7 days)` (đảm bảo dung lượng log luôn nằm dưới hạn mức 5 GB miễn phí)
+  * *Log class:* `Standard`
 
-![Hình 14 — Tạo CloudWatch Log Group /exammaker/dev/app với Retention 1 week (7 days) và Log class Standard](/images/5-Workshop/5.6-CloudWatch-And-SNS/14.png)
+![Tạo CloudWatch Log Group /exammaker/dev/app với Retention 7 ngày](/images/5-Workshop/5.6-CloudWatch-And-SNS/14.png)
 
----
+#### Bước 2: Tạo 4 Metric Filters vào Namespace `ExamMaker/Dev`
 
-#### Bước 2: Khởi tạo Metric Filter Đẩy Chỉ số vào Namespace ExamMaker/Dev (Hình 14.2)
+Trong Log Group `/exammaker/dev/app`, chọn tab **Metric filters → Create metric filter** để trích xuất 4 chỉ số vận hành vào namespace `ExamMaker/Dev` (`Metric value = 1`, `Unit = Count`):
+1. `Api5xxCount` (đếm lỗi HTTP 5xx từ backend API)
+2. `WorkerHeartbeat` (nhịp đập xác nhận tiến trình AI Worker đang hoạt động)
+3. `StuckRunningJobs` (phát hiện job bị treo ở trạng thái Running)
+4. `WorkerErrorCount` (đếm ngoại lệ trong quá trình Worker gọi Bedrock / RDS)
 
-1. Bấm vào log group **/exammaker/dev/app** → chọn tab **Metric filters** → bấm **Create metric filter**.
-2. Sau khi nhập Filter pattern ở Bước 1, tại **Step 2 (Assign metric)** điền thông số tại khung **Metric details**:
-   - **Metric namespace:** Điền **ExamMaker/Dev**.
-   - **Metric name:** Điền **Api5xxCount** *(tương tự cho 3 bộ lọc còn lại: WorkerHeartbeat, StuckRunningJobs, WorkerErrorCount)*.
-   - **Metric value:** Điền **1**.
-   - **Unit - optional:** Chọn **Count**.
-3. Bấm **Next** → **Create metric filter**.
-
-![Hình 14.2 — Cấu hình Metric details đẩy chỉ số Api5xxCount (Value = 1, Unit = Count) vào namespace ExamMaker/Dev](/images/5-Workshop/5.6-CloudWatch-And-SNS/14.2.png)
+![Cấu hình CloudWatch Metric Filters vào namespace ExamMaker/Dev](/images/5-Workshop/5.6-CloudWatch-And-SNS/14.2.png)

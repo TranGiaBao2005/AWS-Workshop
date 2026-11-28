@@ -6,25 +6,28 @@ chapter : false
 pre : " <b> 5.2.2. </b> "
 ---
 
-#### Bước 1: Cấu hình Callback URLs, Sign-out URLs & Identity Provider (Hình 2)
+#### Step 1: Configure Callback & Sign-out URLs
 
-1. Mở User Pool **exammaker-dev-users** → menu trái chọn **Applications** → **App clients** → bấm vào **exammaker-dev-spa**.
-2. Chuyển sang tab **Login pages** → bấm **Edit**.
-3. Tại khung **Managed login pages**:
-   - **Allowed callback URLs:** Khai báo http://localhost:3000/auth/callback/ (môi trường dev) và https://app.khaothiai.xyz/auth/callback/ (môi trường production).
-   - **Allowed sign-out URLs:** Khai báo http://localhost:3000/ và https://app.khaothiai.xyz/.
-   - **Identity providers:** Chọn **Cognito user pool**.
+1. Navigate to **App clients → `exammaker-dev-spa` → Login pages tab → Edit**.
+2. Add the allowed URLs for both local development (`localhost`) and production (`app.khaothiai.xyz`):
+  * *Allowed callback URLs:* 
+     - `http://localhost:3000/auth/callback/`
+     - `https://app.khaothiai.xyz/auth/callback/`
+  * *Allowed sign-out URLs:* 
+     - `http://localhost:3000/`
+     - `https://app.khaothiai.xyz/`
+  * *Identity providers:* `Cognito user pool`.
 
-![Hình 2 — Cấu hình Allowed callback URLs, Allowed sign-out URLs và Identity provider trên App Client](/images/5-Workshop/5.2-Cognito/2.png)
+![Configure Allowed callback URLs and sign-out URLs](/images/5-Workshop/5.2-Cognito/2.png)
 
----
+#### Step 2: Configure OAuth 2.0 Grant Types, Scopes & Token TTL
 
-#### Bước 2: Cấu hình OAuth 2.0 Authorization Code Grant & OpenID Connect Scopes (Hình 2.2)
+1. **OAuth 2.0 grant types:** Enable `Authorization code grant` only (with PKCE; keep legacy Implicit grant disabled).
+2. **OpenID Connect scopes (3 scopes):** select `Email`, `OpenID`, and `Profile`.
+3. **Token Expiration (TTL):**
+  * *Access Token:* `60 minutes`
+  * *ID Token:* `60 minutes`
+  * *Refresh Token:* `7 days`
+4. Click **Save changes**.
 
-1. Kéo xuống mục **OAuth 2.0 grant types**:
-   - Chỉ chọn **Authorization code grant** (luồng code kết hợp PKCE, tuyệt đối không bật Implicit grant).
-2. Tại mục **OpenID Connect scopes**:
-   - Chọn đủ 3 scopes chuẩn: **Email**, **OpenID**, **Profile**.
-3. Bấm **Save changes**.
-
-![Hình 2.2 — Chọn Authorization code grant và 3 OpenID Connect scopes (Email, OpenID, Profile)](/images/5-Workshop/5.2-Cognito/2.2.png)
+![Configure Authorization code grant PKCE and 3 OIDC scopes](/images/5-Workshop/5.2-Cognito/2.2.png)

@@ -6,25 +6,22 @@ chapter : false
 pre : " <b> 5.2.3. </b> "
 ---
 
-#### Bước 1: Tạo Nhóm Phân quyền trên Form Create group (Hình 3)
+#### Step 1: Create the First Role Group (`admin`)
 
-1. Trong User Pool **exammaker-dev-users** → menu trái chọn **User management** → **Groups** → bấm **Create group**.
-2. Tại màn hình **Create group**, điền thông tin cho nhóm quản trị viên:
-   - **Group name:** Điền **dmin** *(chữ thường 100% để khớp enum Role trong OpenAPI contract)*.
-   - **Description - optional:** Điền **System administrators (publish, user/catalog management, fallback review)**.
-   - **Precedence - optional:** Điền **1** (mức độ ưu tiên cao nhất).
-   - **IAM permissions:** Để trống *(Backend .NET đọc trực tiếp claim cognito:groups trong JWT token để phân quyền RBAC)*.
-3. Bấm **Create group**.
+1. Inside the `exammaker-dev-users` User Pool, navigate to **User management → Groups → Create group**.
+2. Enter the details for the `admin` group (lowercase group names to match the OpenAPI contract):
+  * *Group name:* `admin`
+  * *Description:* `System administrators (publish, user/catalog management, fallback review)`
+  * *Precedence:* `1`
 
-![Hình 3 — Điền thông số tạo nhóm quyền admin với Precedence = 1 trên màn hình Create group](/images/5-Workshop/5.2-Cognito/3.png)
+![Create admin group with Precedence 1](/images/5-Workshop/5.2-Cognito/3.png)
 
----
+#### Step 2: Create `head`, `teacher` & Verify All 3 Groups
 
-#### Bước 2: Kiểm tra Kết quả 3 Nhóm Phân quyền (dmin, head, 	eacher) (Hình 3.2)
+Repeat the creation flow for the remaining two groups:
+- **Group 2 — `head`** (`Precedence = 2`): `Department heads (teacher permissions plus department review)`
+- **Group 3 — `teacher`** (`Precedence = 3`): `Teachers (generate AI questions, manage own questions and exams)`
 
-Thực hiện tương tự cho 2 nhóm còn lại (head và 	eacher). Tại màn hình **Groups (3)**, xác nhận đủ 3 nhóm quyền với thứ tự ưu tiên chuẩn:
-- **dmin** — Precedence: **1** — System administrators (publish, user/catalog management, fallback review)
-- **head** — Precedence: **2** — Department heads (teacher permissions plus department review)
-- **	eacher** — Precedence: **3** — Teachers (generate AI questions, manage own questions and exams)
+Verify that the **Groups** table displays all 3 role groups in precedence order `1 → 2 → 3`:
 
-![Hình 3.2 — Bảng kết quả 3 nhóm quyền admin, head, teacher đã được khởi tạo](/images/5-Workshop/5.2-Cognito/3.2.png)
+![Verify all 3 user role groups admin, head, teacher](/images/5-Workshop/5.2-Cognito/3.2.png)

@@ -6,9 +6,9 @@ chapter : false
 pre : " <b> 5.8. </b> "
 ---
 
-Trong phần này, chúng ta thiết lập **3 IAM Roles cốt lõi (em-*)** tuân thủ nguyên tắc quyền tối thiểu (Least Privilege, không dùng AWS access key dài hạn) và khởi tạo **S3 Artifact Bucket riêng tư** (em-dev-backend-artifacts-9d07a0f131) phục vụ pipeline CI/CD Backend.
+In this section, we establish a keyless, SSH-free security foundation for operations and CI/CD: **3 IAM Roles** (`aem-*`) enforcing **Least Privilege / GitHub OIDC** and a **private S3 Artifact Bucket** (`aem-dev-backend-artifacts-9d07a0f131`) with a 30-day automatic expiration lifecycle rule.
 
-#### Nội dung thực hiện
+#### Section Contents
 
-1. [5.8.1. Thiết lập 3 IAM Roles (em-*) & Chi tiết Permissions Policies (Hình 18)](5.8.1-IAM-Roles-Policies/)
-2. [5.8.2. Khởi tạo S3 Artifact Bucket Riêng tư cho Backend CI/CD (Hình 19 & 19.2)](5.8.2-S3-Artifact-Bucket/)
+1. [5.8.1. Configure 3 IAM Roles & Permissions Policies (Figure 18)](5.8.1-IAM-Roles-Policies/)
+2. [5.8.2. Create Private S3 Artifact Bucket & 30-Day Lifecycle (Figures 19 & 19.2)](5.8.2-S3-Artifact-Bucket/)

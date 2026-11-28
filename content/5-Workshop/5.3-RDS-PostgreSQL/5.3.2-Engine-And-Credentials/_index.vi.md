@@ -6,35 +6,27 @@ chapter : false
 pre : " <b> 5.3.2. </b> "
 ---
 
-#### Bước 1: Chọn Engine PostgreSQL, Full Configuration & Template Dev/Test (Hình 5)
+#### Bước 1: Chọn phương thức khởi tạo & Template
 
-1. Trong **Aurora and RDS Console** → menu trái chọn **Databases** → bấm **Create database**.
-2. Thiết lập 3 mục đầu tiên:
-   - **Engine type:** Tích chọn **PostgreSQL** *(không chọn Aurora (PostgreSQL Compatible))*.
-   - **Choose a database creation method:** Tích chọn **Full configuration**.
-   - **Templates:** Tích chọn **Dev/Test**.
+1. Vào **Aurora and RDS → Databases → Create database**.
+2. Chọn:
+  * *Database creation method:* `Full configuration`
+  * *Engine type:* `PostgreSQL`
+  * *Templates:* `Dev/Test`
 
-![Hình 5 — Chọn Engine PostgreSQL, Full configuration và Template Dev/Test](/images/5-Workshop/5.3-RDS-PostgreSQL/5.png)
+![Chọn Full configuration, PostgreSQL và Dev/Test template](/images/5-Workshop/5.3-RDS-PostgreSQL/5.png)
 
----
+#### Bước 2: Chọn chế độ Single-AZ tối ưu chi phí
 
-#### Bước 2: Chọn Chế độ Triển khai Single-AZ DB Instance Deployment (Hình 5.2)
+Tại mục **Availability and durability**, chọn `Single-AZ DB instance deployment (1 instance)` (độ sẵn sàng **99.5% uptime**, `MultiAZ = false`) để tránh nhân đôi chi phí vận hành trong giai đoạn dev/demo.
 
-Tại mục **Availability and durability**:
-- **Deployment options:** Tích chọn **Single-AZ DB instance deployment (1 instance)** (MultiAZ = false — không sử dụng Multi-AZ để tránh nhân đôi chi phí compute và storage).
+![Chọn Single-AZ DB instance deployment](/images/5-Workshop/5.3-RDS-PostgreSQL/5.2.png)
 
-![Hình 5.2 — Chọn Single-AZ DB instance deployment (1 instance)](/images/5-Workshop/5.3-RDS-PostgreSQL/5.2.png)
+#### Bước 3: Chọn phiên bản PostgreSQL 16 & Thông tin quản trị
 
----
+* *Engine version:* `PostgreSQL 16.13-R2` (Tắt **RDS Extended Support** để không phát sinh phí gia hạn ngầm).
+* *DB instance identifier:* `exammaker-dev-pg`
+* *Master username:* `exammaker_admin`
+* *Credentials management:* `Self managed` (mật khẩu được lưu bảo mật dưới dạng `SecureString` tại SSM Parameter Store).
 
-#### Bước 3: Chọn Phiên bản PostgreSQL 16.13-R2, Định danh DB & Tài khoản Quản trị (Hình 5.4)
-
-1. Tại mục **Engine version**:
-   - Chọn **PostgreSQL 16.13-R2** *(lưu ý: sau khi đổi Engine version về PostgreSQL 16.13-R2, kiểm tra giữ nguyên Single-AZ DB instance deployment để mở khóa dòng máy chủ Burstable classes / db.t4g.micro)*.
-   - **Bỏ tích (Uncheck)** ô **Enable RDS Extended Support** để không phát sinh phí gia hạn ngầm.
-2. Tại mục **Settings** và **Credentials Settings**:
-   - **DB instance identifier:** Điền **exammaker-dev-pg**.
-   - **Master username:** Điền **exammaker_admin**.
-   - **Credentials management:** Chọn **Self managed** → nhập **Master password** và **Confirm master password**.
-
-![Hình 5.4 — Chọn PostgreSQL 16.13-R2, đặt tên exammaker-dev-pg và Master username exammaker_admin](/images/5-Workshop/5.3-RDS-PostgreSQL/5.4.png)
+![Cấu hình PostgreSQL 16.13-R2, exammaker-dev-pg và exammaker_admin](/images/5-Workshop/5.3-RDS-PostgreSQL/5.4.png)

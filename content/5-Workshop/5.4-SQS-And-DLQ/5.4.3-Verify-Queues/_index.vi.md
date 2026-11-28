@@ -6,8 +6,8 @@ chapter : false
 pre : " <b> 5.4.3. </b> "
 ---
 
-#### Bước 1: Xác nhận 2 Hàng đợi SQS trên Console (Hình 10)
+#### Xác nhận danh sách `Queues (2)` sẵn sàng tiếp nhận AI Jobs
 
-Tại màn hình **Amazon SQS → Queues (2)**, xác nhận cả 2 hàng đợi **exammaker-dev-ai-jobs** và **exammaker-dev-ai-jobs-dlq** đã sẵn sàng hoạt động với kiểu Standard và mã hóa Amazon SQS key (SSE-SQS).
+Kiểm tra màn hình tổng quan **Amazon SQS → Queues** xác nhận đã có đủ **2 hàng đợi** (`exammaker-dev-ai-jobs` và `exammaker-dev-ai-jobs-dlq`) ở trạng thái sạch (`Messages available = 0`, `Messages in flight = 0`):
 
-![Hình 10 — Danh sách 2 hàng đợi exammaker-dev-ai-jobs và exammaker-dev-ai-jobs-dlq trên SQS Console](/images/5-Workshop/5.4-SQS-And-DLQ/10.png)
+![Xác nhận danh sách 2 hàng đợi SQS sẵn sàng](/images/5-Workshop/5.4-SQS-And-DLQ/10.png)

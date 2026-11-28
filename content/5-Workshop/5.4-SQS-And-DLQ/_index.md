@@ -6,10 +6,10 @@ chapter : false
 pre : " <b> 5.4. </b> "
 ---
 
-Trong phần này, chúng ta thiết lập cặp hàng đợi **Amazon SQS** gồm **Dead-Letter Queue (exammaker-dev-ai-jobs-dlq)** và **Main Queue (exammaker-dev-ai-jobs)** với cơ chế Long Polling 20 giây, Visibility Timeout 300 giây và Redrive Policy tự động cách ly message lỗi sau 3 lần thử lại thất bại.
+In this section, we set up asynchronous processing with **Amazon SQS** for AI question generation and validation jobs (15–45 seconds per job), consisting of a **Dead-Letter Queue** (`exammaker-dev-ai-jobs-dlq`) and a **Main Queue** (`exammaker-dev-ai-jobs`) configured with a **300-second visibility timeout**, **20-second Long Polling**, and a **Redrive Policy (`maxReceiveCount = 3`)**.
 
-#### Nội dung thực hiện
+#### Section Contents
 
-1. [5.4.1. Khởi tạo Hàng đợi Thư chết Dead-Letter Queue (Hình 8)](5.4.1-Create-DLQ/)
-2. [5.4.2. Khởi tạo Hàng đợi Chính Main Queue & Gắn Redrive Policy (Hình 9)](5.4.2-Create-Main-Queue/)
-3. [5.4.3. Kiểm tra Kết quả 2 Hàng đợi SQS Đã Khởi tạo (Hình 10)](5.4.3-Verify-Queues/)
+1. [5.4.1. Create Dead-Letter Queue — DLQ (Figure 8)](5.4.1-Create-DLQ/)
+2. [5.4.2. Create Main Queue (Figure 9)](5.4.2-Create-Main-Queue/)
+3. [5.4.3. Verify 2 SQS Queues (Figure 10)](5.4.3-Verify-Queues/)

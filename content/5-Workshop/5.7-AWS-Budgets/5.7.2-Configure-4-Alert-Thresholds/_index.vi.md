@@ -6,12 +6,13 @@ chapter : false
 pre : " <b> 5.7.2. </b> "
 ---
 
-#### Bước 1: Kiểm tra 4 Ngưỡng Cảnh báo Ngân sách (50%, 80%, 100% Actual & 80% Forecasted) (Hình 17)
+#### Thiết lập & Xác nhận 4 Ngưỡng Cảnh báo (`Alert thresholds`)
 
-Tại **Step 3 (Configure alerts)**, thiết lập **4 ngưỡng cảnh báo tự động gửi email** tới đội kỹ thuật và kiểm tra tại màn hình **Budget details**:
-1. **Actual cost > 50%** ($100.00 trên $200.00) — Trạng thái: **Not exceeded**.
-2. **Actual cost > 80%** ($160.00 trên $200.00) — Trạng thái: **Not exceeded**.
-3. **Actual cost > 100%** ($200.00 trên $200.00) — Trạng thái: **Not exceeded**.
-4. **Forecasted cost > 80%** ($160.00 dự phóng trên $200.00) — Trạng thái: **Not exceeded**.
+Gắn **4 ngưỡng cảnh báo tự động gửi email** cho đội vận hành để phát hiện sớm mọi dấu hiệu tăng chi phí bất thường:
 
-![Hình 17 — Cả 4 ngưỡng cảnh báo trên ngân sách exammaker-200usd-budget đều hoạt động ở trạng thái Not exceeded](/images/5-Workshop/5.7-AWS-Budgets/17.png)
+1. **Actual cost > `50%`** (`$100.00`) — trạng thái `Not exceeded`
+2. **Actual cost > `80%`** (`$160.00`) — trạng thái `Not exceeded`
+3. **Actual cost > `100%`** (`$200.00`) — trạng thái `Not exceeded`
+4. **Forecasted cost > `80%`** (`$160.00`) — trạng thái `Not exceeded`
+
+![Xác nhận 4 ngưỡng cảnh báo trên exammaker-200usd-budget ở trạng thái Not exceeded](/images/5-Workshop/5.7-AWS-Budgets/17.png)

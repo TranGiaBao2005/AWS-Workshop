@@ -6,10 +6,10 @@ chapter : false
 pre : " <b> 5.6. </b> "
 ---
 
-Trong phần này, chúng ta thiết lập kênh cảnh báo qua email **Amazon SNS** (exammaker-dev-alerts), nhóm nhật ký ứng dụng **CloudWatch Log Group** (/exammaker/dev/app lưu trữ 7 ngày), **4 Metric Filters** và **10 CloudWatch Alarms** nằm trọn trong hạn mức Free Tier ().
+In this section, we build a proactive monitoring and alerting stack at **$0/month** (100% within AWS Free Tier): an SNS Topic (`exammaker-dev-alerts`), a 7-day CloudWatch Log Group (`/exammaker/dev/app`) with 4 Metric Filters, and exactly **10/10 Standard CloudWatch Alarms**.
 
-#### Nội dung thực hiện
+#### Section Contents
 
-1. [5.6.1. Tạo SNS Topic & Đăng ký Email Nhận Cảnh báo (Hình 13 & 13.2)](5.6.1-SNS-Topic-Subscription/)
-2. [5.6.2. Tạo CloudWatch Log Group 7 Ngày & Metric Filters (Hình 14 & 14.2)](5.6.2-Log-Group-Metric-Filters/)
-3. [5.6.3. Thiết lập & Kiểm tra 10 CloudWatch Alarms Free Tier (Hình 15)](5.6.3-CloudWatch-10-Alarms/)
+1. [5.6.1. Create SNS Topic & Email Subscription (Figures 13 & 13.2)](5.6.1-SNS-Topic-Subscription/)
+2. [5.6.2. Create 7-Day Log Group & 4 Metric Filters (Figures 14 & 14.2)](5.6.2-Log-Group-Metric-Filters/)
+3. [5.6.3. Configure & Verify 10 CloudWatch Alarms (Figure 15)](5.6.3-CloudWatch-10-Alarms/)

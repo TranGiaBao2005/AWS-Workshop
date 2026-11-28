@@ -6,24 +6,21 @@ chapter : false
 pre : " <b> 5.8.2. </b> "
 ---
 
-#### Bước 1: Khởi tạo S3 Bucket em-dev-backend-artifacts-9d07a0f131 tại Vùng p-southeast-1 (Hình 19)
+#### Step 1: Create the Backend Release Artifact S3 Bucket
 
-1. Mở **Amazon S3 Console** tại vùng **Asia Pacific (Singapore) ap-southeast-1** → chọn **Buckets** → bấm **Create bucket**.
-2. Tại mục **General configuration**:
-   - **Bucket type:** Tích chọn **General purpose**.
-   - **Bucket namespace:** Tích chọn **Global namespace**.
-   - **Bucket name:** Điền **em-dev-backend-artifacts-9d07a0f131**.
+1. Open **Amazon S3 → Create bucket**.
+2. Configure the bucket identity:
+  * *AWS Region:* `Asia Pacific (Singapore) ap-southeast-1`
+  * *Bucket type:* `General purpose` · **Namespace:** `Global namespace`
+  * *Bucket name:* `aem-dev-backend-artifacts-9d07a0f131`
 
-![Hình 19 — Chọn General purpose, Global namespace và đặt tên bucket aem-dev-backend-artifacts-9d07a0f131](/images/5-Workshop/5.8-IAM-And-S3-CD/19.png)
+![Create S3 bucket aem-dev-backend-artifacts-9d07a0f131 in ap-southeast-1](/images/5-Workshop/5.8-IAM-And-S3-CD/19.png)
 
----
+#### Step 2: Enforce Block All Public Access, SSE-S3 & 30-Day Lifecycle
 
-#### Bước 2: Cấu hình ACLs disabled & Chặn Truy cập Công khai Block all public access (Hình 19.2)
+* *Object Ownership:* `ACLs disabled (recommended)` (`Bucket owner enforced`).
+* *Block Public Access:* enforce `Block all public access = Enabled` (100% private).
+* *Default encryption:* `SSE-S3 (AES-256)` (**$0**).
+* *Lifecycle rule:* automatically expire old build artifacts after `30 days` to avoid unnecessary storage accumulation.
 
-1. Kéo xuống mục **Object Ownership**:
-   - Tích chọn **ACLs disabled (recommended)** (Bucket owner enforced).
-2. Tại mục **Block Public Access settings for this bucket**:
-   - Giữ tích chọn **Block all public access** (chặn hoàn toàn mọi truy cập công khai từ Internet).
-3. Giữ mã hóa mặc định **SSE-S3 (AES-256)** (), bấm **Create bucket** và gắn Lifecycle rule expire-old-artifacts tự động xóa gói build cũ sau **30 ngày**.
-
-![Hình 19.2 — Chọn ACLs disabled (recommended) và bật Block all public access cho S3 Artifact Bucket](/images/5-Workshop/5.8-IAM-And-S3-CD/19.2.png)
+![Configure ACLs disabled, Block all public access, and SSE-S3](/images/5-Workshop/5.8-IAM-And-S3-CD/19.2.png)

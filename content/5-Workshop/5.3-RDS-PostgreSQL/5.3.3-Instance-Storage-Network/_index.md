@@ -6,27 +6,19 @@ chapter : false
 pre : " <b> 5.3.3. </b> "
 ---
 
-#### Bước 1: Chọn Instance Class db.t4g.micro & Ổ cứng gp3 20 GiB (Hình 6)
+#### Step 1: Select `db.t4g.micro` Instance Class & `gp3` Storage
 
-1. Tại mục **Instance configuration**:
-   - **DB instance class:** Tích chọn **Burstable classes (includes t classes)**.
-   - **Instance type:** Chọn **db.t4g.micro** (2 vCPUs, 1 GiB RAM — vi xử lý ARM64 Graviton).
-2. Tại mục **Storage**:
-   - **Storage type:** Chọn **General Purpose SSD (gp3)**.
-   - **Allocated storage:** Điền **20** GiB.
-   - Mở mục **Additional storage configuration** → tích chọn **Enable storage autoscaling** (giới hạn trần Maximum storage threshold = **40** GiB).
+1. **DB instance class:** select `Burstable classes (includes t classes)` → `db.t4g.micro` (**2 vCPUs, 1 GiB RAM**, EBS Bandwidth up to **2,085 Mbps**, Network up to **5 Gbps**, ~$0.020/hour).
+2. **Storage type & Capacity:** `General Purpose SSD (gp3)`, **Allocated storage = `20` GiB** (Baseline **3,000 IOPS**, **125 MiBps**).
+3. **Storage autoscaling:** `Enabled`, capped at **Maximum storage threshold = `40` GiB** to prevent runaway storage costs.
 
-![Hình 6 — Chọn Burstable classes (db.t4g.micro), ổ cứng gp3 20 GiB và bật Enable storage autoscaling](/images/5-Workshop/5.3-RDS-PostgreSQL/6.png)
+![Configure db.t4g.micro instance and gp3 20 GiB storage](/images/5-Workshop/5.3-RDS-PostgreSQL/6.png)
 
----
+#### Step 2: Configure Private Connectivity & Security Group
 
-#### Bước 2: Cấu hình Kết nối VPC, Private Subnet Group & Security Group em-rds-sg (Hình 6.2)
+* *VPC:* `aem-demo-vpc`
+* *DB subnet group:* `exammaker-dev-db-subnets`
+* *Public access:* `No` (never expose the database with a Public IP).
+* *VPC security group:* select `aem-rds-sg` (allows TCP port `5432` strictly from the backend EC2 Security Group).
 
-Tại mục **Connectivity**:
-- **Compute resource:** Chọn **Don't connect to an EC2 compute resource**.
-- **Virtual private cloud (VPC):** Chọn **em-demo-vpc**.
-- **DB subnet group:** Chọn **exammaker-dev-db-subnets**.
-- **Public access:** Tích chọn **No** (PubliclyAccessible = false — cô lập hoàn toàn Database trong Private Subnets).
-- **VPC security group (firewall):** Chọn **Choose existing** → chọn **em-rds-sg** (chỉ nhận kết nối TCP 5432 từ Security Group em-ec2-sg).
-
-![Hình 6.2 — Cấu hình VPC aem-demo-vpc, DB subnet group exammaker-dev-db-subnets, Public access = No và Security Group aem-rds-sg](/images/5-Workshop/5.3-RDS-PostgreSQL/6.2.png)
+![Configure Private networking, Public access No, and Security Group aem-rds-sg](/images/5-Workshop/5.3-RDS-PostgreSQL/6.2.png)

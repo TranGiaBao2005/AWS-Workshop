@@ -6,19 +6,19 @@ chapter : false
 pre : " <b> 5.6.3. </b> "
 ---
 
-#### Bước 1: Kiểm tra Toàn bộ 10/10 CloudWatch Alarms ở Trạng thái OK (Hình 15)
+#### Complete Set of 10/10 Standard CloudWatch Alarms (`Period = 300s` — Free Tier $0)
 
-Trong **CloudWatch → Alarms**, hệ thống thiết lập đúng **10 Standard Alarms** (chu kỳ đánh giá Period = 300s = 5 phút, gửi cảnh báo qua SNS Topic exammaker-dev-alerts), tận dụng tối đa **10/10 Alarms miễn phí của AWS Free Tier**:
+All 10 alarms route notifications to the `exammaker-dev-alerts` SNS Topic and report **100% `OK` status**:
 
-1. **exammaker-dev-worker-heartbeat**: Giám sát nhịp đập của Background Worker (WorkerHeartbeat < 1 trong 5 phút).
-2. **exammaker-dev-worker-errors**: Cảnh báo khi Worker gặp lỗi (WorkerErrorCount >= 3 trong 5 phút).
-3. **exammaker-dev-api-5xx**: Cảnh báo khi API trả về lỗi HTTP 5xx (Api5xxCount >= 5 trong 5 phút).
-4. **exammaker-dev-ebs-stalled-io**: Cảnh báo nghẽn I/O trên ổ EBS gốc của EC2 (VolumeStalledIOCheck > 0).
-5. **exammaker-dev-worker-stuck-jobs**: Cảnh báo khi có job AI bị treo quá thời gian lease (StuckRunningJobs > 0).
-6. **exammaker-dev-rds-connections-high**: Cảnh báo số kết nối vào RDS vượt ngưỡng (DatabaseConnections > 50).
-7. **exammaker-dev-sqs-dlq-depth**: Cảnh báo ngay khi có message lỗi rơi vào DLQ (ApproximateNumberOfMessagesVisible > 0).
-8. **exammaker-dev-sqs-oldest-msg**: Cảnh báo khi message chờ trong Main Queue quá 10 phút (ApproximateAgeOfOldestMessage > 600s).
-9. **exammaker-dev-ec2-cpu-high**: Cảnh báo CPU của máy chủ EC2 vượt 80% trong 10 phút.
-10. **exammaker-dev-rds-storage-low**: Cảnh báo dung lượng trống của RDS còn dưới 2 GB.
+1. `exammaker-dev-worker-heartbeat`: `< 1` over 5 minutes
+2. `exammaker-dev-worker-errors`: `>= 3` errors over 5 minutes
+3. `exammaker-dev-api-5xx`: `>= 5` HTTP 5xx responses over 5 minutes
+4. `exammaker-dev-ebs-stalled-io`: `> 0` stalled I/O events on the root EBS volume
+5. `exammaker-dev-worker-stuck-jobs`: `> 0` stuck jobs over 5 minutes
+6. `exammaker-dev-rds-connections-high`: `> 50` database connections
+7. `exammaker-dev-sqs-dlq-depth`: `> 0` messages in the Dead-Letter Queue
+8. `exammaker-dev-sqs-oldest-msg`: oldest message age `> 600s` (10 minutes)
+9. `exammaker-dev-ec2-cpu-high`: CPU utilization `> 80%` for 10 minutes (`2 x 5m`)
+10. `exammaker-dev-rds-storage-low`: free storage space `< 2 GB` (`2,147,483,648` bytes)
 
-![Hình 15 — Bảng điều khiển CloudWatch Alarms (10) hiển thị toàn bộ 10 alarms ở trạng thái xanh OK và Actions enabled](/images/5-Workshop/5.6-CloudWatch-And-SNS/15.png)
+![Verify all 10/10 CloudWatch Alarms in OK state](/images/5-Workshop/5.6-CloudWatch-And-SNS/15.png)

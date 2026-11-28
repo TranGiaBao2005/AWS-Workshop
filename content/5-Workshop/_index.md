@@ -6,22 +6,22 @@ chapter : false
 pre : " <b> 5. </b> "
 ---
 
-# Triển khai Hạ tầng AWS cho Hệ thống AI Exam Maker
+# Deploying AWS Infrastructure for the AI Exam Maker Platform
 
-#### Tổng quan
+#### Overview
 
-Trong bài thực hành (Workshop) này, chúng ta thiết lập toàn bộ các thành phần hạ tầng cốt lõi trên **AWS (p-southeast-1 — Singapore)** cho hệ thống **AI Exam Maker** theo đúng kiến trúc bảo mật quyền tối thiểu (Least Privilege) và tối ưu chi phí dưới trần ngân sách **.00/Quý**.
+In this workshop, we provision and configure the core AWS infrastructure in **`ap-southeast-1` (Singapore)** for the **AI Exam Maker** platform, following **Least Privilege** security principles and strict FinOps cost optimization within a **$200.00/Quarterly** budget ceiling.
 
-Toàn bộ quá trình triển khai được chia tách rõ ràng theo từng dịch vụ AWS và từng màn hình thao tác (Hình 1 đến Hình 19.2).
+The implementation is organized cleanly by AWS service and console walkthrough screen (`Figure 1` through `Figure 19.2`), concluding with a complete post-demo teardown guide.
 
-#### Nội dung Workshop
+#### Workshop Contents
 
-1. [5.1. Tổng quan về Workshop](5.1-Workshop-overview/)
-2. [5.2. Thiết lập Amazon Cognito User Pool, App Client & Groups](5.2-Cognito/)
-3. [5.3. Thiết lập Cơ sở dữ liệu Amazon RDS PostgreSQL 16](5.3-RDS-PostgreSQL/)
-4. [5.4. Thiết lập Hàng đợi Amazon SQS & Dead-Letter Queue](5.4-SQS-And-DLQ/)
-5. [5.5. Quản trị Cấu hình Tập trung với SSM Parameter Store](5.5-SSM-Parameter-Store/)
-6. [5.6. Thiết lập Cảnh báo Amazon SNS & Giám sát CloudWatch](5.6-CloudWatch-And-SNS/)
-7. [5.7. Kiểm soát Chi phí với AWS Budgets (/Quý)](5.7-AWS-Budgets/)
-8. [5.8. Thiết lập Phân quyền IAM Roles & S3 Artifact Bucket cho CI/CD](5.8-IAM-And-S3-CD/)
-9. [5.9. Dọn dẹp tài nguyên (Clean up)](5.9-Cleanup/)
+1. [5.1. Workshop Overview](5.1-Workshop-overview/)
+2. [5.2. Amazon Cognito User Pool, App Client & Groups Setup](5.2-Cognito/)
+3. [5.3. Amazon RDS PostgreSQL 16 Database Setup](5.3-RDS-PostgreSQL/)
+4. [5.4. Amazon SQS & Dead-Letter Queue Setup](5.4-SQS-And-DLQ/)
+5. [5.5. Centralized Configuration with SSM Parameter Store](5.5-SSM-Parameter-Store/)
+6. [5.6. Amazon SNS Alerts & CloudWatch Monitoring Setup](5.6-CloudWatch-And-SNS/)
+7. [5.7. Cost Control with AWS Budgets ($200/Quarter)](5.7-AWS-Budgets/)
+8. [5.8. IAM Roles & S3 Artifact Bucket Setup for CI/CD](5.8-IAM-And-S3-CD/)
+9. [5.9. Clean up](5.9-Cleanup/)
