@@ -1,31 +1,27 @@
 ---
-title: "Workshop"
-date: 2024-01-01
-weight: 5
-chapter: false
-pre: " <b> 5. </b> "
+title : "Workshop"
+date : 2024-01-01
+weight : 5
+chapter : false
+pre : " <b> 5. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-# Secure Hybrid Access to S3 using VPC Endpoints
+# Triển khai Hạ tầng AWS cho Hệ thống AI Exam Maker
 
-#### Overview
+#### Tổng quan
 
-**AWS PrivateLink** provides private connectivity to AWS services from VPCs and your on-premises networks, without exposing your traffic to the Public Internet.
+Trong bài thực hành (Workshop) này, chúng ta thiết lập toàn bộ các thành phần hạ tầng cốt lõi trên **AWS (p-southeast-1 — Singapore)** cho hệ thống **AI Exam Maker** theo đúng kiến trúc bảo mật quyền tối thiểu (Least Privilege) và tối ưu chi phí dưới trần ngân sách **.00/Quý**.
 
-In this lab, you will learn how to create, configure, and test VPC endpoints that enable your workloads to reach AWS services without traversing the Public Internet.
+Toàn bộ quá trình triển khai được chia tách rõ ràng theo từng dịch vụ AWS và từng màn hình thao tác (Hình 1 đến Hình 19.2).
 
-You will create two types of endpoints to access Amazon S3: a Gateway VPC endpoint, and an Interface VPC endpoint. These two types of VPC endpoints offer different benefits depending on if you are accessing Amazon S3 from the cloud or your on-premises location
-+ **Gateway** - Create a gateway endpoint to send traffic to Amazon S3 or DynamoDB using private IP addresses.You route traffic from your VPC to the gateway endpoint using route tables.
-+ **Interface** - Create an interface endpoint to send traffic to endpoint services that use a Network Load Balancer to distribute traffic. Traffic destined for the endpoint service is resolved using DNS.
+#### Nội dung Workshop
 
-#### Content
-
-1. [Workshop overview](5.1-Workshop-overview)
-2. [Prerequiste](5.2-Prerequiste/)
-3. [Access S3 from VPC](5.3-S3-vpc/)
-4. [Access S3 from On-premises](5.4-S3-onprem/)
-5. [VPC Endpoint Policies (Bonus)](5.5-Policy/)
-6. [Clean up](5.6-Cleanup/)
+1. [5.1. Tổng quan về Workshop](5.1-Workshop-overview/)
+2. [5.2. Thiết lập Amazon Cognito User Pool, App Client & Groups](5.2-Cognito/)
+3. [5.3. Thiết lập Cơ sở dữ liệu Amazon RDS PostgreSQL 16](5.3-RDS-PostgreSQL/)
+4. [5.4. Thiết lập Hàng đợi Amazon SQS & Dead-Letter Queue](5.4-SQS-And-DLQ/)
+5. [5.5. Quản trị Cấu hình Tập trung với SSM Parameter Store](5.5-SSM-Parameter-Store/)
+6. [5.6. Thiết lập Cảnh báo Amazon SNS & Giám sát CloudWatch](5.6-CloudWatch-And-SNS/)
+7. [5.7. Kiểm soát Chi phí với AWS Budgets (/Quý)](5.7-AWS-Budgets/)
+8. [5.8. Thiết lập Phân quyền IAM Roles & S3 Artifact Bucket cho CI/CD](5.8-IAM-And-S3-CD/)
+9. [5.9. Dọn dẹp tài nguyên (Clean up)](5.9-Cleanup/)
